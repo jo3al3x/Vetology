@@ -511,6 +511,80 @@
   .toast.visible { transform: translateX(-50%) translateY(0); }
   .toast.red { border-color: var(--red-bright); color: var(--red-light); }
 
+  /* TABS */
+  .tab-bar {
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-gold);
+    display: flex;
+    padding: 0 24px;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 14px 20px 12px;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* REFERENCE PAGE */
+  #reference-screen {
+    padding: 0;
+  }
+
+  .ref-body {
+    padding: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .ref-category {
+    margin-bottom: 28px;
+  }
+
+  .ref-category-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 6px;
+  }
+
+  .ref-item {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-style: italic;
+    padding: 7px 12px;
+    line-height: 1.4;
+    transition: border-color 0.2s;
+  }
+
+  .ref-item:hover { border-color: var(--gold-dark); color: var(--gold); }
+  .ref-item.special { border-left: 2px solid var(--gold-dark); }
+  .ref-item.crossover { border-left: 2px solid #4a3a6a; color: #c0a8e0; }
+  .ref-item.crossover:hover { border-color: #7a5aaa; color: #d8c0f8; }
+
+  /* SCROLLBAR */
   /* SCROLLBAR */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg-dark); }
@@ -544,6 +618,10 @@
 
 <!-- GAME SCREEN -->
 <div id="game-screen" class="screen">
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-session" onclick="showTab('game-screen')">Session</button>
+    <button class="tab-btn" id="tab-codex" onclick="showTab('reference-screen')">Archetype Codex</button>
+  </div>
   <div class="game-header">
     <span class="game-header-title">Vetology</span>
     <div class="game-header-actions">
@@ -572,15 +650,16 @@
 // POE2 DATA - Classes + Ascendancies (including upcoming patch)
 // ============================================================
 // Accurate as of PoE2 patch 0.4.0 + 0.5.0 confirmed ascendancies
+// Accurate as of PoE2 0.5.0 (Return of the Ancients, May 29 2026)
 const POE2_BUILDS = [
   { class: "Warrior", ascendancies: ["Titan", "Warbringer"] },
-  { class: "Ranger", ascendancies: ["Deadeye", "Pathfinder", "Arcane Archer"] },
+  { class: "Ranger", ascendancies: ["Deadeye", "Pathfinder"] },
   { class: "Sorceress", ascendancies: ["Stormweaver", "Chronomancer", "Disciple of Varashta"] },
   { class: "Monk", ascendancies: ["Invoker", "Acolyte of Chayula", "Martial Artist"] },
   { class: "Mercenary", ascendancies: ["Witchhunter", "Gemling Legionnaire"] },
   { class: "Witch", ascendancies: ["Infernalist", "Blood Mage"] },
   { class: "Druid", ascendancies: ["Shaman", "Oracle"] },
-  { class: "Huntress", ascendancies: ["Amazon", "Ritualist", "Wildspeaker"] },
+  { class: "Huntress", ascendancies: ["Amazon", "Ritualist", "Spirit Walker"] },
 ];
 
 // Flatten into individual rollable results
@@ -597,8 +676,7 @@ const ARCHETYPES = [
   "Whirlwind Dervish","Fortify Tank",
   "Lightning Arrow Sniper","Poison Arrow Plaguer","Barrage Machine",
   "Explosive Shot Gunner","Piercing Volley","Chain Reaction Archer",
-  "Crossbow Turret","Grenade Spammer","Galvanic Arrow Zapper",
-  "Burning Arrow Igniter","Rain of Arrows Carpet Bomber",
+  "Crossbow Turret","Grenade Spammer",  "Burning Arrow Igniter","Rain of Arrows Carpet Bomber",
   "Lightning Storm Caller","Frozen Wasteland Builder","Fireball Bombardier",
   "Arc Chain Caster","Comet Dropper","Frost Wall Controller",
   "Ball Lightning Abuser","Volcanic Eruption Enjoyer","Orb of Storms Placer",
@@ -606,8 +684,17 @@ const ARCHETYPES = [
   "Poison DoT Stacker","Chaos Burst Bomber","Corrupted Blood Spreader",
   "Wither Stacker","Essence Drain Sipper",
   "Skeleton Army General","Spectre Commander","Golem Juggler",
-  "Raging Spirit Swarm","Zombie Wall Pusher","Minion Bomber",
+  "Raging Spirit Swarm","Zombie & Corpsemaster","Minion Bomber",
   "Full Conversion Necromancer",
+  "The Negligent Parent (Minions + Cast on Minion Death)",
+  "The Doomsayer (Chaos + Bone Spells + Cast While Channeling)",
+  "More Cow Bell (Tempest Bell)",
+  "The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)",
+  "Bannerman (2H Mace, Buffs + Shouts)",
+  "The Stockbroker (Barrier Invocation)",
+  "The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)",
+  "The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)",
+  "The Toy Maker (Dark Effigy Totem + Contagion + Despair)",
   "Life Tap Caster","Energy Shield Hoarder","CI Chaos Immune",
   "Recoup Bricktank","Max Block Turtle","Evasion Ghost",
   "Curse Stacker","Trap Layer","Detonate Dead Bomber",
@@ -625,7 +712,7 @@ const ARCHETYPES = [
   "Bleed Arcane Build (Bleed + Chaos Hybrid)",
   "Faith Caster (Life Tap + Minions)",
   "Strength Poise Tank (Slam + Fortify)",
-  "Dex Bleed Katana Guy (Fast Bleed Stacker)",
+  "The Phlebotomist",
   "Full Sorcery Glass Cannon",
   "Frost Knight (Freeze + Melee Hybrid)",
   "Dragon Communion (Elemental Melee Hybrid)",
@@ -641,7 +728,7 @@ const ARCHETYPES = [
   "Summoner (Full Minion Conversion)",
   "Red Mage (Spell + Melee Hybrid)",
   "Monk (Unarmed Combo Chain)",
-  "Time Mage (Chronomancer DoT Zones)",
+  "Pants Pisser - DoT Zone Puddle Maker",
   "Dragoon (Spear Leap Attacker)",
   "Bladesinger (Spell + Melee Cast On Crit)",
   "Eldritch Knight (Shield Tank + Spellcaster)",
@@ -1046,9 +1133,223 @@ document.getElementById('btn-reset-game').addEventListener('click', () => {
 });
 
 // ============================================================
+// TAB SWITCHING
+// ============================================================
+function showTab(id) {
+  // Hide game/reference screens but not setup
+  document.getElementById('game-screen').classList.remove('active');
+  document.getElementById('reference-screen').classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (id === 'game-screen') {
+    document.querySelectorAll('#tab-session').forEach(b => b.classList.add('active'));
+  } else {
+    document.querySelectorAll('#tab-codex').forEach(b => b.classList.add('active'));
+  }
+}
+
+// ============================================================
 // INIT
 // ============================================================
 renderSetup();
 </script>
+
+<!-- REFERENCE SCREEN -->
+<div id="reference-screen" class="screen">
+  <div class="tab-bar">
+    <button class="tab-btn" onclick="showTab('game-screen')">Session</button>
+    <button class="tab-btn active" onclick="showTab('reference-screen')">Archetype Codex</button>
+  </div>
+  <div class="ref-body">
+
+    <div class="ref-category">
+      <div class="ref-category-title">Melee</div>
+      <div class="ref-grid">
+        <div class="ref-item">Slam Warrior</div>
+        <div class="ref-item">Bleed Stacker</div>
+        <div class="ref-item">Armour Break Brawler</div>
+        <div class="ref-item">Stun Locker</div>
+        <div class="ref-item">Rage Berserker</div>
+        <div class="ref-item">Shield Basher</div>
+        <div class="ref-item">Ancestral Totem Caller</div>
+        <div class="ref-item">Unarmed Brawler</div>
+        <div class="ref-item">Whirlwind Dervish</div>
+        <div class="ref-item">Fortify Tank</div>
+        <div class="ref-item">Strength Poise Tank (Slam + Fortify)</div>
+        <div class="ref-item">The Phlebotomist</div>
+        <div class="ref-item special">Bannerman (2H Mace, Buffs + Shouts)</div>
+        <div class="ref-item special">The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Ranged</div>
+      <div class="ref-grid">
+        <div class="ref-item">Lightning Arrow Sniper</div>
+        <div class="ref-item">Poison Arrow Plaguer</div>
+        <div class="ref-item">Barrage Machine</div>
+        <div class="ref-item">Explosive Shot Gunner</div>
+        <div class="ref-item">Piercing Volley</div>
+        <div class="ref-item">Chain Reaction Archer</div>
+        <div class="ref-item">Crossbow Turret</div>
+        <div class="ref-item">Grenade Spammer</div>
+        <div class="ref-item">Burning Arrow Igniter</div>
+        <div class="ref-item">Rain of Arrows Carpet Bomber</div>
+        <div class="ref-item">Spear Dancer</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Elemental Spells</div>
+      <div class="ref-grid">
+        <div class="ref-item">Lightning Storm Caller</div>
+        <div class="ref-item">Frozen Wasteland Builder</div>
+        <div class="ref-item">Fireball Bombardier</div>
+        <div class="ref-item">Arc Chain Caster</div>
+        <div class="ref-item">Comet Dropper</div>
+        <div class="ref-item">Frost Wall Controller</div>
+        <div class="ref-item">Ball Lightning Abuser</div>
+        <div class="ref-item">Volcanic Eruption Enjoyer</div>
+        <div class="ref-item">Orb of Storms Placer</div>
+        <div class="ref-item">Cold Snap Dotter</div>
+        <div class="ref-item">Crackling Lance Beamer</div>
+        <div class="ref-item">Full Sorcery Glass Cannon</div>
+        <div class="ref-item special">More Cow Bell (Tempest Bell)</div>
+        <div class="ref-item special">The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)</div>
+        <div class="ref-item special">Pants Pisser - DoT Zone Puddle Maker</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Chaos / DoT</div>
+      <div class="ref-grid">
+        <div class="ref-item">Poison DoT Stacker</div>
+        <div class="ref-item">Chaos Burst Bomber</div>
+        <div class="ref-item">Corrupted Blood Spreader</div>
+        <div class="ref-item">Wither Stacker</div>
+        <div class="ref-item">Essence Drain Sipper</div>
+        <div class="ref-item special">The Doomsayer (Chaos + Bone Spells + Cast While Channeling)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Minions</div>
+      <div class="ref-grid">
+        <div class="ref-item">Skeleton Army General</div>
+        <div class="ref-item">Spectre Commander</div>
+        <div class="ref-item">Golem Juggler</div>
+        <div class="ref-item">Raging Spirit Swarm</div>
+        <div class="ref-item">Zombie &amp; Corpsemaster</div>
+        <div class="ref-item">Minion Bomber</div>
+        <div class="ref-item">Full Conversion Necromancer</div>
+        <div class="ref-item special">The Negligent Parent (Minions + Cast on Minion Death)</div>
+        <div class="ref-item special">Pokemon Trainer (One Spectre. First one tamed. You love it. It stays.)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Corpse / Trigger</div>
+      <div class="ref-grid">
+        <div class="ref-item">Detonate Dead Bomber</div>
+        <div class="ref-item">Cast On Crit Machine</div>
+        <div class="ref-item special">The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)</div>
+        <div class="ref-item special">The Stockbroker (Barrier Invocation)</div>
+        <div class="ref-item special">The Toy Maker (Dark Effigy Totem + Contagion + Despair)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Defence / Gimmick</div>
+      <div class="ref-grid">
+        <div class="ref-item">Life Tap Caster</div>
+        <div class="ref-item">Energy Shield Hoarder</div>
+        <div class="ref-item">CI Chaos Immune</div>
+        <div class="ref-item">Recoup Bricktank</div>
+        <div class="ref-item">Max Block Turtle</div>
+        <div class="ref-item">Evasion Ghost</div>
+        <div class="ref-item">Shapeshifter</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Utility / Weird</div>
+      <div class="ref-grid">
+        <div class="ref-item">Curse Stacker</div>
+        <div class="ref-item">Trap Layer</div>
+        <div class="ref-item">Herald Stacker</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">WoW</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Death Knight (Disease DoT + Undead Army)</div>
+        <div class="ref-item crossover">Frost Mage (Freeze Everything, Then Shatter)</div>
+        <div class="ref-item crossover">Shadow Priest (Chaos DoT + Life Drain)</div>
+        <div class="ref-item crossover">Warlock (Minions + Curses + Chaos)</div>
+        <div class="ref-item crossover">Feral Druid (Shapeshifting Melee DoT)</div>
+        <div class="ref-item crossover">Enhancement Shaman (Melee + Lightning Hybrid)</div>
+        <div class="ref-item crossover">Survival Hunter (Traps + DoT + Pet)</div>
+        <div class="ref-item crossover">Ret Paladin (Big Slow Hits + Aura Bot)</div>
+        <div class="ref-item crossover">Outlaw Rogue (Blind Luck Crits Only)</div>
+        <div class="ref-item crossover">Balance Druid (Starfall Carpet Bomber)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Dark Souls / Elden Ring</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Bleed Arcane Build (Bleed + Chaos Hybrid)</div>
+        <div class="ref-item crossover">Faith Caster (Life Tap + Minions)</div>
+        <div class="ref-item crossover">Frost Knight (Freeze + Melee Hybrid)</div>
+        <div class="ref-item crossover">Dragon Communion (Elemental Melee Hybrid)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Diablo</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Bone Necromancer (Minion + Projectile Chaos)</div>
+        <div class="ref-item crossover">Hammerdin (Infinite Projectile Spam)</div>
+        <div class="ref-item crossover">Frozen Orb Sorceress (Cold Projectile Abuser)</div>
+        <div class="ref-item crossover">Whirlwind Barbarian (Spin to Win)</div>
+        <div class="ref-item crossover">Poison Nova Witch Doctor (Chaos DoT Explosion)</div>
+        <div class="ref-item crossover">Lightning Javazon (Chain Lightning Spear)</div>
+        <div class="ref-item crossover">Blessed Hammer Crusader (Infinite Projectile Loop)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Final Fantasy</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Dark Knight (Life Tap + Big Slow Melee)</div>
+        <div class="ref-item crossover">Black Mage (Pure Elemental Nuke)</div>
+        <div class="ref-item crossover">Summoner (Full Minion Conversion)</div>
+        <div class="ref-item crossover">Red Mage (Spell + Melee Hybrid)</div>
+        <div class="ref-item crossover">Monk (Unarmed Combo Chain)</div>
+        <div class="ref-item crossover">Dragoon (Spear Leap Attacker)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">D&amp;D</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Bladesinger (Spell + Melee Cast On Crit)</div>
+        <div class="ref-item crossover">Eldritch Knight (Shield Tank + Spellcaster)</div>
+        <div class="ref-item crossover">Arcane Trickster (Evasion + Chaos Burst)</div>
+        <div class="ref-item crossover">Circle of Spores Druid (Poison DoT Aura)</div>
+        <div class="ref-item crossover">Oathbreaker Paladin (Undead Army + Life Tap)</div>
+        <div class="ref-item crossover">Draconic Sorcerer (Elemental Nuke Glass Cannon)</div>
+      </div>
+    </div>
+
+    <div class="game-footer" style="margin-top:16px;">
+      <p class="footer-seal">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</p>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
