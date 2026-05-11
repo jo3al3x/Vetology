@@ -305,7 +305,7 @@
     padding: 16px;
     text-align: center;
     margin-bottom: 14px;
-    min-height: 90px;
+    min-height: 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -323,6 +323,15 @@
     color: var(--text-muted);
     font-style: italic;
     font-size: 13px;
+  }
+
+  .roll-archetype {
+    color: var(--gold-dark);
+    font-style: italic;
+    font-size: 11px;
+    margin-top: 6px;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
   }
 
   .roll-placeholder {
@@ -582,6 +591,67 @@ POE2_BUILDS.forEach(b => {
   });
 });
 
+const ARCHETYPES = [
+  "Slam Warrior","Bleed Stacker","Armour Break Brawler","Stun Locker",
+  "Rage Berserker","Shield Basher","Ancestral Totem Caller","Unarmed Brawler",
+  "Whirlwind Dervish","Fortify Tank",
+  "Lightning Arrow Sniper","Poison Arrow Plaguer","Barrage Machine",
+  "Explosive Shot Gunner","Piercing Volley","Chain Reaction Archer",
+  "Crossbow Turret","Grenade Spammer","Galvanic Arrow Zapper",
+  "Burning Arrow Igniter","Rain of Arrows Carpet Bomber",
+  "Lightning Storm Caller","Frozen Wasteland Builder","Fireball Bombardier",
+  "Arc Chain Caster","Comet Dropper","Frost Wall Controller",
+  "Ball Lightning Abuser","Volcanic Eruption Enjoyer","Orb of Storms Placer",
+  "Cold Snap Dotter","Crackling Lance Beamer",
+  "Poison DoT Stacker","Chaos Burst Bomber","Corrupted Blood Spreader",
+  "Wither Stacker","Essence Drain Sipper",
+  "Skeleton Army General","Spectre Commander","Golem Juggler",
+  "Raging Spirit Swarm","Zombie Wall Pusher","Minion Bomber",
+  "Full Conversion Necromancer",
+  "Life Tap Caster","Energy Shield Hoarder","CI Chaos Immune",
+  "Recoup Bricktank","Max Block Turtle","Evasion Ghost",
+  "Curse Stacker","Trap Layer","Detonate Dead Bomber",
+  "Herald Stacker","Cast On Crit Machine","Spear Dancer","Shapeshifter",
+  "Death Knight (Disease DoT + Undead Army)",
+  "Frost Mage (Freeze Everything, Then Shatter)",
+  "Shadow Priest (Chaos DoT + Life Drain)",
+  "Warlock (Minions + Curses + Chaos)",
+  "Feral Druid (Shapeshifting Melee DoT)",
+  "Enhancement Shaman (Melee + Lightning Hybrid)",
+  "Survival Hunter (Traps + DoT + Pet)",
+  "Ret Paladin (Big Slow Hits + Aura Bot)",
+  "Outlaw Rogue (Blind Luck Crits Only)",
+  "Balance Druid (Starfall Carpet Bomber)",
+  "Bleed Arcane Build (Bleed + Chaos Hybrid)",
+  "Faith Caster (Life Tap + Minions)",
+  "Strength Poise Tank (Slam + Fortify)",
+  "Dex Bleed Katana Guy (Fast Bleed Stacker)",
+  "Full Sorcery Glass Cannon",
+  "Frost Knight (Freeze + Melee Hybrid)",
+  "Dragon Communion (Elemental Melee Hybrid)",
+  "Bone Necromancer (Minion + Projectile Chaos)",
+  "Hammerdin (Infinite Projectile Spam)",
+  "Frozen Orb Sorceress (Cold Projectile Abuser)",
+  "Whirlwind Barbarian (Spin to Win)",
+  "Poison Nova Witch Doctor (Chaos DoT Explosion)",
+  "Lightning Javazon (Chain Lightning Spear)",
+  "Blessed Hammer Crusader (Infinite Projectile Loop)",
+  "Dark Knight (Life Tap + Big Slow Melee)",
+  "Black Mage (Pure Elemental Nuke)",
+  "Summoner (Full Minion Conversion)",
+  "Red Mage (Spell + Melee Hybrid)",
+  "Monk (Unarmed Combo Chain)",
+  "Time Mage (Chronomancer DoT Zones)",
+  "Dragoon (Spear Leap Attacker)",
+  "Bladesinger (Spell + Melee Cast On Crit)",
+  "Eldritch Knight (Shield Tank + Spellcaster)",
+  "Arcane Trickster (Evasion + Chaos Burst)",
+  "Circle of Spores Druid (Poison DoT Aura)",
+  "Oathbreaker Paladin (Undead Army + Life Tap)",
+  "Draconic Sorcerer (Elemental Nuke Glass Cannon)",
+  "Pokemon Trainer (One Spectre. First one tamed. You love it. It stays.)",
+];
+
 // ============================================================
 // STATE
 // ============================================================
@@ -715,7 +785,9 @@ document.getElementById('btn-start').addEventListener('click', () => {
 // GAME SCREEN
 // ============================================================
 function roll() {
-  return ROLL_TABLE[Math.floor(Math.random() * ROLL_TABLE.length)];
+  const r = ROLL_TABLE[Math.floor(Math.random() * ROLL_TABLE.length)];
+  const archetype = ARCHETYPES[Math.floor(Math.random() * ARCHETYPES.length)];
+  return { ...r, archetype };
 }
 
 function renderGame() {
@@ -743,6 +815,7 @@ function renderGame() {
       rollHTML = `
         <div class="roll-class">${p.roll.class}</div>
         <div class="roll-ascendancy">${p.roll.ascendancy}</div>
+        <div class="roll-archetype">${p.roll.archetype}</div>
       `;
     }
 
@@ -845,14 +918,14 @@ function doRoll(idx) {
   const interval = setInterval(() => {
     const r = roll();
     if (display) {
-      display.innerHTML = `<div class="roll-class">${r.class}</div><div class="roll-ascendancy">${r.ascendancy}</div>`;
+      display.innerHTML = `<div class="roll-class">${r.class}</div><div class="roll-ascendancy">${r.ascendancy}</div><div class="roll-archetype">${r.archetype}</div>`;
     }
     ticks++;
     if (ticks > 18) {
       clearInterval(interval);
       if (display) display.classList.remove('roll-animating');
       p.roll = r;
-      addLog(`${p.name} rolled: ${r.class} — ${r.ascendancy}.`, 'event-roll');
+      addLog(`${p.name} rolled: ${r.class} (${r.ascendancy}) — ${r.archetype}.`, 'event-roll');
       renderGame();
     }
   }, 60);
@@ -863,7 +936,7 @@ function doSettle(idx) {
   if (!p.roll || p.settled) return;
   p.settled = true;
   p.vetoed = false;
-  addLog(`${p.name} has Settled on ${p.roll.class} (${p.roll.ascendancy}).`, 'event-settle');
+  addLog(`${p.name} has Settled on ${p.roll.class} (${p.roll.ascendancy}) as ${p.roll.archetype}.`, 'event-settle');
   renderGame();
 
   // Animate gold pulse
