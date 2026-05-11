@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vetology - Path of Exile 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --gold-dark: #8b6914;
+    --gold-muted: #5a3f12;
+    --bg-deep: #0a0704;
+    --bg-dark: #0d0a05;
+    --bg-mid: #120e07;
+    --bg-card: #1a1209;
+    --red: #8b1a1a;
+    --red-bright: #c0392b;
+    --red-light: #e05050;
+    --text-primary: #e8d08a;
+    --text-secondary: #c4a86a;
+    --text-muted: #b89a5a;
+    --text-dim: #6b5530;
+    --border: #3d2b0a;
+    --border-gold: #8b6914;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--bg-deep);
+    color: var(--text-secondary);
+    font-family: 'IM Fell English', Georgia, serif;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(139, 105, 20, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(139, 26, 26, 0.04) 0%, transparent 50%);
+  }
+
+  /* SCREENS */
+  .screen { display: none; min-height: 100vh; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  /* SETUP SCREEN */
+  #setup-screen {
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .logo-block {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .logo-eyebrow {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .logo-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 48px;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(200,160,70,0.3);
+    margin-bottom: 6px;
+  }
+
+  .logo-sub {
+    font-style: italic;
+    color: var(--gold-dark);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+
+  .setup-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 4px;
+    padding: 32px;
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .setup-card h2 {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .player-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .player-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .player-num {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 11px;
+    width: 20px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  input[type="text"] {
+    background: var(--bg-dark);
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-primary);
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 14px;
+    padding: 8px 12px;
+    flex: 1;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus { border-color: var(--gold-dark); }
+  input[type="text"]::placeholder { color: var(--text-dim); font-style: italic; }
+
+  .btn-remove {
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-remove:hover { border-color: var(--red); color: var(--red-light); }
+
+  .btn-add {
+    background: none;
+    border: 0.5px dashed var(--border);
+    border-radius: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    padding: 8px;
+    width: 100%;
+    transition: all 0.2s;
+    margin-bottom: 24px;
+  }
+
+  .btn-add:hover { border-color: var(--gold-dark); color: var(--gold); }
+
+  .btn-primary {
+    background: var(--gold-dark);
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    color: var(--bg-deep);
+    cursor: pointer;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    padding: 14px 24px;
+    width: 100%;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--gold); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* GAME SCREEN */
+  #game-screen {
+    padding: 0;
+  }
+
+  .game-header {
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .game-header-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 18px;
+  }
+
+  .game-header-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-secondary {
+    background: none;
+    border: 0.5px solid var(--border-gold);
+    border-radius: 2px;
+    color: var(--gold);
+    cursor: pointer;
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    padding: 6px 14px;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { background: rgba(139,105,20,0.15); }
+
+  .game-body {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* PLAYER CARD */
+  .player-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    position: relative;
+  }
+
+  .player-card.settled { border-color: var(--gold-dark); }
+  .player-card.vetoed { border-color: var(--red); }
+  .player-card.reprisal { border-color: #c0392b; animation: pulse-red 0.6s ease; }
+
+  @keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(192,57,43,0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(192,57,43,0); }
+    100% { box-shadow: 0 0 0 0 rgba(192,57,43,0); }
+  }
+
+  @keyframes pulse-gold {
+    0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(201,168,76,0); }
+    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+  }
+
+  .player-card-header {
+    background: var(--bg-dark);
+    border-bottom: 0.5px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .player-name {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 13px;
+  }
+
+  .player-status-badge {
+    font-style: italic;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    border: 0.5px solid;
+  }
+
+  .badge-rolling { color: var(--text-dim); border-color: var(--border); }
+  .badge-settled { color: var(--gold); border-color: var(--gold-dark); background: rgba(139,105,20,0.1); }
+  .badge-vetoed { color: var(--red-light); border-color: var(--red); background: rgba(139,26,26,0.1); }
+
+  .player-card-body {
+    padding: 16px;
+  }
+
+  /* ROLL DISPLAY */
+  .roll-display {
+    background: var(--bg-mid);
+    border: 0.5px solid var(--border);
+    border-radius: 3px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 14px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .roll-class {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .roll-ascendancy {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 13px;
+  }
+
+  .roll-placeholder {
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 13px;
+  }
+
+  .roll-animating .roll-class {
+    animation: flicker 0.08s infinite;
+  }
+
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+  }
+
+  /* VETO PIPS */
+  .veto-section {
+    margin-bottom: 14px;
+  }
+
+  .veto-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    font-style: normal;
+  }
+
+  .pip-row {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .pip {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1px solid;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .pip.self { background: var(--gold); border-color: var(--gold-dark); }
+  .pip.self.spent { background: transparent; border-color: var(--border); }
+  .pip.hostile { background: var(--red); border-color: var(--red-bright); }
+  .pip.hostile.spent { background: transparent; border-color: var(--border); }
+  .pip.reprisal { background: #c0392b; border-color: #e74c3c; box-shadow: 0 0 6px rgba(231,76,60,0.5); }
+
+  .pip-type-label {
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-left: 4px;
+  }
+
+  /* CARD ACTIONS */
+  .card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .card-actions.three { grid-template-columns: 1fr 1fr 1fr; }
+
+  .btn-action {
+    background: var(--bg-dark);
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    padding: 8px 6px;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .btn-action:hover:not(:disabled) { border-color: var(--gold-dark); color: var(--gold); background: rgba(139,105,20,0.1); }
+  .btn-action:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .btn-action.roll { grid-column: 1 / -1; }
+  .btn-action.settle { border-color: var(--gold-muted); color: var(--gold); }
+  .btn-action.settle:hover:not(:disabled) { background: rgba(139,105,20,0.2); border-color: var(--gold); }
+  .btn-action.veto-target { border-color: rgba(139,26,26,0.4); color: var(--red-light); }
+  .btn-action.veto-target:hover:not(:disabled) { background: rgba(139,26,26,0.15); border-color: var(--red-bright); }
+
+  /* EVENT LOG */
+  .log-panel {
+    background: var(--bg-dark);
+    border-top: 1px solid var(--border-gold);
+    padding: 16px 24px;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+
+  .log-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+  }
+
+  .log-entry {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.6;
+    padding: 2px 0;
+    border-bottom: 0.5px solid rgba(61,43,10,0.4);
+  }
+
+  .log-entry:last-child { border-bottom: none; }
+  .log-entry.event-veto { color: #c07060; }
+  .log-entry.event-reprisal { color: #e05050; font-weight: bold; }
+  .log-entry.event-settle { color: var(--gold); }
+  .log-entry.event-roll { color: var(--text-muted); }
+
+  /* VETO MODE OVERLAY */
+  .veto-mode-banner {
+    background: rgba(139,26,26,0.9);
+    border: 1px solid var(--red-bright);
+    border-radius: 3px;
+    color: #f5c6c6;
+    font-style: italic;
+    font-size: 13px;
+    padding: 10px 16px;
+    text-align: center;
+    margin: 0 24px 16px;
+    display: none;
+  }
+
+  .veto-mode-banner.visible { display: block; }
+
+  /* FOOTER */
+  .game-footer {
+    background: var(--bg-dark);
+    border-top: 0.5px solid var(--border);
+    padding: 8px 24px;
+    text-align: center;
+  }
+
+  .footer-seal {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-muted);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    opacity: 0.6;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: var(--bg-card);
+    border: 1px solid var(--gold-dark);
+    border-radius: 3px;
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 14px;
+    padding: 12px 24px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    text-align: center;
+    max-width: 400px;
+  }
+
+  .toast.visible { transform: translateX(-50%) translateY(0); }
+  .toast.red { border-color: var(--red-bright); color: var(--red-light); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-muted); border-radius: 2px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .logo-title { font-size: 32px; }
+    .game-body { padding: 12px; gap: 12px; grid-template-columns: 1fr; }
+    .game-header { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen" class="screen active">
+  <div class="logo-block">
+    <p class="logo-eyebrow">The Official &amp; Binding</p>
+    <h1 class="logo-title">Vetology</h1>
+    <p class="logo-sub">Path of Exile 2 — Build Selection Protocol</p>
+  </div>
+
+  <div class="setup-card">
+    <h2>Summon the Exiles</h2>
+    <div class="player-inputs" id="player-inputs"></div>
+    <button class="btn-add" id="btn-add-player">+ Add another exile</button>
+    <button class="btn-primary" id="btn-start">Commence the Vetology</button>
+  </div>
+</div>
+
+<!-- GAME SCREEN -->
+<div id="game-screen" class="screen">
+  <div class="game-header">
+    <span class="game-header-title">Vetology</span>
+    <div class="game-header-actions">
+      <button class="btn-secondary" id="btn-reset-game">New Session</button>
+    </div>
+  </div>
+
+  <div class="veto-mode-banner" id="veto-banner"></div>
+
+  <div class="game-body" id="game-body"></div>
+
+  <div class="log-panel">
+    <div class="log-title">Chronicle of Events</div>
+    <div id="log-entries"></div>
+  </div>
+
+  <div class="game-footer">
+    <p class="footer-seal">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// POE2 DATA - Classes + Ascendancies (including upcoming patch)
+// ============================================================
+// Accurate as of PoE2 patch 0.4.0 + 0.5.0 confirmed ascendancies
+const POE2_BUILDS = [
+  { class: "Warrior", ascendancies: ["Titan", "Warbringer"] },
+  { class: "Ranger", ascendancies: ["Deadeye", "Pathfinder", "Arcane Archer"] },
+  { class: "Sorceress", ascendancies: ["Stormweaver", "Chronomancer", "Disciple of Varashta"] },
+  { class: "Monk", ascendancies: ["Invoker", "Acolyte of Chayula", "Martial Artist"] },
+  { class: "Mercenary", ascendancies: ["Witchhunter", "Gemling Legionnaire"] },
+  { class: "Witch", ascendancies: ["Infernalist", "Blood Mage"] },
+  { class: "Druid", ascendancies: ["Shaman", "Oracle"] },
+  { class: "Huntress", ascendancies: ["Amazon", "Ritualist", "Wildspeaker"] },
+];
+
+// Flatten into individual rollable results
+const ROLL_TABLE = [];
+POE2_BUILDS.forEach(b => {
+  b.ascendancies.forEach(asc => {
+    ROLL_TABLE.push({ class: b.class, ascendancy: asc });
+  });
+});
+
+// ============================================================
+// STATE
+// ============================================================
+let players = [];
+let vetoMode = { active: false, sourceIdx: null, type: null };
+let logEntries = [];
+
+function createPlayer(name) {
+  return {
+    name,
+    selfVetoes: 5,
+    hostileVetoes: 5,
+    reprisalVetoes: 0,
+    roll: null,
+    settled: false,
+    vetoed: false,
+  };
+}
+
+function totalVetoes(p) {
+  return p.selfVetoes + p.hostileVetoes + p.reprisalVetoes;
+}
+
+function canVetoSelf(p) {
+  return p.selfVetoes > 0;
+}
+
+function canVetoHostile(p) {
+  return p.hostileVetoes > 0 || p.reprisalVetoes > 0;
+}
+
+// ============================================================
+// SETUP SCREEN
+// ============================================================
+function renderSetup() {
+  const container = document.getElementById('player-inputs');
+  container.innerHTML = '';
+  const names = players.length > 0
+    ? players.map(p => p.name)
+    : ['', '', ''];
+
+  // Ensure at least 2 rows
+  while (names.length < 2) names.push('');
+
+  names.forEach((name, i) => {
+    const row = document.createElement('div');
+    row.className = 'player-row';
+    row.innerHTML = `
+      <span class="player-num">${i + 1}</span>
+      <input type="text" placeholder="Exile ${i + 1}" value="${name}" data-idx="${i}" maxlength="20">
+      ${names.length > 2 ? `<button class="btn-remove" data-remove="${i}">×</button>` : ''}
+    `;
+    container.appendChild(row);
+  });
+
+  // Store temp names array
+  container._names = names;
+
+  container.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      container._names[parseInt(inp.dataset.idx)] = inp.value.trim();
+    });
+  });
+
+  container.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      container._names.splice(parseInt(btn.dataset.remove), 1);
+      players = [];
+      syncNamesFromInputs();
+      renderSetup();
+    });
+  });
+}
+
+function syncNamesFromInputs() {
+  const inputs = document.querySelectorAll('#player-inputs input');
+  const names = [];
+  inputs.forEach(i => names.push(i.value.trim()));
+  document.getElementById('player-inputs')._names = names;
+  return names;
+}
+
+document.getElementById('btn-add-player').addEventListener('click', () => {
+  const names = syncNamesFromInputs();
+  names.push('');
+  players = [];
+  document.getElementById('player-inputs')._names = names;
+  rerenderSetupFromNames(names);
+});
+
+function rerenderSetupFromNames(names) {
+  const container = document.getElementById('player-inputs');
+  container._names = names;
+  container.innerHTML = '';
+  names.forEach((name, i) => {
+    const row = document.createElement('div');
+    row.className = 'player-row';
+    row.innerHTML = `
+      <span class="player-num">${i + 1}</span>
+      <input type="text" placeholder="Exile ${i + 1}" value="${name}" data-idx="${i}" maxlength="20">
+      ${names.length > 2 ? `<button class="btn-remove" data-remove="${i}">×</button>` : ''}
+    `;
+    container.appendChild(row);
+  });
+  container.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      container._names[parseInt(inp.dataset.idx)] = inp.value.trim();
+    });
+  });
+  container.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const names2 = syncNamesFromInputs();
+      names2.splice(parseInt(btn.dataset.remove), 1);
+      rerenderSetupFromNames(names2);
+    });
+  });
+}
+
+document.getElementById('btn-start').addEventListener('click', () => {
+  const names = syncNamesFromInputs().filter(n => n.length > 0);
+  if (names.length < 2) { showToast('You need at least 2 exiles.', true); return; }
+  players = names.map(n => createPlayer(n));
+  logEntries = [];
+  vetoMode = { active: false, sourceIdx: null, type: null };
+  showScreen('game-screen');
+  renderGame();
+  addLog('The Vetology has commenced. Let the rolls begin.', 'event-roll');
+});
+
+// ============================================================
+// GAME SCREEN
+// ============================================================
+function roll() {
+  return ROLL_TABLE[Math.floor(Math.random() * ROLL_TABLE.length)];
+}
+
+function renderGame() {
+  const body = document.getElementById('game-body');
+  body.innerHTML = '';
+
+  players.forEach((p, idx) => {
+    const card = document.createElement('div');
+    card.className = `player-card${p.settled ? ' settled' : ''}${p.vetoed ? ' vetoed' : ''}`;
+    card.id = `player-card-${idx}`;
+
+    const statusLabel = p.settled ? 'Settled' : (p.roll ? 'Considering' : 'Awaiting Roll');
+    const badgeClass = p.settled ? 'badge-settled' : (p.vetoed ? 'badge-vetoed' : 'badge-rolling');
+
+    // Build pip rows
+    const selfPips = buildPips(p.selfVetoes, 5, 'self');
+    const hostilePips = buildPips(p.hostileVetoes, 5, 'hostile');
+    const reprisalPips = p.reprisalVetoes > 0
+      ? `<div class="pip-row">${'<div class="pip reprisal"></div>'.repeat(p.reprisalVetoes)}<span class="pip-type-label">reprisal</span></div>`
+      : '';
+
+    // Roll display
+    let rollHTML = `<span class="roll-placeholder">Not yet rolled</span>`;
+    if (p.roll) {
+      rollHTML = `
+        <div class="roll-class">${p.roll.class}</div>
+        <div class="roll-ascendancy">${p.roll.ascendancy}</div>
+      `;
+    }
+
+    // Action buttons
+    const hasRoll = !!p.roll;
+    const isSettled = p.settled;
+
+    let actionsHTML = '';
+
+    if (vetoMode.active && vetoMode.sourceIdx !== idx) {
+      // In veto targeting mode - show this player as a target
+      const canTarget = p.settled;
+      actionsHTML = `
+        <button class="btn-action veto-target ${canTarget ? '' : ''}"
+          ${canTarget ? '' : 'disabled'}
+          onclick="executeVeto(${vetoMode.sourceIdx}, ${idx})">
+          ${canTarget ? 'Veto this Exile' : 'Not settled yet'}
+        </button>
+        <button class="btn-action" onclick="cancelVetoMode()">Cancel</button>
+      `;
+    } else if (vetoMode.active && vetoMode.sourceIdx === idx) {
+      actionsHTML = `<button class="btn-action" onclick="cancelVetoMode()" style="grid-column:1/-1">Cancel Veto</button>`;
+    } else {
+      const rollLabel = hasRoll ? 'Reroll (Self-Veto)' : 'Roll';
+      const selfDisabled = hasRoll && !canVetoSelf(p) ? 'disabled' : '';
+      const settleDisabled = !hasRoll || isSettled ? 'disabled' : '';
+      const vetoDisabled = !canVetoHostile(p) ? 'disabled' : '';
+
+      actionsHTML = `
+        <button class="btn-action roll" onclick="doRoll(${idx})" ${selfDisabled}>${rollLabel}</button>
+        <button class="btn-action settle" onclick="doSettle(${idx})" ${settleDisabled}>Settle</button>
+        <button class="btn-action veto-target" onclick="beginVetoMode(${idx})" ${vetoDisabled}>Cast Veto</button>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="player-card-header">
+        <span class="player-name">${p.name}</span>
+        <span class="player-status-badge ${badgeClass}">${statusLabel}</span>
+      </div>
+      <div class="player-card-body">
+        <div class="roll-display" id="roll-display-${idx}">${rollHTML}</div>
+        <div class="veto-section">
+          <div class="veto-label">Self-Vetoes</div>
+          <div class="pip-row">${selfPips}<span class="pip-type-label">${p.selfVetoes} remaining</span></div>
+          <div class="veto-label">Hostile Vetoes</div>
+          <div class="pip-row">${hostilePips}<span class="pip-type-label">${p.hostileVetoes} remaining</span></div>
+          ${reprisalPips}
+        </div>
+        <div class="card-actions">${actionsHTML}</div>
+      </div>
+    `;
+
+    body.appendChild(card);
+  });
+
+  // Veto banner
+  const banner = document.getElementById('veto-banner');
+  if (vetoMode.active) {
+    const src = players[vetoMode.sourceIdx];
+    banner.textContent = `${src.name} is casting a Hostile Veto — select a Settled exile to target.`;
+    banner.classList.add('visible');
+  } else {
+    banner.classList.remove('visible');
+  }
+
+  renderLog();
+}
+
+function buildPips(remaining, total, type) {
+  let html = '';
+  for (let i = 0; i < total; i++) {
+    const spent = i >= remaining;
+    html += `<div class="pip ${type}${spent ? ' spent' : ''}"></div>`;
+  }
+  return html;
+}
+
+// ============================================================
+// ACTIONS
+// ============================================================
+function doRoll(idx) {
+  const p = players[idx];
+  if (p.roll && !canVetoSelf(p)) return;
+
+  if (p.roll) {
+    // Self-veto
+    p.selfVetoes--;
+    addLog(`${p.name} burns a Self-Veto and rolls again.`, 'event-veto');
+  }
+
+  p.settled = false;
+  p.vetoed = false;
+
+  // Animate roll
+  const display = document.getElementById(`roll-display-${idx}`);
+  if (display) display.classList.add('roll-animating');
+
+  let ticks = 0;
+  const interval = setInterval(() => {
+    const r = roll();
+    if (display) {
+      display.innerHTML = `<div class="roll-class">${r.class}</div><div class="roll-ascendancy">${r.ascendancy}</div>`;
+    }
+    ticks++;
+    if (ticks > 18) {
+      clearInterval(interval);
+      if (display) display.classList.remove('roll-animating');
+      p.roll = r;
+      addLog(`${p.name} rolled: ${r.class} — ${r.ascendancy}.`, 'event-roll');
+      renderGame();
+    }
+  }, 60);
+}
+
+function doSettle(idx) {
+  const p = players[idx];
+  if (!p.roll || p.settled) return;
+  p.settled = true;
+  p.vetoed = false;
+  addLog(`${p.name} has Settled on ${p.roll.class} (${p.roll.ascendancy}).`, 'event-settle');
+  renderGame();
+
+  // Animate gold pulse
+  setTimeout(() => {
+    const card = document.getElementById(`player-card-${idx}`);
+    if (card) { card.style.animation = 'pulse-gold 0.6s ease'; setTimeout(() => card.style.animation = '', 700); }
+  }, 50);
+}
+
+function beginVetoMode(idx) {
+  const p = players[idx];
+  if (!canVetoHostile(p)) return;
+
+  const anySettled = players.some((pl, i) => i !== idx && pl.settled);
+  if (!anySettled) { showToast('No Settled exiles to Veto.', true); return; }
+
+  vetoMode = { active: true, sourceIdx: idx };
+  renderGame();
+}
+
+function cancelVetoMode() {
+  vetoMode = { active: false, sourceIdx: null };
+  renderGame();
+}
+
+function executeVeto(sourceIdx, targetIdx) {
+  const src = players[sourceIdx];
+  const tgt = players[targetIdx];
+
+  if (!tgt.settled) { showToast('Can only Veto a Settled exile.', true); return; }
+
+  // Use reprisal first, then hostile
+  if (src.reprisalVetoes > 0) {
+    src.reprisalVetoes--;
+  } else {
+    src.hostileVetoes--;
+  }
+
+  const prevTotal = totalVetoes(tgt);
+
+  tgt.settled = false;
+  tgt.vetoed = true;
+  tgt.roll = null;
+
+  addLog(`${src.name} Vetoes ${tgt.name}! Their build is annulled.`, 'event-veto');
+
+  // Vengeance Clause: target had exactly 1 veto of any kind remaining AND was settled
+  if (prevTotal === 1) {
+    tgt.reprisalVetoes++;
+    addLog(`VENGEANCE CLAUSE — ${tgt.name} had but one Veto remaining. They receive a Veto of Reprisal!`, 'event-reprisal');
+    showToast(`Vengeance Clause! ${tgt.name} gains a Reprisal Veto!`, false);
+
+    setTimeout(() => {
+      const card = document.getElementById(`player-card-${targetIdx}`);
+      if (card) card.classList.add('reprisal');
+      setTimeout(() => { if (card) card.classList.remove('reprisal'); }, 800);
+    }, 100);
+  }
+
+  vetoMode = { active: false, sourceIdx: null };
+  renderGame();
+}
+
+// ============================================================
+// LOG
+// ============================================================
+function addLog(msg, cls = '') {
+  logEntries.unshift({ msg, cls });
+  if (logEntries.length > 50) logEntries.pop();
+  renderLog();
+}
+
+function renderLog() {
+  const container = document.getElementById('log-entries');
+  if (!container) return;
+  container.innerHTML = logEntries
+    .map(e => `<div class="log-entry ${e.cls}">${e.msg}</div>`)
+    .join('');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, isRed = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast${isRed ? ' red' : ''} visible`;
+  setTimeout(() => t.classList.remove('visible'), 3000);
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+document.getElementById('btn-reset-game').addEventListener('click', () => {
+  if (confirm('Start a new session? This will reset all rolls and vetoes.')) {
+    players = [];
+    logEntries = [];
+    vetoMode = { active: false, sourceIdx: null };
+    showScreen('setup-screen');
+    renderSetup();
+  }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+renderSetup();
+</script>
+</body>
+</html>
