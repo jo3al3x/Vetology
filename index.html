@@ -596,6 +596,225 @@
     .game-body { padding: 12px; gap: 12px; grid-template-columns: 1fr; }
     .game-header { padding: 12px 16px; }
   }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.visible {
+    display: flex;
+  }
+
+  .modal {
+    background: #0d0a05;
+    border: 2px solid var(--border-gold);
+    border-radius: 4px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .modal-header {
+    background: #0a0704;
+    border-bottom: 1px solid var(--border-gold);
+    padding: 20px 28px;
+    text-align: center;
+    position: relative;
+  }
+
+  .modal-header::before, .modal-header::after {
+    content: '✦';
+    position: absolute;
+    top: 22px;
+    color: var(--gold-dark);
+    font-size: 14px;
+  }
+  .modal-header::before { left: 28px; }
+  .modal-header::after { right: 28px; }
+
+  .modal-title-small {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .modal-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 20px;
+    text-shadow: 0 0 20px rgba(200,160,70,0.3);
+    margin-bottom: 4px;
+  }
+
+  .modal-subtitle {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    color: var(--gold-dark);
+    font-size: 12px;
+  }
+
+  .modal-body {
+    padding: 24px 32px 28px;
+  }
+
+  .modal-preamble {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.8;
+    text-align: center;
+    padding: 14px 16px;
+    border: 0.5px solid var(--border);
+    background: #0a0704;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .modal-article {
+    margin-bottom: 18px;
+  }
+
+  .modal-article-label {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .modal-article-title {
+    font-family: 'IM Fell English', Georgia, serif;
+    color: var(--gold-light);
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+
+  .modal-article-text {
+    font-family: 'IM Fell English', Georgia, serif;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.85;
+  }
+
+  .modal-article-text strong {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+
+  .modal-special-box {
+    background: #0a0704;
+    border-left: 3px solid var(--red);
+    border-top: 0.5px solid #5a1a1a;
+    border-right: 0.5px solid #5a1a1a;
+    border-bottom: 0.5px solid #5a1a1a;
+    padding: 12px 14px;
+    margin-top: 12px;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .modal-special-label {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--red-bright);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .modal-special-text {
+    font-family: 'IM Fell English', Georgia, serif;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .modal-special-text strong {
+    color: var(--red-light);
+    font-style: italic;
+  }
+
+  .modal-seal {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .modal-seal-glyph {
+    display: block;
+    font-size: 24px;
+    color: var(--gold-muted);
+    margin-bottom: 4px;
+  }
+
+  .modal-seal-text {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-muted);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+
+  .modal-close:hover { border-color: var(--red); color: var(--red-light); }
+
+  .btn-faq {
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    padding: 7px 16px;
+    margin-top: 16px;
+    transition: all 0.2s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-faq:hover { border-color: var(--gold-dark); color: var(--gold); }
 </style>
 </head>
 <body>
@@ -613,6 +832,80 @@
     <div class="player-inputs" id="player-inputs"></div>
     <button class="btn-add" id="btn-add-player">+ Add another exile</button>
     <button class="btn-primary" id="btn-start">Commence the Vetology</button>
+  </div>
+</div>
+  <button class="btn-faq" onclick="document.getElementById('vetology-modal').classList.add('visible')">
+    What is Vetology?
+  </button>
+</div>
+
+<!-- VETOLOGY MODAL -->
+<div class="modal-overlay" id="vetology-modal" onclick="if(event.target===this)this.classList.remove('visible')">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('vetology-modal').classList.remove('visible')">×</button>
+    <div class="modal-header">
+      <p class="modal-title-small">The Official &amp; Binding</p>
+      <h2 class="modal-title">Vetology</h2>
+      <p class="modal-subtitle">Book of Laws — Path of Exile 2 Edition</p>
+    </div>
+    <div class="modal-body">
+
+      <p class="modal-preamble">
+        Let it be known to all who roll, that the ancient rite of the Veto shall govern the selection of builds henceforth and in perpetuity. No player shall be compelled to suffer the indignity of a build they did not choose, nor shall any player be exempt from the wrath of another's Veto.
+      </p>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article I</span>
+        <div class="modal-article-title">The Roll</div>
+        <p class="modal-article-text">
+          Each player shall roll for their build as they have always rolled, by whatever means the company has seen fit to provide. The roll proceeds without modification. Let fate speak first before the Council of Vetoes is convened.
+        </p>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article II</span>
+        <div class="modal-article-title">The Allotment of Vetoes</div>
+        <p class="modal-article-text">
+          Upon completion of the roll, each player shall receive a total of <strong>ten (10) Vetoes</strong>, distributed thusly: <strong>five (5) Self-Vetoes</strong>, used to reroll one's own result, and <strong>five (5) Hostile Vetoes</strong>, wielded against another player's settled result.
+        </p>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article III</span>
+        <div class="modal-article-title">The Settled State</div>
+        <p class="modal-article-text">
+          A player is considered <strong>Settled</strong> when they have declared satisfaction with their current roll. No Hostile Veto may be cast against an Unsettled player. The Veto is a tool of disruption, not of acceleration.
+        </p>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article IV</span>
+        <div class="modal-article-title">The Right of Reprisal</div>
+        <p class="modal-article-text">
+          Should a player who is Settled and holds <strong>exactly one (1) remaining Veto</strong> of any kind be struck by a Hostile Veto, they shall immediately be granted one (1) additional Veto of Reprisal. This Veto may only be directed at another player, never at oneself.
+        </p>
+        <div class="modal-special-box">
+          <span class="modal-special-label">&#9888; Clarification</span>
+          <p class="modal-special-text">
+            The Reprisal Veto is granted once per incident. Furthermore, it <strong>cannot chain</strong>. A player who receives a Reprisal Veto does not trigger Reprisal if they themselves are then Vetoed while holding only one Veto. The cycle of vengeance must end.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article V</span>
+        <div class="modal-article-title">Exhaustion of Vetoes</div>
+        <p class="modal-article-text">
+          A player who has expended all ten of their Vetoes must accept their current roll as final, regardless of dissatisfaction. They may appeal to the goodwill of fellow players, but they have no legal recourse under this Book of Laws. They made their choices.
+        </p>
+      </div>
+
+      <div class="modal-seal">
+        <span class="modal-seal-glyph">⚜</span>
+        <span class="modal-seal-text">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</span>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -671,7 +964,7 @@ POE2_BUILDS.forEach(b => {
 });
 
 const ARCHETYPES = [
-  "Slam Warrior","Bleed Stacker","Armour Break Brawler","Stun Locker",
+  "Bleed Stacker","Armour Break Brawler","Stun Locker",
   "Rage Berserker","Shield Basher","Ancestral Totem Caller","Unarmed Brawler",
   "Whirlwind Dervish","Fortify Tank",
   "Lightning Arrow Sniper","Poison Arrow Plaguer","Barrage Machine",
@@ -681,11 +974,10 @@ const ARCHETYPES = [
   "Arc Chain Caster","Comet Dropper","Frost Wall Controller",
   "Ball Lightning Abuser","Volcanic Eruption Enjoyer","Orb of Storms Placer",
   "Cold Snap Dotter","Crackling Lance Beamer",
-  "Poison DoT Stacker","Chaos Burst Bomber","Corrupted Blood Spreader",
-  "Wither Stacker","Essence Drain Sipper",
-  "Skeleton Army General","Spectre Commander","Golem Juggler",
-  "Raging Spirit Swarm","Zombie & Corpsemaster","Minion Bomber",
-  "Full Conversion Necromancer",
+  "Poison DoT Stacker","Chaos Burst Bomber","Aids Spreader (Corrupting Cry + Blood Boil)",
+  "Energy Vampire (Withering Touch + Withering Support)","The Leech (Essence Drain + Withering)",
+  "Skeleton Army General","Spectre Commander","Hellraiser (Raging Spirit Swarm)","Zombie & Corpsemaster","Minion Bomber",
+  "Full Conversion Necromancer (you are merely a vessel, the dead do everything)",
   "The Negligent Parent (Minions + Cast on Minion Death)",
   "The Doomsayer (Chaos + Bone Spells + Cast While Channeling)",
   "More Cow Bell (Tempest Bell)",
@@ -698,17 +990,16 @@ const ARCHETYPES = [
   "Life Tap Caster","Energy Shield Hoarder","CI Chaos Immune",
   "Recoup Bricktank","Max Block Turtle","Evasion Ghost",
   "Curse Stacker","Trap Layer","Detonate Dead Bomber",
-  "Herald Stacker","Cast On Crit Machine","Spear Dancer","Shapeshifter",
+  "The Monsoon (All Heralds)","Cast On Crit Machine","Spear Dancer","Shapeshifter",
   "Death Knight (Disease DoT + Undead Army)",
   "Frost Mage (Freeze Everything, Then Shatter)",
   "Shadow Priest (Chaos DoT + Life Drain)",
   "Warlock (Minions + Curses + Chaos)",
-  "Feral Druid (Shapeshifting Melee DoT)",
+  "Feral Druid (Shapeshifter + Melee + Bleeds)",
   "Enhancement Shaman (Melee + Lightning Hybrid)",
   "Survival Hunter (Traps + DoT + Pet)",
   "Ret Paladin (Big Slow Hits + Aura Bot)",
-  "Outlaw Rogue (Blind Luck Crits Only)",
-  "Balance Druid (Starfall Carpet Bomber)",
+  "Rogue (Poisons + Blind)",
   "Bleed Arcane Build (Bleed + Chaos Hybrid)",
   "Faith Caster (Life Tap + Minions)",
   "Strength Poise Tank (Slam + Fortify)",
@@ -722,7 +1013,7 @@ const ARCHETYPES = [
   "Whirlwind Barbarian (Spin to Win)",
   "Poison Nova Witch Doctor (Chaos DoT Explosion)",
   "Lightning Javazon (Chain Lightning Spear)",
-  "Blessed Hammer Crusader (Infinite Projectile Loop)",
+  "The Short Circuit (Infinite Spark + Lightning Loop)",
   "Dark Knight (Life Tap + Big Slow Melee)",
   "Black Mage (Pure Elemental Nuke)",
   "Summoner (Full Minion Conversion)",
@@ -1166,7 +1457,6 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Melee</div>
       <div class="ref-grid">
-        <div class="ref-item">Slam Warrior</div>
         <div class="ref-item">Bleed Stacker</div>
         <div class="ref-item">Armour Break Brawler</div>
         <div class="ref-item">Stun Locker</div>
@@ -1226,9 +1516,9 @@ renderSetup();
       <div class="ref-grid">
         <div class="ref-item">Poison DoT Stacker</div>
         <div class="ref-item">Chaos Burst Bomber</div>
-        <div class="ref-item">Corrupted Blood Spreader</div>
-        <div class="ref-item">Wither Stacker</div>
-        <div class="ref-item">Essence Drain Sipper</div>
+        <div class="ref-item">Aids Spreader (Corrupting Cry + Blood Boil)</div>
+        <div class="ref-item">Energy Vampire (Withering Touch + Withering Support)</div>
+        <div class="ref-item">The Leech (Essence Drain + Withering)</div>
         <div class="ref-item special">The Doomsayer (Chaos + Bone Spells + Cast While Channeling)</div>
       </div>
     </div>
@@ -1238,11 +1528,10 @@ renderSetup();
       <div class="ref-grid">
         <div class="ref-item">Skeleton Army General</div>
         <div class="ref-item">Spectre Commander</div>
-        <div class="ref-item">Golem Juggler</div>
-        <div class="ref-item">Raging Spirit Swarm</div>
+        <div class="ref-item">Hellraiser (Raging Spirit Swarm)</div>
         <div class="ref-item">Zombie &amp; Corpsemaster</div>
         <div class="ref-item">Minion Bomber</div>
-        <div class="ref-item">Full Conversion Necromancer</div>
+        <div class="ref-item">Full Conversion Necromancer (you are merely a vessel, the dead do everything)</div>
         <div class="ref-item special">The Negligent Parent (Minions + Cast on Minion Death)</div>
         <div class="ref-item special">Pokemon Trainer (One Spectre. First one tamed. You love it. It stays.)</div>
       </div>
@@ -1277,7 +1566,7 @@ renderSetup();
       <div class="ref-grid">
         <div class="ref-item">Curse Stacker</div>
         <div class="ref-item">Trap Layer</div>
-        <div class="ref-item">Herald Stacker</div>
+        <div class="ref-item">The Monsoon (All Heralds)</div>
       </div>
     </div>
 
@@ -1288,12 +1577,11 @@ renderSetup();
         <div class="ref-item crossover">Frost Mage (Freeze Everything, Then Shatter)</div>
         <div class="ref-item crossover">Shadow Priest (Chaos DoT + Life Drain)</div>
         <div class="ref-item crossover">Warlock (Minions + Curses + Chaos)</div>
-        <div class="ref-item crossover">Feral Druid (Shapeshifting Melee DoT)</div>
+        <div class="ref-item crossover">Feral Druid (Shapeshifter + Melee + Bleeds)</div>
         <div class="ref-item crossover">Enhancement Shaman (Melee + Lightning Hybrid)</div>
         <div class="ref-item crossover">Survival Hunter (Traps + DoT + Pet)</div>
         <div class="ref-item crossover">Ret Paladin (Big Slow Hits + Aura Bot)</div>
-        <div class="ref-item crossover">Outlaw Rogue (Blind Luck Crits Only)</div>
-        <div class="ref-item crossover">Balance Druid (Starfall Carpet Bomber)</div>
+        <div class="ref-item crossover">Rogue (Poisons + Blind)</div>
       </div>
     </div>
 
@@ -1316,7 +1604,7 @@ renderSetup();
         <div class="ref-item crossover">Whirlwind Barbarian (Spin to Win)</div>
         <div class="ref-item crossover">Poison Nova Witch Doctor (Chaos DoT Explosion)</div>
         <div class="ref-item crossover">Lightning Javazon (Chain Lightning Spear)</div>
-        <div class="ref-item crossover">Blessed Hammer Crusader (Infinite Projectile Loop)</div>
+        <div class="ref-item crossover">The Short Circuit (Infinite Spark + Lightning Loop)</div>
       </div>
     </div>
 
