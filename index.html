@@ -973,17 +973,16 @@ POE2_BUILDS.forEach(b => {
 });
 
 const ARCHETYPES = [
-  "Bleed Stacker","Armour Break Brawler","Stun Locker",
-  "Rage Berserker","Shield Basher","Ancestral Totem Caller","Unarmed Brawler",
-  "Whirlwind Dervish","Fortify Tank",
-  "Lightning Arrow Sniper","Poison Arrow Plaguer","Barrage Machine",
-  "Explosive Shot Gunner","Piercing Volley","Chain Reaction Archer",
-  "Crossbow Turret","Grenade Spammer",  "Burning Arrow Igniter","Rain of Arrows Carpet Bomber",
-  "Lightning Storm Caller","Frozen Wasteland Builder","Fireball Bombardier",
-  "Arc Chain Caster","Comet Dropper","Frost Wall Controller",
-  "Ball Lightning Abuser","Volcanic Eruption Enjoyer","Orb of Storms Placer",
-  "Cold Snap Dotter","Crackling Lance Beamer",
-  "Poison DoT Stacker","Chaos Burst Bomber","Aids Spreader (Corrupting Cry + Blood Boil)",
+  "The Butcher (Bleed Stacker + Blood Stuff)","Achilles 2004 (Armour Break Brawler)","The Stungun (Stun Locker)",
+  "The True Warrior (Rage Berserker, No Chest Armour)","The Spartan (Shield Basher)","The Idol Worshipper (Totems + Offering Skills)","The Sufi (Whirlwind + Auras)","The Varangian (Fortify Tank)",
+  "The Mongol (Lightning Arrow Sniper, Rhoa Mount)","The Plague Doctor (Poison Burst Arrow + Plague Bearer + Herald of Plague)","Rambo (Bow + Barrage, No Chest Armour)",
+  "Demolition Man (Explosive Shot + Grenades + Siege Ballista)","Artemis (Spiral Volley + Ice Shot)","Hanzjoe (Lightning Arrow + Shockchain Arrow)",
+  "Van Helsing (Crossbow + Explosive Shot + Grenades)","Junkrat (Grenade Spam + Bombs, All Grenades All The Time)",  "Ifrit (Infernal Cry + Herald of Ash + Flame Wall)","Shyvana (Shapeshifter + Volcanic Fissure + Flame Wall + Herald of Ash)",
+  "Frozen Wasteland Builder","Surtr (Fireball + Fire Spells)",
+  "Sephiroth (Comet + Quarterstaff + Cast While Channelling + Dark Effigy)","The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)",
+  "Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)","Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)",
+  "Cold Snap Dotter",
+  "Poison DoT Stacker","Tzeentch (All Chaos Spells, All The Time)","Aids Spreader (Corrupting Cry + Blood Boil)",
   "Energy Vampire (Withering Touch + Withering Support)","The Leech (Essence Drain + Withering)",
   "Skeleton Army General","Spectre Commander","Hellraiser (Raging Spirit Swarm)","Zombie & Corpsemaster","Minion Bomber",
   "Full Conversion Necromancer (you are merely a vessel, the dead do everything)",
@@ -1023,7 +1022,7 @@ const ARCHETYPES = [
   "The Hexblade (Whispers of Doom + Blasphemy + Temporal Chains + Despair)",
   "The Bullfighter (Acrobatics + Rake + Disengage + Blood Hunt)","Evasion Ghost",
   "Curse Stacker","Trap Layer","Detonate Dead Bomber",
-  "The Monsoon (All Heralds)","Cast On Crit Machine","Spear Dancer","Shapeshifter",
+  "The Monsoon (All Heralds)","Cast On Crit Machine","Athena (Spear + Herald of Thunder + Warcries)","Shapeshifter",
   "Stop Hitting Yourself (Thorns Tank)",
   "Death Knight (Disease DoT + Undead Army)",
   "Frost Mage (Freeze Everything, Then Shatter)",
@@ -1036,7 +1035,7 @@ const ARCHETYPES = [
   "Rogue (Poisons + Blind)",
   "Bleed Arcane Build (Bleed + Chaos Hybrid)",
   "Faith Caster (Life Tap + Minions)",
-  "Strength Poise Tank (Slam + Fortify)",
+  "Braum (Slam + Fortify + Shield, No Chest Armour)",
   "The Phlebotomist",
   "Full Sorcery Glass Cannon",
   "Frost Knight (Freeze + Melee Hybrid)",
@@ -1490,16 +1489,15 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Melee</div>
       <div class="ref-grid">
-        <div class="ref-item">Bleed Stacker</div>
-        <div class="ref-item">Armour Break Brawler</div>
-        <div class="ref-item">Stun Locker</div>
-        <div class="ref-item">Rage Berserker</div>
-        <div class="ref-item">Shield Basher</div>
-        <div class="ref-item">Ancestral Totem Caller</div>
-        <div class="ref-item">Unarmed Brawler</div>
-        <div class="ref-item">Whirlwind Dervish</div>
-        <div class="ref-item">Fortify Tank</div>
-        <div class="ref-item">Strength Poise Tank (Slam + Fortify)</div>
+        <div class="ref-item">The Butcher (Bleed Stacker + Blood Stuff)</div>
+        <div class="ref-item">Achilles 2004 (Armour Break Brawler)</div>
+        <div class="ref-item">The Stungun (Stun Locker)</div>
+        <div class="ref-item">The True Warrior (Rage Berserker, No Chest Armour)</div>
+        <div class="ref-item">The Spartan (Shield Basher)</div>
+        <div class="ref-item">The Idol Worshipper (Totems + Offering Skills)</div>
+        <div class="ref-item">The Sufi (Whirlwind + Auras)</div>
+        <div class="ref-item">The Varangian (Fortify Tank)</div>
+        <div class="ref-item">Braum (Slam + Fortify + Shield, No Chest Armour)</div>
         <div class="ref-item">The Phlebotomist</div>
         <div class="ref-item special">Bannerman (2H Mace, Buffs + Shouts)</div>
         <div class="ref-item special">The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)</div>
@@ -1509,34 +1507,30 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Ranged</div>
       <div class="ref-grid">
-        <div class="ref-item">Lightning Arrow Sniper</div>
-        <div class="ref-item">Poison Arrow Plaguer</div>
-        <div class="ref-item">Barrage Machine</div>
-        <div class="ref-item">Explosive Shot Gunner</div>
-        <div class="ref-item">Piercing Volley</div>
-        <div class="ref-item">Chain Reaction Archer</div>
-        <div class="ref-item">Crossbow Turret</div>
-        <div class="ref-item">Grenade Spammer</div>
-        <div class="ref-item">Burning Arrow Igniter</div>
-        <div class="ref-item">Rain of Arrows Carpet Bomber</div>
-        <div class="ref-item">Spear Dancer</div>
+        <div class="ref-item">The Mongol (Lightning Arrow Sniper, Rhoa Mount)</div>
+        <div class="ref-item">The Plague Doctor (Poison Burst Arrow + Plague Bearer + Herald of Plague)</div>
+        <div class="ref-item">Rambo (Bow + Barrage, No Chest Armour)</div>
+        <div class="ref-item">Demolition Man (Explosive Shot + Grenades + Siege Ballista)</div>
+        <div class="ref-item">Artemis (Spiral Volley + Ice Shot)</div>
+        <div class="ref-item">Hanzjoe (Lightning Arrow + Shockchain Arrow)</div>
+        <div class="ref-item">Van Helsing (Crossbow + Explosive Shot + Grenades)</div>
+        <div class="ref-item">Junkrat (Grenade Spam + Bombs, All Grenades All The Time)</div>
+        <div class="ref-item">Ifrit (Infernal Cry + Herald of Ash + Flame Wall)</div>
+        <div class="ref-item">Shyvana (Shapeshifter + Volcanic Fissure + Flame Wall + Herald of Ash)</div>
+        <div class="ref-item">Athena (Spear + Herald of Thunder + Warcries)</div>
       </div>
     </div>
 
     <div class="ref-category">
       <div class="ref-category-title">Elemental Spells</div>
       <div class="ref-grid">
-        <div class="ref-item">Lightning Storm Caller</div>
         <div class="ref-item">Frozen Wasteland Builder</div>
-        <div class="ref-item">Fireball Bombardier</div>
-        <div class="ref-item">Arc Chain Caster</div>
-        <div class="ref-item">Comet Dropper</div>
-        <div class="ref-item">Frost Wall Controller</div>
-        <div class="ref-item">Ball Lightning Abuser</div>
-        <div class="ref-item">Volcanic Eruption Enjoyer</div>
-        <div class="ref-item">Orb of Storms Placer</div>
+        <div class="ref-item">Surtr (Fireball + Fire Spells)</div>
+        <div class="ref-item">Sephiroth (Comet + Quarterstaff + Cast While Channelling + Dark Effigy)</div>
+        <div class="ref-item">The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)</div>
+        <div class="ref-item">Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)</div>
+        <div class="ref-item">Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)</div>
         <div class="ref-item">Cold Snap Dotter</div>
-        <div class="ref-item">Crackling Lance Beamer</div>
         <div class="ref-item">Full Sorcery Glass Cannon</div>
         <div class="ref-item special">More Cow Bell (Tempest Bell)</div>
         <div class="ref-item special">The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)</div>
@@ -1551,7 +1545,7 @@ renderSetup();
       <div class="ref-category-title">Chaos / DoT</div>
       <div class="ref-grid">
         <div class="ref-item">Poison DoT Stacker</div>
-        <div class="ref-item">Chaos Burst Bomber</div>
+        <div class="ref-item">Tzeentch (All Chaos Spells, All The Time)</div>
         <div class="ref-item">Aids Spreader (Corrupting Cry + Blood Boil)</div>
         <div class="ref-item">Energy Vampire (Withering Touch + Withering Support)</div>
         <div class="ref-item">The Leech (Essence Drain + Withering)</div>
