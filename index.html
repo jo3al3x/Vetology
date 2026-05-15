@@ -982,7 +982,7 @@ const ARCHETYPES = [
   "Sephiroth (Comet + Quarterstaff + Cast While Channelling + Dark Effigy)","The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)",
   "Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)","Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)",
   "Cold Snap Dotter",
-  "Poison DoT Stacker","Tzeentch (All Chaos Spells, All The Time)","Aids Spreader (Corrupting Cry + Blood Boil)",
+  "Tzeentch (All Chaos Spells, All The Time)","Aids Spreader (Corrupting Cry + Blood Boil)",
   "Energy Vampire (Withering Touch + Withering Support)","The Leech (Essence Drain + Withering)",
   "Skeleton Army General","Spectre Commander","Hellraiser (Raging Spirit Swarm)","Zombie & Corpsemaster","Minion Bomber",
   "Full Conversion Necromancer (you are merely a vessel, the dead do everything)",
@@ -1012,7 +1012,7 @@ const ARCHETYPES = [
   "The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)",
   "The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)",
   "The Toy Maker (Dark Effigy Totem + Contagion + Despair)",
-  "Life Tap Caster","Energy Shield Hoarder","Recoup Bricktank","Max Block Turtle",
+  "The Blood Priest (Life Tap Caster)","Energy Shield Hoarder","Wolverine (Recoup Bricktank + Rage)","Reinhardt (Max Block Turtle)",
   "The Lichform (Chaos Inoculation + Essence Drain + Contagion + Withering Presence)",
   "The Glass Saint (Chaos Inoculation + Arc + Archmage + Orb of Storms)",
   "The Colossus (Giant's Blood + Dual Two-Handed Maces + Boneshatter + Seismic Cry)",
@@ -1021,7 +1021,7 @@ const ARCHETYPES = [
   "The Capacitor (Eldritch Battery + Mind Over Matter + Spark + Archmage)",
   "The Hexblade (Whispers of Doom + Blasphemy + Temporal Chains + Despair)",
   "The Bullfighter (Acrobatics + Rake + Disengage + Blood Hunt)","Evasion Ghost",
-  "Curse Stacker","Trap Layer","Detonate Dead Bomber",
+  "Curse Stacker","Detonate Dead Bomber",
   "The Monsoon (All Heralds)","Cast On Crit Machine","Athena (Spear + Herald of Thunder + Warcries)","Shapeshifter",
   "Stop Hitting Yourself (Thorns Tank)",
   "Death Knight (Disease DoT + Undead Army)",
@@ -1030,7 +1030,7 @@ const ARCHETYPES = [
   "Warlock (Minions + Curses + Chaos)",
   "Feral Druid (Shapeshifter + Melee + Bleeds)",
   "Enhancement Shaman (Melee + Lightning Hybrid)",
-  "Survival Hunter (Traps + DoT + Pet)",
+  "Survival Hunter (DoT + Pet)",
   "Ret Paladin (Big Slow Hits + Aura Bot)",
   "Rogue (Poisons + Blind)",
   "Bleed Arcane Build (Bleed + Chaos Hybrid)",
@@ -1043,7 +1043,6 @@ const ARCHETYPES = [
   "Bone Necromancer (Minion + Projectile Chaos)",
   "Hammerdin (Infinite Projectile Spam)",
   "Frozen Orb Sorceress (Cold Projectile Abuser)",
-  "Whirlwind Barbarian (Spin to Win)",
   "Poison Nova Witch Doctor (Chaos DoT Explosion)",
   "Lightning Javazon (Chain Lightning Spear)",
   "The Short Circuit (Infinite Spark + Lightning Loop)",
@@ -1336,6 +1335,11 @@ function doRoll(idx) {
       if (display) display.classList.remove('roll-animating');
       p.roll = r;
       addLog(`${p.name} rolled: ${r.class} (${r.ascendancy}) — ${r.archetype}.`, 'event-roll');
+      // Auto-settle if no self-vetoes remaining
+      if (p.selfVetoes === 0) {
+        p.settled = true;
+        addLog(`${p.name} has no Self-Vetoes remaining — automatically Settled on ${r.class} (${r.ascendancy}).`, 'event-settle');
+      }
       renderGame();
     }
   }, 60);
@@ -1544,7 +1548,6 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Chaos / DoT</div>
       <div class="ref-grid">
-        <div class="ref-item">Poison DoT Stacker</div>
         <div class="ref-item">Tzeentch (All Chaos Spells, All The Time)</div>
         <div class="ref-item">Aids Spreader (Corrupting Cry + Blood Boil)</div>
         <div class="ref-item">Energy Vampire (Withering Touch + Withering Support)</div>
@@ -1581,10 +1584,10 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Defence / Gimmick</div>
       <div class="ref-grid">
-        <div class="ref-item">Life Tap Caster</div>
+        <div class="ref-item">The Blood Priest (Life Tap Caster)</div>
         <div class="ref-item">Energy Shield Hoarder</div>
-        <div class="ref-item">Recoup Bricktank</div>
-        <div class="ref-item">Max Block Turtle</div>
+        <div class="ref-item">Wolverine (Recoup Bricktank + Rage)</div>
+        <div class="ref-item">Reinhardt (Max Block Turtle)</div>
         <div class="ref-item">Evasion Ghost</div>
         <div class="ref-item">Shapeshifter</div>
         <div class="ref-item special">Stop Hitting Yourself (Thorns Tank)</div>
@@ -1603,7 +1606,6 @@ renderSetup();
       <div class="ref-category-title">Utility / Weird</div>
       <div class="ref-grid">
         <div class="ref-item">Curse Stacker</div>
-        <div class="ref-item">Trap Layer</div>
         <div class="ref-item">The Monsoon (All Heralds)</div>
       </div>
     </div>
@@ -1617,7 +1619,7 @@ renderSetup();
         <div class="ref-item crossover">Warlock (Minions + Curses + Chaos)</div>
         <div class="ref-item crossover">Feral Druid (Shapeshifter + Melee + Bleeds)</div>
         <div class="ref-item crossover">Enhancement Shaman (Melee + Lightning Hybrid)</div>
-        <div class="ref-item crossover">Survival Hunter (Traps + DoT + Pet)</div>
+        <div class="ref-item crossover">Survival Hunter (DoT + Pet)</div>
         <div class="ref-item crossover">Ret Paladin (Big Slow Hits + Aura Bot)</div>
         <div class="ref-item crossover">Rogue (Poisons + Blind)</div>
       </div>
@@ -1639,7 +1641,6 @@ renderSetup();
         <div class="ref-item crossover">Bone Necromancer (Minion + Projectile Chaos)</div>
         <div class="ref-item crossover">Hammerdin (Infinite Projectile Spam)</div>
         <div class="ref-item crossover">Frozen Orb Sorceress (Cold Projectile Abuser)</div>
-        <div class="ref-item crossover">Whirlwind Barbarian (Spin to Win)</div>
         <div class="ref-item crossover">Poison Nova Witch Doctor (Chaos DoT Explosion)</div>
         <div class="ref-item crossover">Lightning Javazon (Chain Lightning Spear)</div>
         <div class="ref-item crossover">The Short Circuit (Infinite Spark + Lightning Loop)</div>
