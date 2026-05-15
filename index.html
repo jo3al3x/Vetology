@@ -993,6 +993,9 @@ const ARCHETYPES = [
   "The Mud Blood (No Magic Spells, Melee + Pet Only)",
   "The Karen (Cries + Shouts, Totems + Pets)",
   "The Pacifist (Straight Support, No Direct Damage)",
+  "The Zookeeper (Wolf Pack + Tame Beast, Max Companions)",
+  "Dog Lover (Wolf Shapeshift + Wolf Pack)",
+  "Bearpocalypse (Bear Shapeshift + Walking Calamity + Rampage)",
   "Captain America (Shield + Rallying Cries)",
   "Thor (Lightning Herald + Hammers)",
   "Hela (Bonestorm + Detonate Dead + Bone Cage)",
@@ -1008,6 +1011,7 @@ const ARCHETYPES = [
   "Ra's al Ghul (Lifetap + Temporal Rift + Corrupting Cry + Vitality)",
   "Two-Face (Elemental Conflux + Cast on Elemental Ailment + Arc + Cold Snap)",
   "Bannerman (2H Mace, Buffs + Shouts)",
+  "Hammerdin (Forge Hammer + Maces Only + Aura)",
   "The Stockbroker (Barrier Invocation)",
   "The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)",
   "The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)",
@@ -1021,7 +1025,7 @@ const ARCHETYPES = [
   "The Capacitor (Eldritch Battery + Mind Over Matter + Spark + Archmage)",
   "The Hexblade (Whispers of Doom + Blasphemy + Temporal Chains + Despair)",
   "The Bullfighter (Acrobatics + Rake + Disengage + Blood Hunt)","Evasion Ghost",
-  "Curse Stacker","Detonate Dead Bomber",
+  "Detonate Dead Bomber",
   "The Monsoon (All Heralds)","Cast On Crit Machine","Athena (Spear + Herald of Thunder + Warcries)","Shapeshifter",
   "Stop Hitting Yourself (Thorns Tank)",
   "Death Knight (Disease DoT + Undead Army)",
@@ -1030,7 +1034,7 @@ const ARCHETYPES = [
   "Warlock (Minions + Curses + Chaos)",
   "Feral Druid (Shapeshifter + Melee + Bleeds)",
   "Enhancement Shaman (Melee + Lightning Hybrid)",
-  "Survival Hunter (DoT + Pet)",
+  "Survival Hunter (DoT + Pet + Trail of Caltrops)",
   "Ret Paladin (Big Slow Hits + Aura Bot)",
   "Rogue (Poisons + Blind)",
   "Bleed Arcane Build (Bleed + Chaos Hybrid)",
@@ -1041,7 +1045,6 @@ const ARCHETYPES = [
   "Frost Knight (Freeze + Melee Hybrid)",
   "Dragon Communion (Elemental Melee Hybrid)",
   "Bone Necromancer (Minion + Projectile Chaos)",
-  "Hammerdin (Infinite Projectile Spam)",
   "Frozen Orb Sorceress (Cold Projectile Abuser)",
   "Poison Nova Witch Doctor (Chaos DoT Explosion)",
   "Lightning Javazon (Chain Lightning Spear)",
@@ -1504,6 +1507,7 @@ renderSetup();
         <div class="ref-item">Braum (Slam + Fortify + Shield, No Chest Armour)</div>
         <div class="ref-item">The Phlebotomist</div>
         <div class="ref-item special">Bannerman (2H Mace, Buffs + Shouts)</div>
+        <div class="ref-item special">Hammerdin (Forge Hammer + Maces Only + Aura)</div>
         <div class="ref-item special">The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)</div>
       </div>
     </div>
@@ -1541,6 +1545,9 @@ renderSetup();
         <div class="ref-item special">The Mud Blood (No Magic Spells, Melee + Pet Only)</div>
         <div class="ref-item special">The Karen (Cries + Shouts, Totems + Pets)</div>
         <div class="ref-item special">The Pacifist (Straight Support, No Direct Damage)</div>
+        <div class="ref-item special">The Zookeeper (Wolf Pack + Tame Beast, Max Companions)</div>
+        <div class="ref-item special">Dog Lover (Wolf Shapeshift + Wolf Pack)</div>
+        <div class="ref-item special">Bearpocalypse (Bear Shapeshift + Walking Calamity + Rampage)</div>
         <div class="ref-item special">Pants Pisser - DoT Zone Puddle Maker</div>
       </div>
     </div>
@@ -1605,7 +1612,6 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Utility / Weird</div>
       <div class="ref-grid">
-        <div class="ref-item">Curse Stacker</div>
         <div class="ref-item">The Monsoon (All Heralds)</div>
       </div>
     </div>
@@ -1619,7 +1625,7 @@ renderSetup();
         <div class="ref-item crossover">Warlock (Minions + Curses + Chaos)</div>
         <div class="ref-item crossover">Feral Druid (Shapeshifter + Melee + Bleeds)</div>
         <div class="ref-item crossover">Enhancement Shaman (Melee + Lightning Hybrid)</div>
-        <div class="ref-item crossover">Survival Hunter (DoT + Pet)</div>
+        <div class="ref-item crossover">Survival Hunter (DoT + Pet + Trail of Caltrops)</div>
         <div class="ref-item crossover">Ret Paladin (Big Slow Hits + Aura Bot)</div>
         <div class="ref-item crossover">Rogue (Poisons + Blind)</div>
       </div>
@@ -1639,7 +1645,6 @@ renderSetup();
       <div class="ref-category-title">Diablo</div>
       <div class="ref-grid">
         <div class="ref-item crossover">Bone Necromancer (Minion + Projectile Chaos)</div>
-        <div class="ref-item crossover">Hammerdin (Infinite Projectile Spam)</div>
         <div class="ref-item crossover">Frozen Orb Sorceress (Cold Projectile Abuser)</div>
         <div class="ref-item crossover">Poison Nova Witch Doctor (Chaos DoT Explosion)</div>
         <div class="ref-item crossover">Lightning Javazon (Chain Lightning Spear)</div>
