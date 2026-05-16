@@ -345,6 +345,66 @@
   }
   .gem-row:hover .gem-link-arrow { color: var(--gold); }
 
+  /* KEYSTONES */
+  .keystone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .keystone-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 0.5px solid #4a2a6a;
+    border-left: 3px solid #7a5aaa;
+    border-radius: 3px;
+    padding: 12px 16px;
+    transition: border-color 0.2s;
+    text-decoration: none;
+  }
+  .keystone-row:hover { border-color: var(--spirit-light); }
+
+  .keystone-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid #7a5aaa;
+    background: var(--bg-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .keystone-info { flex: 1; }
+
+  .keystone-name {
+    color: var(--spirit-light);
+    font-size: 18px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .keystone-desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .keystone-link-arrow {
+    color: #7a5aaa;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .keystone-row:hover .keystone-link-arrow { color: var(--spirit-light); }
+
   /* NO DATA */
   .no-data {
     background: var(--bg-card);
@@ -1002,6 +1062,182 @@ const ARCHETYPE_SKILLS = {
   ],
 };
 
+
+const KEYSTONES = {
+  "Chaos Inoculation": {
+    "url": "https://poe2db.tw/us/Chaos_Inoculation",
+    "desc": "Maximum Life becomes 1, immune to Chaos Damage. Build around Energy Shield."
+  },
+  "Eldritch Battery": {
+    "url": "https://poe2db.tw/us/Eldritch_Battery",
+    "desc": "Spend Energy Shield before Mana for skill costs. Removes ES recharge."
+  },
+  "Mind Over Matter": {
+    "url": "https://poe2db.tw/us/Mind_Over_Matter",
+    "desc": "Damage is taken from Mana before Life, but 50% less Mana recovery."
+  },
+  "Blood Magic": {
+    "url": "https://poe2db.tw/us/Blood_Magic",
+    "desc": "Skills cost Life instead of Mana. No Mana pool."
+  },
+  "Giant's Blood": {
+    "url": "https://poe2db.tw/us/Giants_Blood",
+    "desc": "Dual wield two-handed maces, axes, or swords. Doubles weapon attribute requirements."
+  },
+  "Acrobatics": {
+    "url": "https://poe2db.tw/us/Acrobatics",
+    "desc": "30% less damage taken during Dodge Roll. Removes avoidance frames."
+  },
+  "Unwavering Stance": {
+    "url": "https://poe2db.tw/us/Unwavering_Stance",
+    "desc": "Cannot Dodge Roll, but doubles Stun Threshold."
+  },
+  "Iron Reflexes": {
+    "url": "https://poe2db.tw/us/Iron_Reflexes",
+    "desc": "Converts all Evasion Rating to Armour."
+  },
+  "Resolute Technique": {
+    "url": "https://poe2db.tw/us/Resolute_Technique",
+    "desc": "Never deal Critical Strikes, but attacks always hit."
+  },
+  "Elemental Overload": {
+    "url": "https://poe2db.tw/us/Elemental_Overload",
+    "desc": "40% more Elemental Damage if you've dealt a Crit recently, but no bonus from Crit multiplier."
+  },
+  "Avatar of Fire": {
+    "url": "https://poe2db.tw/us/Avatar_of_Fire",
+    "desc": "75% of all damage converted to Fire. Cannot deal non-Fire damage."
+  },
+  "Pain Attunement": {
+    "url": "https://poe2db.tw/us/Pain_Attunement",
+    "desc": "30% more Spell Damage when on Low Life."
+  },
+  "Withering Presence": {
+    "url": "https://poe2db.tw/us/Withering_Presence",
+    "desc": "Nearby enemies are Withered. You take 50% increased Chaos Damage."
+  },
+  "Ancestral Bond": {
+    "url": "https://poe2db.tw/us/Ancestral_Bond",
+    "desc": "No totem limit \u2014 each totem reserves Spirit instead. You deal no damage."
+  },
+  "Ghost Dance": {
+    "url": "https://poe2db.tw/us/Ghost_Dance",
+    "desc": "Recover Energy Shield equal to Evasion Rating when you Dodge Roll."
+  },
+  "Mortal Conviction": {
+    "url": "https://poe2db.tw/us/Mortal_Conviction",
+    "desc": "Non-Banner auras cost Life to reserve instead of Spirit."
+  },
+  "Iron Will": {
+    "url": "https://poe2db.tw/us/Iron_Will",
+    "desc": "Strength applies to Spell Damage as well as Melee Damage."
+  },
+  "Iron Grip": {
+    "url": "https://poe2db.tw/us/Iron_Grip",
+    "desc": "Strength bonus to Melee Physical Damage also applies to Projectile Attacks."
+  }
+};
+const ARCHETYPE_KEYSTONES = {
+  "The Lichform": [
+    "Chaos Inoculation",
+    "Withering Presence"
+  ],
+  "The Glass Saint": [
+    "Chaos Inoculation",
+    "Eldritch Battery"
+  ],
+  "The Capacitor": [
+    "Eldritch Battery",
+    "Mind Over Matter"
+  ],
+  "The Mindwall": [
+    "Mind Over Matter"
+  ],
+  "Energy Shield Hoarder": [
+    "Chaos Inoculation"
+  ],
+  "The Colossus": [
+    "Giant's Blood"
+  ],
+  "Braum": [
+    "Giant's Blood",
+    "Unwavering Stance"
+  ],
+  "The True Warrior": [
+    "Unwavering Stance"
+  ],
+  "The Varangian": [
+    "Unwavering Stance"
+  ],
+  "Wolverine": [
+    "Pain Attunement"
+  ],
+  "The Blood Priest": [
+    "Blood Magic",
+    "Pain Attunement"
+  ],
+  "The Flagellant": [
+    "Blood Magic",
+    "Pain Attunement"
+  ],
+  "The Idol Worshipper": [
+    "Ancestral Bond"
+  ],
+  "The Karen": [
+    "Ancestral Bond"
+  ],
+  "Reinhardt": [
+    "Unwavering Stance"
+  ],
+  "Evasion Ghost": [
+    "Acrobatics",
+    "Ghost Dance"
+  ],
+  "The Bullfighter": [
+    "Acrobatics"
+  ],
+  "Surtr": [
+    "Avatar of Fire"
+  ],
+  "Ifrit": [
+    "Avatar of Fire"
+  ],
+  "Ghost Rider": [
+    "Avatar of Fire"
+  ],
+  "Shyvana": [
+    "Avatar of Fire"
+  ],
+  "The Sufi": [
+    "Acrobatics"
+  ],
+  "Energy Vampire": [
+    "Withering Presence"
+  ],
+  "The Toy Maker": [
+    "Withering Presence"
+  ],
+  "Hammerdin": [
+    "Giant's Blood",
+    "Iron Will"
+  ],
+  "Bannerman": [
+    "Unwavering Stance"
+  ],
+  "The Bannerman": [
+    "Unwavering Stance"
+  ],
+  "The Monsoon": [
+    "Mortal Conviction"
+  ],
+  "The Avatar": [
+    "Elemental Overload"
+  ],
+  "Two-Face": [
+    "Elemental Overload"
+  ]
+};
+
 // ============================================================
 // POPULATE SELECTS
 // ============================================================
@@ -1103,16 +1339,47 @@ function renderBuild(archetype, playerClass, ascendancy) {
       const typeLabel = gem.type === 'spirit' ? 'Spirit Gem' : gem.type === 'support' ? 'Support Gem' : 'Skill Gem';
       html += `
         <div class="timeline-item">
-          <div class="timeline-dot ${gem.type}">${gem.level}</div>
-          <a class="timeline-content" href="${gem.url}" target="_blank" rel="noopener">
-            <div class="timeline-gem-name">${gem.name}</div>
-            <div class="timeline-gem-meta ${gem.type}">Level ${gem.level} · ${typeLabel} · poe2db ↗</div>
+          <div class="timeline-dot \${gem.type}">\${gem.level}</div>
+          <a class="timeline-content" href="\${gem.url}" target="_blank" rel="noopener">
+            <div class="timeline-gem-name">\${gem.name}</div>
+            <div class="timeline-gem-meta \${gem.type}">Level \${gem.level} · \${typeLabel} · poe2db ↗</div>
           </a>
         </div>
       `;
     });
 
     html += `</div>`;
+
+    // Keystones section
+    const keystoneNames = ARCHETYPE_KEYSTONES[archetype] || [];
+    if (keystoneNames.length > 0) {
+      html += `<div class="section-title">Key Passives / Keystones</div>`;
+      html += `<div class="keystone-list">`;
+      keystoneNames.forEach(name => {
+        const k = KEYSTONES[name];
+        if (!k) return;
+        const icons = {
+          'Chaos Inoculation': '🛡️', 'Eldritch Battery': '⚡', 'Mind Over Matter': '🧠',
+          'Blood Magic': '🩸', "Giant's Blood": '💪', 'Acrobatics': '🤸',
+          'Unwavering Stance': '🗿', 'Iron Reflexes': '🔩', 'Resolute Technique': '🎯',
+          'Elemental Overload': '🌀', 'Avatar of Fire': '🔥', 'Pain Attunement': '💀',
+          'Withering Presence': '☠️', 'Ancestral Bond': '🏺', 'Ghost Dance': '👻',
+          'Mortal Conviction': '⚗️', 'Iron Will': '⚔️', 'Iron Grip': '✊',
+        };
+        const icon = icons[name] || '◆';
+        html += `
+          <a class="keystone-row" href="${k.url}" target="_blank" rel="noopener">
+            <div class="keystone-icon">${icon}</div>
+            <div class="keystone-info">
+              <span class="keystone-name">${name}</span>
+              <div class="keystone-desc">${k.desc}</div>
+            </div>
+            <span class="keystone-link-arrow">↗</span>
+          </a>
+        `;
+      });
+      html += `</div>`;
+    }
   }
 
   area.innerHTML = html;
