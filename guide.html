@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vetology — Build Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --gold-dark: #8b6914;
+    --gold-muted: #5a3f12;
+    --bg-deep: #0a0704;
+    --bg-dark: #0d0a05;
+    --bg-mid: #120e07;
+    --bg-card: #1a1209;
+    --red: #8b1a1a;
+    --red-bright: #c0392b;
+    --red-light: #e05050;
+    --text-primary: #e8d08a;
+    --text-secondary: #c4a86a;
+    --text-muted: #b89a5a;
+    --text-dim: #6b5530;
+    --border: #3d2b0a;
+    --border-gold: #8b6914;
+    --spirit-color: #7a5aaa;
+    --spirit-light: #c0a8e0;
+    --support-color: #2a6a4a;
+    --support-light: #80c0a0;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--bg-deep);
+    color: var(--text-secondary);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(139,105,20,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(139,26,26,0.04) 0%, transparent 50%);
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .header-logo {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 20px;
+    padding: 14px 0;
+    text-shadow: 0 0 20px rgba(200,160,70,0.3);
+  }
+
+  .header-sep {
+    color: var(--gold-muted);
+    font-size: 18px;
+  }
+
+  .header-subtitle {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    color: var(--gold-dark);
+    font-size: 13px;
+  }
+
+  .header-back {
+    margin-left: auto;
+    background: none;
+    border: 0.5px solid var(--border-gold);
+    border-radius: 2px;
+    color: var(--gold);
+    cursor: pointer;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 13px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .header-back:hover { background: rgba(139,105,20,0.15); }
+
+  /* PASTE PANEL */
+  .paste-panel {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 28px;
+  }
+
+  .paste-label {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .paste-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .paste-input {
+    flex: 1;
+    min-width: 260px;
+    background: var(--bg-dark);
+    border: 0.5px solid var(--border-gold);
+    border-radius: 2px;
+    color: var(--text-primary);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 16px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .paste-input:focus { border-color: var(--gold); }
+  .paste-input::placeholder { color: var(--text-dim); font-style: italic; }
+
+  .btn-lookup {
+    background: var(--gold-dark);
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    color: var(--bg-deep);
+    cursor: pointer;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 10px 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-lookup:hover { background: var(--gold); }
+
+  /* OR divider */
+  .or-divider {
+    text-align: center;
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 13px;
+    padding: 12px 0 4px;
+  }
+
+  /* MANUAL SELECT */
+  .manual-panel {
+    background: var(--bg-mid);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .select-label {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  select {
+    background: var(--bg-dark);
+    border: 0.5px solid var(--border-gold);
+    border-radius: 2px;
+    color: var(--text-primary);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 17px;
+    padding: 8px 12px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b6914'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  select:focus { border-color: var(--gold); }
+
+  /* RESULTS */
+  .results-area {
+    padding: 28px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .results-empty {
+    text-align: center;
+    padding: 60px 20px;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+
+  .results-empty .empty-glyph {
+    display: block;
+    font-size: 32px;
+    color: var(--gold-muted);
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+
+  /* BUILD HEADER */
+  .build-header {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+
+  .build-eyebrow {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .build-name {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 26px;
+    text-shadow: 0 0 20px rgba(200,160,70,0.2);
+    margin-bottom: 4px;
+  }
+
+  .build-class {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 17px;
+  }
+
+  /* SKILL GEMS SECTION */
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid var(--border-gold);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+
+  .gem-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .gem-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 16px;
+    transition: border-color 0.2s;
+    text-decoration: none;
+  }
+  .gem-row:hover { border-color: var(--gold-dark); }
+
+  .gem-level-badge {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 15px;
+    min-width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .gem-level-badge.skill { color: var(--gold-light); }
+  .gem-level-badge.spirit { color: var(--spirit-light); }
+  .gem-level-badge.support { color: var(--support-light); }
+
+  .gem-info { flex: 1; }
+
+  .gem-name {
+    color: var(--text-primary);
+    font-size: 19px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .gem-type-label {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .gem-type-label.skill { color: var(--gold-dark); }
+  .gem-type-label.spirit { color: var(--spirit-color); }
+  .gem-type-label.support { color: var(--support-color); }
+
+  .gem-level-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    width: 80px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .gem-level-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+  .gem-level-fill.skill { background: var(--gold-dark); }
+  .gem-level-fill.spirit { background: var(--spirit-color); }
+  .gem-level-fill.support { background: var(--support-color); }
+
+  .gem-link-arrow {
+    color: var(--text-dim);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .gem-row:hover .gem-link-arrow { color: var(--gold); }
+
+  /* NO DATA */
+  .no-data {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: 3px;
+    padding: 20px;
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--bg-dark);
+    border-top: 0.5px solid var(--border);
+    padding: 12px 24px;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .footer-seal {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-muted);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    opacity: 0.6;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 16px;
+  }
+
+  .timeline-dot {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 13px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot.skill { border-color: var(--gold-dark); background: var(--bg-deep); color: var(--gold-light); }
+  .timeline-dot.spirit { border-color: var(--spirit-color); background: var(--bg-deep); color: var(--spirit-light); }
+  .timeline-dot.support { border-color: var(--support-color); background: var(--bg-deep); color: var(--support-light); }
+
+  .timeline-content {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: 3px;
+    padding: 10px 14px;
+    flex: 1;
+    transition: border-color 0.2s;
+  }
+  .timeline-content:hover { border-color: var(--gold-dark); }
+
+  .timeline-gem-name {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .timeline-gem-meta {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  .timeline-gem-meta.skill { color: var(--gold-dark); }
+  .timeline-gem-meta.spirit { color: var(--spirit-color); }
+  .timeline-gem-meta.support { color: var(--support-color); }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-muted); border-radius: 2px; }
+
+  @media (max-width: 600px) {
+    .manual-panel { padding: 12px 16px; }
+    .results-area { padding: 16px; }
+    .paste-panel { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="header-logo">Vetology</span>
+  <span class="header-sep">·</span>
+  <span class="header-subtitle">Build Codex</span>
+  <a href="index.html" class="header-back">Back to Session</a>
+</header>
+
+<div class="paste-panel">
+  <span class="paste-label">Paste your Discord result</span>
+  <div class="paste-row">
+    <input type="text" class="paste-input" id="paste-input"
+      placeholder="e.g. Joe — Sorceress (Chronomancer) — Palpatine">
+    <button class="btn-lookup" onclick="parsePaste()">Look Up Build</button>
+  </div>
+</div>
+
+<div class="or-divider">or select manually</div>
+
+<div class="manual-panel">
+  <div class="select-group">
+    <span class="select-label">Archetype</span>
+    <select id="archetype-select" onchange="renderFromSelects()">
+      <option value="">Choose archetype...</option>
+    </select>
+  </div>
+</div>
+
+<div class="results-area" id="results-area">
+  <div class="results-empty">
+    <span class="empty-glyph">⚜</span>
+    Paste your rolled build above or select an archetype to see which skill gems you need and when they unlock.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p class="footer-seal">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</p>
+</footer>
+
+<script>
+const ARCHETYPE_SKILLS = {
+  'The Butcher': [
+    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
+  ],
+  'The Stungun': [
+    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
+    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
+    {name: 'Supercharged Slam', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Supercharged_Slam'},
+  ],
+  'The Spartan': [
+    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
+    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
+    {name: 'Resonating Shield', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Resonating_Shield'},
+    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
+  ],
+  'The Varangian': [
+    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
+    {name: 'Sunder', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Sunder'},
+    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
+  ],
+  'The True Warrior': [
+    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
+    {name: 'Berserk', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Berserk'},
+    {name: 'Eternal Rage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Eternal_Rage'},
+  ],
+  'Achilles 2004': [
+    {name: 'Armour Breaker', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Armour_Breaker'},
+    {name: 'Leap Slam', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Leap_Slam'},
+    {name: 'Sunder', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Sunder'},
+  ],
+  'The Idol Worshipper': [
+    {name: 'Shockwave Totem', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shockwave_Totem'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+    {name: 'Ancestral Warrior Totem', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Warrior_Totem'},
+  ],
+  'The Sufi': [
+    {name: 'Whirling Slash', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Whirling_Slash'},
+    {name: 'Twister', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Twister'},
+  ],
+  'Braum': [
+    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
+    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
+    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
+    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
+  ],
+  'The Mongol': [
+    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
+    {name: 'Barrage', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Barrage'},
+    {name: 'Rhoa Mount', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Rhoa_Mount'},
+  ],
+  'Rambo': [
+    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
+    {name: 'Barrage', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Barrage'},
+  ],
+  'Artemis': [
+    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
+    {name: 'Spiral Volley', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Spiral_Volley'},
+  ],
+  'Van Helsing': [
+    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
+    {name: 'Explosive Shot', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Shot'},
+    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
+  ],
+  'Ifrit': [
+    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
+    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
+    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
+  ],
+  'Hanzjoe': [
+    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
+    {name: 'Shockchain Arrow', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Shockchain_Arrow'},
+  ],
+  'Junkrat': [
+    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
+    {name: 'Flash Grenade', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Flash_Grenade'},
+    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
+  ],
+  'Demolition Man': [
+    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
+    {name: 'Explosive Shot', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Shot'},
+  ],
+  'The Plague Doctor': [
+    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
+    {name: 'Plague Bearer', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Plague_Bearer'},
+    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
+  ],
+  'Athena': [
+    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
+    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
+  ],
+  'Surtr': [
+    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
+    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
+    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
+  ],
+  'Sephiroth': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Dark Effigy', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Dark_Effigy'},
+    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
+  ],
+  'Palpatine': [
+    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+    {name: 'Ball Lightning', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Ball_Lightning'},
+  ],
+  'The Lich King': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Deathwing': [
+    {name: 'Volcanic Fissure', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Volcanic_Fissure'},
+    {name: 'Earthshatter', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Earthshatter'},
+  ],
+  'Tzeentch': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'The Leech': [
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
+  ],
+  'Energy Vampire': [
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+  ],
+  'Aids Spreader': [
+    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
+    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
+  ],
+  'Hellraiser': [
+    {name: 'Raging Spirits', level: 4, type: 'skill', url: 'https://poe2db.tw/us/Summon_Raging_Spirits'},
+  ],
+  'The Negligent Parent': [
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'The Archaeologist': [
+    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
+    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+  ],
+  'The Trauma Surgeon': [
+    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
+    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
+  ],
+  'The Toy Maker': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Dark Effigy', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Dark_Effigy'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'The Stockbroker': [
+    {name: 'Barrier Invocation', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Barrier_Invocation'},
+  ],
+  'The Doomsayer': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
+  ],
+  'More Cow Bell': [
+    {name: 'Tempest Bell', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Tempest_Bell'},
+  ],
+  'The Avatar': [
+    {name: 'Elemental Conflux', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Elemental_Conflux'},
+    {name: 'Cast on Elemental Ailment', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Cast_on_Elemental_Ailment'},
+  ],
+  'The Monsoon': [
+    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
+    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
+    {name: 'Herald of Ice', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ice'},
+    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
+  ],
+  'The Blood Priest': [
+    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Reinhardt': [
+    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
+    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
+    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
+  ],
+  'Wolverine': [
+    {name: 'Berserk', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Berserk'},
+    {name: 'Eternal Rage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Eternal_Rage'},
+  ],
+  'The Lichform': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
+  ],
+  'The Glass Saint': [
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
+  ],
+  'The Colossus': [
+    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
+    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
+    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
+  ],
+  'The Flagellant': [
+    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
+    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
+  ],
+  'The Mindwall': [
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
+  ],
+  'The Capacitor': [
+    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
+  ],
+  'The Hexblade': [
+    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
+    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'The Bullfighter': [
+    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
+    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
+  ],
+  'Poison Ivy': [
+    {name: 'Entangle', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Entangle'},
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+  ],
+  'Batman': [
+    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
+    {name: 'Flash Grenade', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Flash_Grenade'},
+    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
+  ],
+  'Bane': [
+    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
+    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
+  ],
+  'Mr Freeze': [
+    {name: 'Frost Bomb', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Frost_Bomb'},
+    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
+  ],
+  'Ra\'s al Ghul': [
+    {name: 'Temporal Rift', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Rift'},
+    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
+  ],
+  'Two-Face': [
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+    {name: 'Elemental Conflux', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Elemental_Conflux'},
+  ],
+  'Captain America': [
+    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
+    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
+  ],
+  'Thor': [
+    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
+    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
+  ],
+  'Hela': [
+    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
+    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+  ],
+  'Loki': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'Scarlet Witch': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+  ],
+  'Ghost Rider': [
+    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
+    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
+    {name: 'Rhoa Mount', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Rhoa_Mount'},
+  ],
+  'Magneto': [
+    {name: 'Armour Breaker', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Armour_Breaker'},
+    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
+  ],
+  'Gambit': [
+    {name: 'Whirling Slash', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Whirling_Slash'},
+    {name: 'Twister', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Twister'},
+    {name: 'Explosive Spear', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Spear'},
+  ],
+  'Stop Hitting Yourself': [
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'The Mud Blood': [
+    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
+  ],
+  'The Karen': [
+    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
+    {name: 'Ancestral Warrior Totem', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Warrior_Totem'},
+  ],
+  'The Pacifist': [
+    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'The Zookeeper': [
+    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
+    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
+  ],
+  'Dog Lover': [
+    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
+  ],
+  'Bearpocalypse': [
+    {name: 'Rampage', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Rampage'},
+    {name: 'Walking Calamity', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Walking_Calamity'},
+  ],
+  'The Bannerman': [
+    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
+    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
+  ],
+  'Hammerdin': [
+    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
+  ],
+  'Shyvana': [
+    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
+    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
+    {name: 'Volcanic Fissure', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Volcanic_Fissure'},
+  ],
+  'Feral Druid': [
+    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
+  ],
+  'Death Knight': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Frost Mage': [
+    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
+    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
+  ],
+  'Shadow Priest': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
+  ],
+  'Warlock': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'Enhancement Shaman': [
+    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
+    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
+  ],
+  'Survival Hunter': [
+    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
+    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
+    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
+  ],
+  'Ret Paladin': [
+    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
+    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
+  ],
+  'Rogue': [
+    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
+  ],
+  'Bleed Arcane Build': [
+    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
+  ],
+  'Faith Caster': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Frost Knight': [
+    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
+    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
+  ],
+  'Dragon Communion': [
+    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
+    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
+  ],
+  'Bone Necromancer': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
+    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
+  ],
+  'Frozen Orb Sorceress': [
+    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
+    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
+  ],
+  'Lightning Javazon': [
+    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
+    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
+  ],
+  'Dark Knight': [
+    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Black Mage': [
+    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
+  ],
+  'Summoner': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Red Mage': [
+    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+  ],
+  'Time Mage': [
+    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'Dragoon': [
+    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
+    {name: 'Leap Slam', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Leap_Slam'},
+  ],
+  'Bladesinger': [
+    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+  ],
+  'Eldritch Knight': [
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
+  ],
+  'Arcane Trickster': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'Circle of Spores Druid': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+  ],
+  'Oathbreaker Paladin': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Draconic Sorcerer': [
+    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+  ],
+  'Pokemon Trainer': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
+  ],
+  'Full Conversion Necromancer': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'The Phlebotomist': [
+    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
+    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
+  ],
+  'Zombie & Corpsemaster': [
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Skeleton Army General': [
+    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Spectre Commander': [
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+  ],
+  'Golem Juggler': [
+  ],
+  'Minion Bomber': [
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
+  ],
+  'Evasion Ghost': [
+    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
+    {name: 'Wind Dancer', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Wind_Dancer'},
+  ],
+  'Energy Shield Hoarder': [
+    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
+  ],
+  'Cast On Crit Machine': [
+    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
+    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
+    {name: 'Cast on Critical', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Cast_on_Critical'},
+  ],
+  'Detonate Dead Bomber': [
+    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
+    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
+  ],
+  'Shapeshifter': [
+    {name: 'Rampage', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Rampage'},
+    {name: 'Walking Calamity', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Walking_Calamity'},
+  ],
+  'Bannerman': [
+    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
+    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
+  ],
+  'The Warden': [
+    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
+    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
+  ],
+  'Pants Pisser - DoT Zone Puddle Maker': [
+    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
+    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
+    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
+  ],
+  'Herald Stacker': [
+    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
+    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
+    {name: 'Herald of Ice', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ice'},
+    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
+  ],
+};
+
+// ============================================================
+// POPULATE SELECTS
+// ============================================================
+function populateSelects() {
+  const archetypeSelect = document.getElementById('archetype-select');
+  const archetypes = Object.keys(ARCHETYPE_SKILLS).sort();
+  archetypes.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a;
+    opt.textContent = a;
+    archetypeSelect.appendChild(opt);
+  });
+}
+
+// ============================================================
+// PARSE PASTE
+// ============================================================
+function parsePaste() {
+  const raw = document.getElementById('paste-input').value.trim();
+  if (!raw) return;
+
+  // Try to extract archetype from format: "Name — Class (Ascendancy) — Archetype"
+  // Also handle: "Name: Class (Asc) — Archetype" or just "Archetype"
+  let archetype = null;
+
+  const parts = raw.split(/\s*[—\-–]\s*/);
+  if (parts.length >= 3) {
+    archetype = parts[parts.length - 1].trim();
+  } else if (parts.length === 2) {
+    archetype = parts[parts.length - 1].trim();
+  } else {
+    archetype = raw.trim();
+  }
+
+  // Try exact match first
+  if (ARCHETYPE_SKILLS[archetype]) {
+    document.getElementById('archetype-select').value = archetype;
+    renderBuild(archetype, null, null);
+    return;
+  }
+
+  // Try case-insensitive match
+  const keys = Object.keys(ARCHETYPE_SKILLS);
+  const match = keys.find(k => k.toLowerCase() === archetype.toLowerCase());
+  if (match) {
+    document.getElementById('archetype-select').value = match;
+    renderBuild(match, null, null);
+    return;
+  }
+
+  // Try partial match
+  const partial = keys.find(k => k.toLowerCase().includes(archetype.toLowerCase()) || archetype.toLowerCase().includes(k.toLowerCase()));
+  if (partial) {
+    document.getElementById('archetype-select').value = partial;
+    renderBuild(partial, null, null);
+    return;
+  }
+
+  // Not found
+  document.getElementById('results-area').innerHTML = `
+    <div class="no-data">
+      Could not find archetype "<strong>${archetype}</strong>" — try selecting it manually above.
+    </div>`;
+}
+
+// ============================================================
+// RENDER FROM SELECTS
+// ============================================================
+function renderFromSelects() {
+  const archetype = document.getElementById('archetype-select').value;
+  if (!archetype) return;
+  renderBuild(archetype, null, null);
+}
+
+// ============================================================
+// RENDER BUILD
+// ============================================================
+function renderBuild(archetype, playerClass, ascendancy) {
+  const skills = ARCHETYPE_SKILLS[archetype] || [];
+  const area = document.getElementById('results-area');
+
+  const classLine = [playerClass, ascendancy ? `(${ascendancy})` : ''].filter(Boolean).join(' ');
+
+  let html = `
+    <div class="build-header">
+      <div class="build-eyebrow">Your Build</div>
+      <div class="build-name">${archetype}</div>
+      ${classLine ? `<div class="build-class">${classLine}</div>` : ''}
+    </div>
+  `;
+
+  if (skills.length === 0) {
+    html += `<div class="no-data">No specific skill gem data for this archetype yet — check the Archetype Codex for details.</div>`;
+  } else {
+    html += `<div class="section-title">Skill Gem Unlock Order</div>`;
+    html += `<div class="timeline">`;
+
+    skills.forEach(gem => {
+      const typeLabel = gem.type === 'spirit' ? 'Spirit Gem' : gem.type === 'support' ? 'Support Gem' : 'Skill Gem';
+      html += `
+        <div class="timeline-item">
+          <div class="timeline-dot ${gem.type}">${gem.level}</div>
+          <a class="timeline-content" href="${gem.url}" target="_blank" rel="noopener">
+            <div class="timeline-gem-name">${gem.name}</div>
+            <div class="timeline-gem-meta ${gem.type}">Level ${gem.level} · ${typeLabel} · poe2db ↗</div>
+          </a>
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+  }
+
+  area.innerHTML = html;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+populateSelects();
+
+// Check URL params for pre-fill
+const params = new URLSearchParams(window.location.search);
+const urlArchetype = params.get('archetype');
+const urlClass = params.get('class');
+const urlAsc = params.get('asc');
+if (urlArchetype) {
+  document.getElementById('archetype-select').value = urlArchetype;
+  renderBuild(urlArchetype, urlClass, urlAsc);
+}
+</script>
+</body>
+</html>
