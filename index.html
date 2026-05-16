@@ -593,6 +593,20 @@
   .ref-item.crossover { border-left: 2px solid #4a3a6a; color: #c0a8e0; }
   .ref-item.crossover:hover { border-color: #7a5aaa; color: #d8c0f8; }
 
+  .result-row {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border-gold);
+    border-radius: 3px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .result-player { font-family: 'Cinzel Decorative', serif; color: var(--gold-light); font-size: 13px; min-width: 100px; }
+  .result-build { color: var(--text-secondary); font-size: 14px; flex: 1; }
+  .result-archetype { color: var(--gold-dark); font-style: italic; font-size: 13px; }
+
   /* SCROLLBAR */
   /* SCROLLBAR */
   ::-webkit-scrollbar { width: 4px; }
@@ -935,6 +949,16 @@
 
   <div class="game-body" id="game-body"></div>
 
+  <div id="results-screen" style="display:none;">
+    <div style="background:var(--bg-dark);border-top:1px solid var(--border-gold);padding:20px 24px;">
+      <div style="font-family:'Cinzel Decorative',serif;color:var(--gold-light);font-size:13px;letter-spacing:0.15em;margin-bottom:14px;">Session Complete</div>
+      <div id="results-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-secondary" onclick="copyDiscord()">Copy Results to Discord</button>
+        <a href="https://jo3al3x.github.io/Vetology/guide.html" target="_blank" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center;">Open Build Guide ↗</a>
+      </div>
+    </div>
+  </div>
   <div class="log-panel">
     <div class="log-title">Chronicle of Events</div>
     <div id="log-entries"></div>
@@ -1295,6 +1319,7 @@ function renderGame() {
   }
 
   renderLog();
+  checkAllSettled();
 }
 
 function buildPips(remaining, total, type) {
@@ -1477,6 +1502,49 @@ function showTab(id) {
   } else {
     document.querySelectorAll('#tab-codex').forEach(b => b.classList.add('active'));
   }
+}
+
+// ============================================================
+// RESULTS SCREEN + DISCORD COPY
+// ============================================================
+function checkAllSettled() {
+  if (players.length === 0) return;
+  const allSettled = players.every(p => p.settled);
+  const screen = document.getElementById('results-screen');
+  if (allSettled) {
+    screen.style.display = 'block';
+    renderResultsList();
+  } else {
+    screen.style.display = 'none';
+  }
+}
+
+function renderResultsList() {
+  const list = document.getElementById('results-list');
+  if (!list) return;
+  list.innerHTML = players.map(p => `
+    <div class="result-row">
+      <span class="result-player">${p.name}</span>
+      <span class="result-build">${p.roll ? p.roll.class + ' (' + p.roll.ascendancy + ')' : 'No roll'}</span>
+      <span class="result-archetype">${p.roll ? p.roll.archetype : ''}</span>
+    </div>
+  `).join('');
+}
+
+function copyDiscord() {
+  const lines = ['🎲 Vetology Results 🎲'];
+  players.forEach(p => {
+    if (p.roll) {
+      lines.push(`${p.name} — ${p.roll.class} (${p.roll.ascendancy}) — ${p.roll.archetype}`);
+    }
+  });
+  lines.push('');
+  lines.push('Build Guide: https://jo3al3x.github.io/Vetology/guide.html');
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    showToast('Results copied to clipboard!');
+  }).catch(() => {
+    showToast('Could not copy — try manually.', true);
+  });
 }
 
 // ============================================================
