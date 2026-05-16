@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vetology — Build Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<title>Vetology - Path of Exile 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,10 +26,6 @@
     --text-dim: #6b5530;
     --border: #3d2b0a;
     --border-gold: #8b6914;
-    --spirit-color: #7a5aaa;
-    --spirit-light: #c0a8e0;
-    --support-color: #2a6a4a;
-    --support-light: #80c0a0;
   }
 
   html, body {
@@ -37,394 +33,459 @@
     background: var(--bg-deep);
     color: var(--text-secondary);
     font-family: 'Crimson Text', Georgia, serif;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   body {
     background-image:
-      radial-gradient(ellipse at 20% 20%, rgba(139,105,20,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(139,26,26,0.04) 0%, transparent 50%);
+      radial-gradient(ellipse at 20% 20%, rgba(139, 105, 20, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(139, 26, 26, 0.04) 0%, transparent 50%);
   }
 
-  /* HEADER */
-  .site-header {
-    background: var(--bg-dark);
-    border-bottom: 1px solid var(--border-gold);
-    padding: 0 24px;
-    display: flex;
+  /* SCREENS */
+  .screen { display: none; min-height: 100vh; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  /* SETUP SCREEN */
+  #setup-screen {
     align-items: center;
-    gap: 24px;
+    justify-content: center;
+    padding: 40px 20px;
   }
 
-  .header-logo {
+  .logo-block {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .logo-eyebrow {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .logo-title {
     font-family: 'Cinzel Decorative', serif;
     color: var(--gold-light);
-    font-size: 20px;
-    padding: 14px 0;
-    text-shadow: 0 0 20px rgba(200,160,70,0.3);
+    font-size: 64px;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(200,160,70,0.3);
+    margin-bottom: 8px;
   }
 
-  .header-sep {
-    color: var(--gold-muted);
-    font-size: 18px;
-  }
-
-  .header-subtitle {
-    font-family: 'IM Fell English', Georgia, serif;
+  .logo-sub {
     font-style: italic;
     color: var(--gold-dark);
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
   }
 
-  .header-back {
-    margin-left: auto;
-    background: none;
-    border: 0.5px solid var(--border-gold);
-    border-radius: 2px;
-    color: var(--gold);
-    cursor: pointer;
-    font-family: 'Crimson Text', Georgia, serif;
-    font-size: 13px;
-    padding: 6px 14px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .header-back:hover { background: rgba(139,105,20,0.15); }
-
-  /* PASTE PANEL */
-  .paste-panel {
+  .setup-card {
     background: var(--bg-card);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 28px;
+    border: 1px solid var(--border-gold);
+    border-radius: 4px;
+    padding: 32px;
+    width: 100%;
+    max-width: 540px;
   }
 
-  .paste-label {
+  .setup-card h2 {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .player-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .player-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .player-num {
     font-family: 'Cinzel Decorative', serif;
     color: var(--gold-dark);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 10px;
+    font-size: 11px;
+    width: 20px;
+    flex-shrink: 0;
+    text-align: right;
   }
 
-  .paste-row {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-    flex-wrap: wrap;
-  }
-
-  .paste-input {
-    flex: 1;
-    min-width: 260px;
+  input[type="text"] {
     background: var(--bg-dark);
-    border: 0.5px solid var(--border-gold);
+    border: 0.5px solid var(--border);
     border-radius: 2px;
     color: var(--text-primary);
     font-family: 'Crimson Text', Georgia, serif;
     font-size: 16px;
-    padding: 10px 14px;
+    padding: 8px 12px;
+    flex: 1;
     outline: none;
     transition: border-color 0.2s;
   }
-  .paste-input:focus { border-color: var(--gold); }
-  .paste-input::placeholder { color: var(--text-dim); font-style: italic; }
 
-  .btn-lookup {
+  input[type="text"]:focus { border-color: var(--gold-dark); }
+  input[type="text"]::placeholder { color: var(--text-dim); font-style: italic; }
+
+  .btn-remove {
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-remove:hover { border-color: var(--red); color: var(--red-light); }
+
+  .btn-add {
+    background: none;
+    border: 0.5px dashed var(--border);
+    border-radius: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: normal;
+    font-size: 15px;
+    padding: 8px;
+    width: 100%;
+    transition: all 0.2s;
+    margin-bottom: 24px;
+  }
+
+  .btn-add:hover { border-color: var(--gold-dark); color: var(--gold); }
+
+  .btn-primary {
     background: var(--gold-dark);
     border: 1px solid var(--gold);
     border-radius: 2px;
     color: var(--bg-deep);
     cursor: pointer;
     font-family: 'Cinzel Decorative', serif;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.15em;
-    padding: 10px 20px;
+    padding: 14px 24px;
+    width: 100%;
     transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .btn-lookup:hover { background: var(--gold); }
-
-  /* OR divider */
-  .or-divider {
-    text-align: center;
-    color: var(--text-dim);
-    font-style: italic;
-    font-size: 13px;
-    padding: 12px 0 4px;
   }
 
-  /* MANUAL SELECT */
-  .manual-panel {
-    background: var(--bg-mid);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 28px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: flex-end;
+  .btn-primary:hover { background: var(--gold); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* GAME SCREEN */
+  #game-screen {
+    padding: 0;
   }
 
-  .select-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-    min-width: 180px;
-  }
-
-  .select-label {
-    font-family: 'Cinzel Decorative', serif;
-    color: var(--gold-dark);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  select {
+  .game-header {
     background: var(--bg-dark);
-    border: 0.5px solid var(--border-gold);
-    border-radius: 2px;
-    color: var(--text-primary);
-    font-family: 'Crimson Text', Georgia, serif;
-    font-size: 17px;
-    padding: 8px 12px;
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b6914'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 32px;
-  }
-  select:focus { border-color: var(--gold); }
-
-  /* RESULTS */
-  .results-area {
-    padding: 28px;
-    max-width: 900px;
-    margin: 0 auto;
+    border-bottom: 1px solid var(--border-gold);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
-  .results-empty {
-    text-align: center;
-    padding: 60px 20px;
-    font-style: italic;
-    color: var(--text-dim);
-    font-size: 15px;
-  }
-
-  .results-empty .empty-glyph {
-    display: block;
-    font-size: 32px;
-    color: var(--gold-muted);
-    margin-bottom: 12px;
-    opacity: 0.5;
-  }
-
-  /* BUILD HEADER */
-  .build-header {
-    background: var(--bg-card);
-    border: 1px solid var(--border-gold);
-    border-radius: 4px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-  }
-
-  .build-eyebrow {
-    font-family: 'Cinzel Decorative', serif;
-    color: var(--gold-dark);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .build-name {
+  .game-header-title {
     font-family: 'Cinzel Decorative', serif;
     color: var(--gold-light);
-    font-size: 26px;
-    text-shadow: 0 0 20px rgba(200,160,70,0.2);
+    font-size: 18px;
+  }
+
+  .game-header-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-secondary {
+    background: none;
+    border: 0.5px solid var(--border-gold);
+    border-radius: 2px;
+    color: var(--gold);
+    cursor: pointer;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: normal;
+    font-size: 14px;
+    padding: 6px 14px;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { background: rgba(139,105,20,0.15); }
+
+  .game-body {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* PLAYER CARD */
+  .player-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    position: relative;
+  }
+
+  .player-card.settled { border-color: var(--gold-dark); }
+  .player-card.vetoed { border-color: var(--red); }
+  .player-card.reprisal { border-color: #c0392b; animation: pulse-red 0.6s ease; }
+
+  @keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(192,57,43,0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(192,57,43,0); }
+    100% { box-shadow: 0 0 0 0 rgba(192,57,43,0); }
+  }
+
+  @keyframes pulse-gold {
+    0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(201,168,76,0); }
+    100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+  }
+
+  .player-card-header {
+    background: var(--bg-dark);
+    border-bottom: 0.5px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .player-name {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 14px;
+  }
+
+  .player-status-badge {
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: normal;
+    font-size: 13px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    border: 0.5px solid;
+  }
+
+  .badge-rolling { color: var(--text-dim); border-color: var(--border); }
+  .badge-settled { color: var(--gold); border-color: var(--gold-dark); background: rgba(139,105,20,0.1); }
+  .badge-vetoed { color: var(--red-light); border-color: var(--red); background: rgba(139,26,26,0.1); }
+
+  .player-card-body {
+    padding: 16px;
+  }
+
+  /* ROLL DISPLAY */
+  .roll-display {
+    background: var(--bg-mid);
+    border: 0.5px solid var(--border);
+    border-radius: 3px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 14px;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .roll-class {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 17px;
     margin-bottom: 4px;
   }
 
-  .build-class {
-    font-family: 'IM Fell English', Georgia, serif;
-    font-style: italic;
+  .roll-ascendancy {
+    font-family: 'Crimson Text', Georgia, serif;
     color: var(--text-muted);
-    font-size: 17px;
+    font-style: normal;
+    font-size: 15px;
   }
 
-  /* SKILL GEMS SECTION */
-  .section-title {
-    font-family: 'Cinzel Decorative', serif;
-    color: var(--gold);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    border-bottom: 0.5px solid var(--border-gold);
-    padding-bottom: 8px;
+  .roll-archetype {
+    font-family: 'Crimson Text', Georgia, serif;
+    color: var(--gold-dark);
+    font-style: italic;
+    font-size: 14px;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  .roll-placeholder {
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 13px;
+  }
+
+  .roll-animating .roll-class {
+    animation: flicker 0.08s infinite;
+  }
+
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+  }
+
+  /* VETO PIPS */
+  .veto-section {
     margin-bottom: 14px;
   }
 
-  .gem-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 28px;
-  }
-
-  .gem-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--bg-card);
-    border: 0.5px solid var(--border);
-    border-radius: 3px;
-    padding: 12px 16px;
-    transition: border-color 0.2s;
-    text-decoration: none;
-  }
-  .gem-row:hover { border-color: var(--gold-dark); }
-
-  .gem-level-badge {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 15px;
-    min-width: 36px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .gem-level-badge.skill { color: var(--gold-light); }
-  .gem-level-badge.spirit { color: var(--spirit-light); }
-  .gem-level-badge.support { color: var(--support-light); }
-
-  .gem-info { flex: 1; }
-
-  .gem-name {
-    color: var(--text-primary);
-    font-size: 19px;
+  .veto-label {
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    font-style: normal;
     font-weight: 600;
-    display: block;
-    margin-bottom: 2px;
   }
 
-  .gem-type-label {
-    font-size: 14px;
-    font-style: italic;
-    color: var(--text-dim);
-  }
-
-  .gem-type-label.skill { color: var(--gold-dark); }
-  .gem-type-label.spirit { color: var(--spirit-color); }
-  .gem-type-label.support { color: var(--support-color); }
-
-  .gem-level-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    width: 80px;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-
-  .gem-level-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 0.6s ease;
-  }
-  .gem-level-fill.skill { background: var(--gold-dark); }
-  .gem-level-fill.spirit { background: var(--spirit-color); }
-  .gem-level-fill.support { background: var(--support-color); }
-
-  .gem-link-arrow {
-    color: var(--text-dim);
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-  .gem-row:hover .gem-link-arrow { color: var(--gold); }
-
-  /* KEYSTONES */
-  .keystone-list {
+  .pip-row {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 28px;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 6px;
   }
 
-  .keystone-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    background: var(--bg-card);
-    border: 0.5px solid #4a2a6a;
-    border-left: 3px solid #7a5aaa;
-    border-radius: 3px;
-    padding: 12px 16px;
-    transition: border-color 0.2s;
-    text-decoration: none;
-  }
-  .keystone-row:hover { border-color: var(--spirit-light); }
-
-  .keystone-icon {
-    width: 36px;
-    height: 36px;
+  .pip {
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
-    border: 1.5px solid #7a5aaa;
-    background: var(--bg-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: 1px solid;
+    transition: all 0.3s;
     flex-shrink: 0;
-    font-size: 16px;
   }
 
-  .keystone-info { flex: 1; }
+  .pip.self { background: var(--gold); border-color: var(--gold-dark); }
+  .pip.self.spent { background: transparent; border-color: var(--border); }
+  .pip.hostile { background: var(--red); border-color: var(--red-bright); }
+  .pip.hostile.spent { background: transparent; border-color: var(--border); }
+  .pip.reprisal { background: #c0392b; border-color: #e74c3c; box-shadow: 0 0 6px rgba(231,76,60,0.5); }
 
-  .keystone-name {
-    color: var(--spirit-light);
-    font-size: 18px;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .keystone-desc {
-    color: var(--text-dim);
-    font-size: 13px;
+  .pip-type-label {
+    font-size: 11px;
     font-style: italic;
-    line-height: 1.5;
+    color: var(--text-dim);
+    margin-left: 4px;
   }
 
-  .keystone-link-arrow {
-    color: #7a5aaa;
-    font-size: 14px;
-    flex-shrink: 0;
-    margin-top: 2px;
+  /* CARD ACTIONS */
+  .card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
-  .keystone-row:hover .keystone-link-arrow { color: var(--spirit-light); }
 
-  /* NO DATA */
-  .no-data {
-    background: var(--bg-card);
+  .card-actions.three { grid-template-columns: 1fr 1fr 1fr; }
+
+  .btn-action {
+    background: var(--bg-dark);
     border: 0.5px solid var(--border);
-    border-radius: 3px;
-    padding: 20px;
-    color: var(--text-dim);
-    font-style: italic;
+    border-radius: 2px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: normal;
     font-size: 14px;
+    padding: 8px 6px;
+    transition: all 0.2s;
     text-align: center;
-    margin-bottom: 20px;
   }
+
+  .btn-action:hover:not(:disabled) { border-color: var(--gold-dark); color: var(--gold); background: rgba(139,105,20,0.1); }
+  .btn-action:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .btn-action.roll { grid-column: 1 / -1; }
+  .btn-action.settle { border-color: var(--gold-muted); color: var(--gold); }
+  .btn-action.settle:hover:not(:disabled) { background: rgba(139,105,20,0.2); border-color: var(--gold); }
+  .btn-action.veto-target { border-color: rgba(139,26,26,0.4); color: var(--red-light); }
+  .btn-action.veto-target:hover:not(:disabled) { background: rgba(139,26,26,0.15); border-color: var(--red-bright); }
+
+  /* EVENT LOG */
+  .log-panel {
+    background: var(--bg-dark);
+    border-top: 1px solid var(--border-gold);
+    padding: 16px 24px;
+    max-height: 180px;
+    overflow-y: auto;
+  }
+
+  .log-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+  }
+
+  .log-entry {
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 14px;
+    font-style: normal;
+    color: var(--text-dim);
+    line-height: 1.6;
+    padding: 2px 0;
+    border-bottom: 0.5px solid rgba(61,43,10,0.4);
+  }
+
+  .log-entry:last-child { border-bottom: none; }
+  .log-entry.event-veto { color: #c07060; }
+  .log-entry.event-reprisal { color: #e05050; font-weight: bold; }
+  .log-entry.event-settle { color: var(--gold); }
+  .log-entry.event-roll { color: var(--text-muted); }
+
+  /* VETO MODE OVERLAY */
+  .veto-mode-banner {
+    background: rgba(139,26,26,0.9);
+    border: 1px solid var(--red-bright);
+    border-radius: 3px;
+    color: #f5c6c6;
+    font-style: italic;
+    font-size: 13px;
+    padding: 10px 16px;
+    text-align: center;
+    margin: 0 24px 16px;
+    display: none;
+  }
+
+  .veto-mode-banner.visible { display: block; }
 
   /* FOOTER */
-  .site-footer {
+  .game-footer {
     background: var(--bg-dark);
     border-top: 0.5px solid var(--border);
-    padding: 12px 24px;
+    padding: 8px 24px;
     text-align: center;
-    margin-top: 40px;
   }
 
   .footer-seal {
@@ -435,970 +496,1211 @@
     opacity: 0.6;
   }
 
-  /* TIMELINE */
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-bottom: 28px;
-    position: relative;
+  /* TOAST */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: var(--bg-card);
+    border: 1px solid var(--gold-dark);
+    border-radius: 3px;
+    color: var(--gold-light);
+    font-style: italic;
+    font-size: 14px;
+    padding: 12px 24px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    text-align: center;
+    max-width: 400px;
   }
 
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 18px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
+  .toast.visible { transform: translateX(-50%) translateY(0); }
+  .toast.red { border-color: var(--red-bright); color: var(--red-light); }
+
+  /* TABS */
+  .tab-bar {
+    background: var(--bg-dark);
+    border-bottom: 1px solid var(--border-gold);
+    display: flex;
+    padding: 0 24px;
   }
 
-  .timeline-item {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    position: relative;
-    padding-bottom: 16px;
-  }
-
-  .timeline-dot {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1.5px solid;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    cursor: pointer;
     font-family: 'Cinzel Decorative', serif;
-    font-size: 13px;
-    position: relative;
-    z-index: 1;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 14px 20px 12px;
+    transition: all 0.2s;
   }
 
-  .timeline-dot.skill { border-color: var(--gold-dark); background: var(--bg-deep); color: var(--gold-light); }
-  .timeline-dot.spirit { border-color: var(--spirit-color); background: var(--bg-deep); color: var(--spirit-light); }
-  .timeline-dot.support { border-color: var(--support-color); background: var(--bg-deep); color: var(--support-light); }
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); }
 
-  .timeline-content {
+  /* REFERENCE PAGE */
+  #reference-screen {
+    padding: 0;
+  }
+
+  .ref-body {
+    padding: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .ref-category {
+    margin-bottom: 28px;
+  }
+
+  .ref-category-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid var(--border-gold);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 6px;
+  }
+
+  .ref-item {
     background: var(--bg-card);
     border: 0.5px solid var(--border);
-    border-radius: 3px;
-    padding: 10px 14px;
-    flex: 1;
+    border-radius: 2px;
+    color: var(--text-secondary);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 14px;
+    font-style: normal;
+    padding: 8px 12px;
+    line-height: 1.4;
     transition: border-color 0.2s;
   }
-  .timeline-content:hover { border-color: var(--gold-dark); }
 
-  .timeline-gem-name {
-    font-size: 19px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
+  .ref-item:hover { border-color: var(--gold-dark); color: var(--gold); }
+  .ref-item.special { border-left: 2px solid var(--gold-dark); }
+  .ref-item.crossover { border-left: 2px solid #4a3a6a; color: #c0a8e0; }
+  .ref-item.crossover:hover { border-color: #7a5aaa; color: #d8c0f8; }
 
-  .timeline-gem-meta {
-    font-size: 14px;
-    font-style: italic;
-    margin-top: 2px;
-  }
-
-  .timeline-gem-meta.skill { color: var(--gold-dark); }
-  .timeline-gem-meta.spirit { color: var(--spirit-color); }
-  .timeline-gem-meta.support { color: var(--support-color); }
-
+  /* SCROLLBAR */
+  /* SCROLLBAR */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg-dark); }
   ::-webkit-scrollbar-thumb { background: var(--gold-muted); border-radius: 2px; }
 
+  /* RESPONSIVE */
   @media (max-width: 600px) {
-    .manual-panel { padding: 12px 16px; }
-    .results-area { padding: 16px; }
-    .paste-panel { padding: 16px; }
+    .logo-title { font-size: 32px; }
+    .game-body { padding: 12px; gap: 12px; grid-template-columns: 1fr; }
+    .game-header { padding: 12px 16px; }
   }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.visible {
+    display: flex;
+  }
+
+  .modal {
+    background: #0d0a05;
+    border: 2px solid var(--border-gold);
+    border-radius: 4px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .modal-header {
+    background: #0a0704;
+    border-bottom: 1px solid var(--border-gold);
+    padding: 20px 28px;
+    text-align: center;
+    position: relative;
+  }
+
+  .modal-header::before, .modal-header::after {
+    content: '✦';
+    position: absolute;
+    top: 22px;
+    color: var(--gold-dark);
+    font-size: 14px;
+  }
+  .modal-header::before { left: 28px; }
+  .modal-header::after { right: 28px; }
+
+  .modal-title-small {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .modal-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-light);
+    font-size: 20px;
+    text-shadow: 0 0 20px rgba(200,160,70,0.3);
+    margin-bottom: 4px;
+  }
+
+  .modal-subtitle {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-style: italic;
+    color: var(--gold-dark);
+    font-size: 12px;
+  }
+
+  .modal-body {
+    padding: 24px 32px 28px;
+  }
+
+  .modal-preamble {
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: normal;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: center;
+    padding: 14px 16px;
+    border: 0.5px solid var(--border);
+    background: #0a0704;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .modal-article {
+    margin-bottom: 18px;
+  }
+
+  .modal-article-label {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-dark);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .modal-article-title {
+    font-family: 'IM Fell English', Georgia, serif;
+    color: var(--gold-light);
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+
+  .modal-article-text {
+    font-family: 'Crimson Text', Georgia, serif;
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.85;
+  }
+
+  .modal-article-text strong {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+
+  .modal-special-box {
+    background: #0a0704;
+    border-left: 3px solid var(--red);
+    border-top: 0.5px solid #5a1a1a;
+    border-right: 0.5px solid #5a1a1a;
+    border-bottom: 0.5px solid #5a1a1a;
+    padding: 12px 14px;
+    margin-top: 12px;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .modal-special-label {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--red-bright);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .modal-special-text {
+    font-family: 'Crimson Text', Georgia, serif;
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .modal-special-text strong {
+    color: var(--red-light);
+    font-style: italic;
+  }
+
+  .modal-seal {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .modal-seal-glyph {
+    display: block;
+    font-size: 24px;
+    color: var(--gold-muted);
+    margin-bottom: 4px;
+  }
+
+  .modal-seal-text {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--gold-muted);
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+
+  .modal-close:hover { border-color: var(--red); color: var(--red-light); }
+
+  .btn-faq {
+    background: rgba(139,105,20,0.08);
+    border: 1px solid var(--border-gold);
+    border-radius: 2px;
+    color: var(--gold);
+    cursor: pointer;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-style: normal;
+    font-size: 16px;
+    padding: 10px 24px;
+    margin-top: 16px;
+    transition: all 0.2s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-faq:hover { border-color: var(--gold-dark); color: var(--gold); }
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <span class="header-logo">Vetology</span>
-  <span class="header-sep">·</span>
-  <span class="header-subtitle">Build Codex</span>
-  <a href="index.html" class="header-back">Back to Session</a>
-</header>
+<!-- SETUP SCREEN -->
+<div id="setup-screen" class="screen active">
+  <div class="logo-block">
+    <p class="logo-eyebrow">The Official &amp; Binding</p>
+    <h1 class="logo-title">Vetology</h1>
+    <p class="logo-sub">Path of Exile 2 — Build Selection Protocol</p>
+    <button class="btn-faq" onclick="document.getElementById('vetology-modal').classList.add('visible')" style="margin-top:12px;">
+      ⚖ What is Vetology?
+    </button>
+  </div>
 
-<div class="paste-panel">
-  <span class="paste-label">Paste your Discord result</span>
-  <div class="paste-row">
-    <input type="text" class="paste-input" id="paste-input"
-      placeholder="e.g. Joe — Sorceress (Chronomancer) — Palpatine">
-    <button class="btn-lookup" onclick="parsePaste()">Look Up Build</button>
+  <div class="setup-card">
+    <h2>Summon the Exiles</h2>
+    <div class="player-inputs" id="player-inputs"></div>
+    <button class="btn-add" id="btn-add-player">+ Add another exile</button>
+    <button class="btn-primary" id="btn-start">Commence the Vetology</button>
+  </div>
+</div>
+</div>
+
+<!-- VETOLOGY MODAL -->
+<div class="modal-overlay" id="vetology-modal" onclick="if(event.target===this)this.classList.remove('visible')">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('vetology-modal').classList.remove('visible')">×</button>
+    <div class="modal-header">
+      <p class="modal-title-small">The Official &amp; Binding</p>
+      <h2 class="modal-title">Vetology</h2>
+      <p class="modal-subtitle">Book of Laws — Path of Exile 2 Edition</p>
+    </div>
+    <div class="modal-body">
+
+      <p class="modal-preamble">
+        Let it be known to all who roll, that the ancient rite of the Veto shall govern the selection of builds henceforth and in perpetuity. No player shall be compelled to suffer the indignity of a build they did not choose, nor shall any player be exempt from the wrath of another's Veto.
+      </p>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article I</span>
+        <div class="modal-article-title">The Roll</div>
+        <p class="modal-article-text">
+          Each player shall roll for their build as they have always rolled, by whatever means the company has seen fit to provide. The roll proceeds without modification. Let fate speak first before the Council of Vetoes is convened.
+        </p>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article II</span>
+        <div class="modal-article-title">The Allotment of Vetoes</div>
+        <p class="modal-article-text">
+          Upon completion of the roll, each player shall receive a total of <strong>ten (10) Vetoes</strong>, distributed thusly: <strong>five (5) Self-Vetoes</strong>, used to reroll one's own result, and <strong>five (5) Hostile Vetoes</strong>, wielded against another player's settled result.
+        </p>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article III</span>
+        <div class="modal-article-title">The Settled State</div>
+        <p class="modal-article-text">
+          A player is considered <strong>Settled</strong> when they have declared satisfaction with their current roll. No Hostile Veto may be cast against an Unsettled player. The Veto is a tool of disruption, not of acceleration.
+        </p>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article IV</span>
+        <div class="modal-article-title">The Right of Reprisal</div>
+        <p class="modal-article-text">
+          Should a player who is Settled and holds <strong>exactly one (1) remaining Veto</strong> of any kind be struck by a Hostile Veto, they shall immediately be granted one (1) additional Veto of Reprisal. This Veto may only be directed at another player, never at oneself.
+        </p>
+        <div class="modal-special-box">
+          <span class="modal-special-label">&#9888; Clarification</span>
+          <p class="modal-special-text">
+            The Reprisal Veto is granted once per incident. Furthermore, it <strong>cannot chain</strong>. A player who receives a Reprisal Veto does not trigger Reprisal if they themselves are then Vetoed while holding only one Veto. The cycle of vengeance must end.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal-article">
+        <span class="modal-article-label">Article V</span>
+        <div class="modal-article-title">Exhaustion of Vetoes</div>
+        <p class="modal-article-text">
+          A player who has expended all ten of their Vetoes must accept their current roll as final, regardless of dissatisfaction. They may appeal to the goodwill of fellow players, but they have no legal recourse under this Book of Laws. They made their choices.
+        </p>
+      </div>
+
+      <div class="modal-seal">
+        <span class="modal-seal-glyph">⚜</span>
+        <span class="modal-seal-text">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</span>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<div class="or-divider">or select manually</div>
+<!-- GAME SCREEN -->
+<div id="game-screen" class="screen">
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-session" onclick="showTab('game-screen')">Session</button>
+    <button class="tab-btn" id="tab-codex" onclick="showTab('reference-screen')">Archetype Codex</button>
+  </div>
+  <div class="game-header">
+    <span class="game-header-title">Vetology</span>
+    <div class="game-header-actions">
+      <button class="btn-secondary" id="btn-reset-game">New Session</button>
+    </div>
+  </div>
 
-<div class="manual-panel">
-  <div class="select-group">
-    <span class="select-label">Archetype</span>
-    <select id="archetype-select" onchange="renderFromSelects()">
-      <option value="">Choose archetype...</option>
-    </select>
+  <div class="veto-mode-banner" id="veto-banner"></div>
+
+  <div class="game-body" id="game-body"></div>
+
+  <div class="log-panel">
+    <div class="log-title">Chronicle of Events</div>
+    <div id="log-entries"></div>
+  </div>
+
+  <div class="game-footer">
+    <p class="footer-seal">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</p>
   </div>
 </div>
 
-<div class="results-area" id="results-area">
-  <div class="results-empty">
-    <span class="empty-glyph">⚜</span>
-    Paste your rolled build above or select an archetype to see which skill gems you need and when they unlock.
-  </div>
-</div>
-
-<footer class="site-footer">
-  <p class="footer-seal">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</p>
-</footer>
+<div class="toast" id="toast"></div>
 
 <script>
-const ARCHETYPE_SKILLS = {
-  'The Butcher': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-  ],
-  'The Stungun': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-    {name: 'Supercharged Slam', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Supercharged_Slam'},
-  ],
-  'The Spartan': [
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
-    {name: 'Resonating Shield', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Resonating_Shield'},
-    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
-  ],
-  'The Varangian': [
-    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
-    {name: 'Sunder', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Sunder'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'The True Warrior': [
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-    {name: 'Berserk', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Berserk'},
-    {name: 'Eternal Rage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Eternal_Rage'},
-  ],
-  'Achilles 2004': [
-    {name: 'Armour Breaker', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Armour_Breaker'},
-    {name: 'Leap Slam', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Leap_Slam'},
-    {name: 'Sunder', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Sunder'},
-  ],
-  'The Idol Worshipper': [
-    {name: 'Shockwave Totem', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shockwave_Totem'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-    {name: 'Ancestral Warrior Totem', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Warrior_Totem'},
-  ],
-  'The Sufi': [
-    {name: 'Whirling Slash', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Whirling_Slash'},
-    {name: 'Twister', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Twister'},
-  ],
-  'Braum': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-  ],
-  'The Mongol': [
-    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
-    {name: 'Barrage', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Barrage'},
-    {name: 'Rhoa Mount', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Rhoa_Mount'},
-  ],
-  'Rambo': [
-    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
-    {name: 'Barrage', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Barrage'},
-  ],
-  'Artemis': [
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-    {name: 'Spiral Volley', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Spiral_Volley'},
-  ],
-  'Van Helsing': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Explosive Shot', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Shot'},
-    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
-  ],
-  'Ifrit': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-  ],
-  'Hanzjoe': [
-    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
-    {name: 'Shockchain Arrow', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Shockchain_Arrow'},
-  ],
-  'Junkrat': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Flash Grenade', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Flash_Grenade'},
-    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
-  ],
-  'Demolition Man': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Explosive Shot', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Shot'},
-  ],
-  'The Plague Doctor': [
-    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
-    {name: 'Plague Bearer', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Plague_Bearer'},
-    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
-  ],
-  'Athena': [
-    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-  ],
-  'Surtr': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-  ],
-  'Sephiroth': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Dark Effigy', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Dark_Effigy'},
-    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
-  ],
-  'Palpatine': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Ball Lightning', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Ball_Lightning'},
-  ],
-  'The Lich King': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Deathwing': [
-    {name: 'Volcanic Fissure', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Volcanic_Fissure'},
-    {name: 'Earthshatter', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Earthshatter'},
-  ],
-  'Tzeentch': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Leech': [
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
-  ],
-  'Energy Vampire': [
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Aids Spreader': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
-  ],
-  'Hellraiser': [
-    {name: 'Raging Spirits', level: 4, type: 'skill', url: 'https://poe2db.tw/us/Summon_Raging_Spirits'},
-  ],
-  'The Negligent Parent': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'The Archaeologist': [
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'The Trauma Surgeon': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-  ],
-  'The Toy Maker': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Dark Effigy', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Dark_Effigy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Stockbroker': [
-    {name: 'Barrier Invocation', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Barrier_Invocation'},
-  ],
-  'The Doomsayer': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-  ],
-  'More Cow Bell': [
-    {name: 'Tempest Bell', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Tempest_Bell'},
-  ],
-  'The Avatar': [
-    {name: 'Elemental Conflux', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Elemental_Conflux'},
-    {name: 'Cast on Elemental Ailment', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Cast_on_Elemental_Ailment'},
-  ],
-  'The Monsoon': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-    {name: 'Herald of Ice', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ice'},
-    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
-  ],
-  'The Blood Priest': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Reinhardt': [
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
-    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
-  ],
-  'Wolverine': [
-    {name: 'Berserk', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Berserk'},
-    {name: 'Eternal Rage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Eternal_Rage'},
-  ],
-  'The Lichform': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
-  ],
-  'The Glass Saint': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'The Colossus': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-  ],
-  'The Flagellant': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
-  ],
-  'The Mindwall': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'The Capacitor': [
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'The Hexblade': [
-    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Bullfighter': [
-    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
-    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
-  ],
-  'Poison Ivy': [
-    {name: 'Entangle', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Entangle'},
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Batman': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Flash Grenade', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Flash_Grenade'},
-    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
-  ],
-  'Bane': [
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-  ],
-  'Mr Freeze': [
-    {name: 'Frost Bomb', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Frost_Bomb'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-  ],
-  'Ra\'s al Ghul': [
-    {name: 'Temporal Rift', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Rift'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
-  ],
-  'Two-Face': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Elemental Conflux', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Elemental_Conflux'},
-  ],
-  'Captain America': [
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'Thor': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-  ],
-  'Hela': [
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'Loki': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Scarlet Witch': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Ghost Rider': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
-    {name: 'Rhoa Mount', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Rhoa_Mount'},
-  ],
-  'Magneto': [
-    {name: 'Armour Breaker', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Armour_Breaker'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-  ],
-  'Gambit': [
-    {name: 'Whirling Slash', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Whirling_Slash'},
-    {name: 'Twister', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Twister'},
-    {name: 'Explosive Spear', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Spear'},
-  ],
-  'Stop Hitting Yourself': [
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'The Mud Blood': [
-    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
-  ],
-  'The Karen': [
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-    {name: 'Ancestral Warrior Totem', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Warrior_Totem'},
-  ],
-  'The Pacifist': [
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Zookeeper': [
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
-  ],
-  'Dog Lover': [
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-  ],
-  'Bearpocalypse': [
-    {name: 'Rampage', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Rampage'},
-    {name: 'Walking Calamity', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Walking_Calamity'},
-  ],
-  'The Bannerman': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'Hammerdin': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-  ],
-  'Shyvana': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-    {name: 'Volcanic Fissure', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Volcanic_Fissure'},
-  ],
-  'Feral Druid': [
-    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
-  ],
-  'Death Knight': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Frost Mage': [
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-  ],
-  'Shadow Priest': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
-  ],
-  'Warlock': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Enhancement Shaman': [
-    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-  ],
-  'Survival Hunter': [
-    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
-  ],
-  'Ret Paladin': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'Rogue': [
-    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
-  ],
-  'Bleed Arcane Build': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-  ],
-  'Faith Caster': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Frost Knight': [
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-  ],
-  'Dragon Communion': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-  ],
-  'Bone Necromancer': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-  ],
-  'Frozen Orb Sorceress': [
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-  ],
-  'Lightning Javazon': [
-    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-  ],
-  'Dark Knight': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Black Mage': [
-    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
-  ],
-  'Summoner': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Red Mage': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-  ],
-  'Time Mage': [
-    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Dragoon': [
-    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
-    {name: 'Leap Slam', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Leap_Slam'},
-  ],
-  'Bladesinger': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-  ],
-  'Eldritch Knight': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
-  ],
-  'Arcane Trickster': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Circle of Spores Druid': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Oathbreaker Paladin': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Draconic Sorcerer': [
-    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-  ],
-  'Pokemon Trainer': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
-  ],
-  'Full Conversion Necromancer': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'The Phlebotomist': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
-  ],
-  'Zombie & Corpsemaster': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Skeleton Army General': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Spectre Commander': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'Golem Juggler': [
-  ],
-  'Minion Bomber': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Evasion Ghost': [
-    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
-    {name: 'Wind Dancer', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Wind_Dancer'},
-  ],
-  'Energy Shield Hoarder': [
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'Cast On Crit Machine': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
-    {name: 'Cast on Critical', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Cast_on_Critical'},
-  ],
-  'Detonate Dead Bomber': [
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'Shapeshifter': [
-    {name: 'Rampage', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Rampage'},
-    {name: 'Walking Calamity', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Walking_Calamity'},
-  ],
-  'Bannerman': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'The Warden': [
-    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-  ],
-  'Pants Pisser - DoT Zone Puddle Maker': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Herald Stacker': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-    {name: 'Herald of Ice', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ice'},
-    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
-  ],
-};
+// ============================================================
+// POE2 DATA - Classes + Ascendancies (including upcoming patch)
+// ============================================================
+// Accurate as of PoE2 patch 0.4.0 + 0.5.0 confirmed ascendancies
+// Accurate as of PoE2 0.5.0 (Return of the Ancients, May 29 2026)
+const POE2_BUILDS = [
+  { class: "Warrior", ascendancies: ["Titan", "Warbringer"] },
+  { class: "Ranger", ascendancies: ["Deadeye", "Pathfinder"] },
+  { class: "Sorceress", ascendancies: ["Stormweaver", "Chronomancer", "Disciple of Varashta"] },
+  { class: "Monk", ascendancies: ["Invoker", "Acolyte of Chayula", "Martial Artist"] },
+  { class: "Mercenary", ascendancies: ["Witchhunter", "Gemling Legionnaire"] },
+  { class: "Witch", ascendancies: ["Infernalist", "Blood Mage"] },
+  { class: "Druid", ascendancies: ["Shaman", "Oracle"] },
+  { class: "Huntress", ascendancies: ["Amazon", "Ritualist", "Spirit Walker"] },
+];
 
+// Flatten into individual rollable results
+const ROLL_TABLE = [];
+POE2_BUILDS.forEach(b => {
+  b.ascendancies.forEach(asc => {
+    ROLL_TABLE.push({ class: b.class, ascendancy: asc });
+  });
+});
 
-const KEYSTONES = {
-  "Chaos Inoculation": {
-    "url": "https://poe2db.tw/us/Chaos_Inoculation",
-    "desc": "Maximum Life becomes 1, immune to Chaos Damage. Build around Energy Shield."
-  },
-  "Eldritch Battery": {
-    "url": "https://poe2db.tw/us/Eldritch_Battery",
-    "desc": "Spend Energy Shield before Mana for skill costs. Removes ES recharge."
-  },
-  "Mind Over Matter": {
-    "url": "https://poe2db.tw/us/Mind_Over_Matter",
-    "desc": "Damage is taken from Mana before Life, but 50% less Mana recovery."
-  },
-  "Blood Magic": {
-    "url": "https://poe2db.tw/us/Blood_Magic",
-    "desc": "Skills cost Life instead of Mana. No Mana pool."
-  },
-  "Giant's Blood": {
-    "url": "https://poe2db.tw/us/Giants_Blood",
-    "desc": "Dual wield two-handed maces, axes, or swords. Doubles weapon attribute requirements."
-  },
-  "Acrobatics": {
-    "url": "https://poe2db.tw/us/Acrobatics",
-    "desc": "30% less damage taken during Dodge Roll. Removes avoidance frames."
-  },
-  "Unwavering Stance": {
-    "url": "https://poe2db.tw/us/Unwavering_Stance",
-    "desc": "Cannot Dodge Roll, but doubles Stun Threshold."
-  },
-  "Iron Reflexes": {
-    "url": "https://poe2db.tw/us/Iron_Reflexes",
-    "desc": "Converts all Evasion Rating to Armour."
-  },
-  "Resolute Technique": {
-    "url": "https://poe2db.tw/us/Resolute_Technique",
-    "desc": "Never deal Critical Strikes, but attacks always hit."
-  },
-  "Elemental Overload": {
-    "url": "https://poe2db.tw/us/Elemental_Overload",
-    "desc": "40% more Elemental Damage if you've dealt a Crit recently, but no bonus from Crit multiplier."
-  },
-  "Avatar of Fire": {
-    "url": "https://poe2db.tw/us/Avatar_of_Fire",
-    "desc": "75% of all damage converted to Fire. Cannot deal non-Fire damage."
-  },
-  "Pain Attunement": {
-    "url": "https://poe2db.tw/us/Pain_Attunement",
-    "desc": "30% more Spell Damage when on Low Life."
-  },
-  "Withering Presence": {
-    "url": "https://poe2db.tw/us/Withering_Presence",
-    "desc": "Nearby enemies are Withered. You take 50% increased Chaos Damage."
-  },
-  "Ancestral Bond": {
-    "url": "https://poe2db.tw/us/Ancestral_Bond",
-    "desc": "No totem limit \u2014 each totem reserves Spirit instead. You deal no damage."
-  },
-  "Ghost Dance": {
-    "url": "https://poe2db.tw/us/Ghost_Dance",
-    "desc": "Recover Energy Shield equal to Evasion Rating when you Dodge Roll."
-  },
-  "Mortal Conviction": {
-    "url": "https://poe2db.tw/us/Mortal_Conviction",
-    "desc": "Non-Banner auras cost Life to reserve instead of Spirit."
-  },
-  "Iron Will": {
-    "url": "https://poe2db.tw/us/Iron_Will",
-    "desc": "Strength applies to Spell Damage as well as Melee Damage."
-  },
-  "Iron Grip": {
-    "url": "https://poe2db.tw/us/Iron_Grip",
-    "desc": "Strength bonus to Melee Physical Damage also applies to Projectile Attacks."
-  }
-};
-const ARCHETYPE_KEYSTONES = {
-  "The Lichform": [
-    "Chaos Inoculation",
-    "Withering Presence"
-  ],
-  "The Glass Saint": [
-    "Chaos Inoculation",
-    "Eldritch Battery"
-  ],
-  "The Capacitor": [
-    "Eldritch Battery",
-    "Mind Over Matter"
-  ],
-  "The Mindwall": [
-    "Mind Over Matter"
-  ],
-  "Energy Shield Hoarder": [
-    "Chaos Inoculation"
-  ],
-  "The Colossus": [
-    "Giant's Blood"
-  ],
-  "Braum": [
-    "Giant's Blood",
-    "Unwavering Stance"
-  ],
-  "The True Warrior": [
-    "Unwavering Stance"
-  ],
-  "The Varangian": [
-    "Unwavering Stance"
-  ],
-  "Wolverine": [
-    "Pain Attunement"
-  ],
-  "The Blood Priest": [
-    "Blood Magic",
-    "Pain Attunement"
-  ],
-  "The Flagellant": [
-    "Blood Magic",
-    "Pain Attunement"
-  ],
-  "The Idol Worshipper": [
-    "Ancestral Bond"
-  ],
-  "The Karen": [
-    "Ancestral Bond"
-  ],
-  "Reinhardt": [
-    "Unwavering Stance"
-  ],
-  "Evasion Ghost": [
-    "Acrobatics",
-    "Ghost Dance"
-  ],
-  "The Bullfighter": [
-    "Acrobatics"
-  ],
-  "Surtr": [
-    "Avatar of Fire"
-  ],
-  "Ifrit": [
-    "Avatar of Fire"
-  ],
-  "Ghost Rider": [
-    "Avatar of Fire"
-  ],
-  "Shyvana": [
-    "Avatar of Fire"
-  ],
-  "The Sufi": [
-    "Acrobatics"
-  ],
-  "Energy Vampire": [
-    "Withering Presence"
-  ],
-  "The Toy Maker": [
-    "Withering Presence"
-  ],
-  "Hammerdin": [
-    "Giant's Blood",
-    "Iron Will"
-  ],
-  "Bannerman": [
-    "Unwavering Stance"
-  ],
-  "The Bannerman": [
-    "Unwavering Stance"
-  ],
-  "The Monsoon": [
-    "Mortal Conviction"
-  ],
-  "The Avatar": [
-    "Elemental Overload"
-  ],
-  "Two-Face": [
-    "Elemental Overload"
-  ]
-};
+const ARCHETYPES = [
+  "The Butcher (Bleed Stacker + Blood Stuff)","Achilles 2004 (Armour Break Brawler)","The Stungun (Stun Locker)",
+  "The True Warrior (Rage Berserker, No Chest Armour)","The Spartan (Shield Basher)","The Idol Worshipper (Totems + Offering Skills)","The Sufi (Whirlwind + Auras)","The Varangian (Fortify Tank)",
+  "The Mongol (Lightning Arrow Sniper, Rhoa Mount)","The Plague Doctor (Poison Burst Arrow + Plague Bearer + Herald of Plague)","Rambo (Bow + Barrage, No Chest Armour)",
+  "Demolition Man (Explosive Shot + Grenades + Siege Ballista)","Artemis (Spiral Volley + Ice Shot)","Hanzjoe (Lightning Arrow + Shockchain Arrow)",
+  "Van Helsing (Crossbow + Explosive Shot + Grenades)","Junkrat (Grenade Spam + Bombs, All Grenades All The Time)",  "Ifrit (Infernal Cry + Herald of Ash + Flame Wall)","Shyvana (Shapeshifter + Volcanic Fissure + Flame Wall + Herald of Ash)",
+  "Frozen Wasteland Builder","Surtr (Fireball + Fire Spells)",
+  "Sephiroth (Comet + Quarterstaff + Cast While Channelling + Dark Effigy)","The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)",
+  "Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)","Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)",
+  "Cold Snap Dotter",
+  "Poison DoT Stacker","Tzeentch (All Chaos Spells, All The Time)","Aids Spreader (Corrupting Cry + Blood Boil)",
+  "Energy Vampire (Withering Touch + Withering Support)","The Leech (Essence Drain + Withering)",
+  "Skeleton Army General","Spectre Commander","Hellraiser (Raging Spirit Swarm)","Zombie & Corpsemaster","Minion Bomber",
+  "Full Conversion Necromancer (you are merely a vessel, the dead do everything)",
+  "The Negligent Parent (Minions + Cast on Minion Death)",
+  "The Doomsayer (Chaos + Bone Spells + Cast While Channeling)",
+  "More Cow Bell (Tempest Bell)",
+  "The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)",
+  "The Mud Blood (No Magic Spells, Melee + Pet Only)",
+  "The Karen (Cries + Shouts, Totems + Pets)",
+  "The Pacifist (Straight Support, No Direct Damage)",
+  "Captain America (Shield + Rallying Cries)",
+  "Thor (Lightning Herald + Hammers)",
+  "Hela (Bonestorm + Detonate Dead + Bone Cage)",
+  "Loki (Cast on Minion Death + Blasphemy Curses + Skeletal Warriors)",
+  "Scarlet Witch (Contagion + Wither + Cast While Channelling)",
+  "Ghost Rider (Flame Wall + Ignite DoT + Infernal Cry + Rhoa Mount)",
+  "Magneto (Armour Breaker + Intimidating Cry + Armour Strip)",
+  "Gambit (Whirlwind Lance + Twister + Explosive Spear)",
+  "Poison Ivy (Wildsurge Incantation + Entangle + Thrashing Vines + Contagion + Poison)",
+  "Batman (Cluster Grenade + Gas Grenade + Explosive Grenade + Crossbow)",
+  "Bane (Lifetap + Seismic Cry + Hammer of the Gods + Rage)",
+  "Mr Freeze (Cold Snap + Vortex + Frost Bomb + Creeping Frost)",
+  "Ra's al Ghul (Lifetap + Temporal Rift + Corrupting Cry + Vitality)",
+  "Two-Face (Elemental Conflux + Cast on Elemental Ailment + Arc + Cold Snap)",
+  "Bannerman (2H Mace, Buffs + Shouts)",
+  "The Stockbroker (Barrier Invocation)",
+  "The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)",
+  "The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)",
+  "The Toy Maker (Dark Effigy Totem + Contagion + Despair)",
+  "Life Tap Caster","Energy Shield Hoarder","Recoup Bricktank","Max Block Turtle",
+  "The Lichform (Chaos Inoculation + Essence Drain + Contagion + Withering Presence)",
+  "The Glass Saint (Chaos Inoculation + Arc + Archmage + Orb of Storms)",
+  "The Colossus (Giant's Blood + Dual Two-Handed Maces + Boneshatter + Seismic Cry)",
+  "The Flagellant (Blood Magic + Lifetap + Corrupting Cry + Life Leech)",
+  "The Mindwall (Mind Over Matter + Archmage + Arc + Orb of Storms)",
+  "The Capacitor (Eldritch Battery + Mind Over Matter + Spark + Archmage)",
+  "The Hexblade (Whispers of Doom + Blasphemy + Temporal Chains + Despair)",
+  "The Bullfighter (Acrobatics + Rake + Disengage + Blood Hunt)","Evasion Ghost",
+  "Curse Stacker","Trap Layer","Detonate Dead Bomber",
+  "The Monsoon (All Heralds)","Cast On Crit Machine","Athena (Spear + Herald of Thunder + Warcries)","Shapeshifter",
+  "Stop Hitting Yourself (Thorns Tank)",
+  "Death Knight (Disease DoT + Undead Army)",
+  "Frost Mage (Freeze Everything, Then Shatter)",
+  "Shadow Priest (Chaos DoT + Life Drain)",
+  "Warlock (Minions + Curses + Chaos)",
+  "Feral Druid (Shapeshifter + Melee + Bleeds)",
+  "Enhancement Shaman (Melee + Lightning Hybrid)",
+  "Survival Hunter (Traps + DoT + Pet)",
+  "Ret Paladin (Big Slow Hits + Aura Bot)",
+  "Rogue (Poisons + Blind)",
+  "Bleed Arcane Build (Bleed + Chaos Hybrid)",
+  "Faith Caster (Life Tap + Minions)",
+  "Braum (Slam + Fortify + Shield, No Chest Armour)",
+  "The Phlebotomist",
+  "Full Sorcery Glass Cannon",
+  "Frost Knight (Freeze + Melee Hybrid)",
+  "Dragon Communion (Elemental Melee Hybrid)",
+  "Bone Necromancer (Minion + Projectile Chaos)",
+  "Hammerdin (Infinite Projectile Spam)",
+  "Frozen Orb Sorceress (Cold Projectile Abuser)",
+  "Whirlwind Barbarian (Spin to Win)",
+  "Poison Nova Witch Doctor (Chaos DoT Explosion)",
+  "Lightning Javazon (Chain Lightning Spear)",
+  "The Short Circuit (Infinite Spark + Lightning Loop)",
+  "Dark Knight (Life Tap + Big Slow Melee)",
+  "Black Mage (Pure Elemental Nuke)",
+  "Summoner (Full Minion Conversion)",
+  "Red Mage (Spell + Melee Hybrid)",
+  "Pants Pisser - DoT Zone Puddle Maker",
+  "Dragoon (Spear Leap Attacker)",
+  "Bladesinger (Spell + Melee Cast On Crit)",
+  "Eldritch Knight (Shield Tank + Spellcaster)",
+  "Arcane Trickster (Evasion + Chaos Burst)",
+  "Circle of Spores Druid (Poison DoT Aura)",
+  "Oathbreaker Paladin (Undead Army + Life Tap)",
+  "Draconic Sorcerer (Elemental Nuke Glass Cannon)",
+  "Pokemon Trainer (One Spectre. First one tamed. You love it. It stays.)",
+];
 
 // ============================================================
-// POPULATE SELECTS
+// STATE
 // ============================================================
-function populateSelects() {
-  const archetypeSelect = document.getElementById('archetype-select');
-  const archetypes = Object.keys(ARCHETYPE_SKILLS).sort();
-  archetypes.forEach(a => {
-    const opt = document.createElement('option');
-    opt.value = a;
-    opt.textContent = a;
-    archetypeSelect.appendChild(opt);
+let players = [];
+let vetoMode = { active: false, sourceIdx: null, type: null };
+let logEntries = [];
+
+function createPlayer(name) {
+  return {
+    name,
+    selfVetoes: 5,
+    hostileVetoes: 5,
+    reprisalVetoes: 0,
+    roll: null,
+    settled: false,
+    vetoed: false,
+  };
+}
+
+function totalVetoes(p) {
+  return p.selfVetoes + p.hostileVetoes + p.reprisalVetoes;
+}
+
+function canVetoSelf(p) {
+  return p.selfVetoes > 0;
+}
+
+function canVetoHostile(p) {
+  return p.hostileVetoes > 0 || p.reprisalVetoes > 0;
+}
+
+// ============================================================
+// SETUP SCREEN
+// ============================================================
+function renderSetup() {
+  const container = document.getElementById('player-inputs');
+  container.innerHTML = '';
+  const names = players.length > 0
+    ? players.map(p => p.name)
+    : ['', '', ''];
+
+  // Ensure at least 2 rows
+  while (names.length < 2) names.push('');
+
+  names.forEach((name, i) => {
+    const row = document.createElement('div');
+    row.className = 'player-row';
+    row.innerHTML = `
+      <span class="player-num">${i + 1}</span>
+      <input type="text" placeholder="Exile ${i + 1}" value="${name}" data-idx="${i}" maxlength="20">
+      ${names.length > 2 ? `<button class="btn-remove" data-remove="${i}">×</button>` : ''}
+    `;
+    container.appendChild(row);
+  });
+
+  // Store temp names array
+  container._names = names;
+
+  container.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      container._names[parseInt(inp.dataset.idx)] = inp.value.trim();
+    });
+  });
+
+  container.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      container._names.splice(parseInt(btn.dataset.remove), 1);
+      players = [];
+      syncNamesFromInputs();
+      renderSetup();
+    });
   });
 }
 
-// ============================================================
-// PARSE PASTE
-// ============================================================
-function parsePaste() {
-  const raw = document.getElementById('paste-input').value.trim();
-  if (!raw) return;
-
-  // Try to extract archetype from format: "Name — Class (Ascendancy) — Archetype"
-  // Also handle: "Name: Class (Asc) — Archetype" or just "Archetype"
-  let archetype = null;
-
-  const parts = raw.split(/\s*[—\-–]\s*/);
-  if (parts.length >= 3) {
-    archetype = parts[parts.length - 1].trim();
-  } else if (parts.length === 2) {
-    archetype = parts[parts.length - 1].trim();
-  } else {
-    archetype = raw.trim();
-  }
-
-  // Try exact match first
-  if (ARCHETYPE_SKILLS[archetype]) {
-    document.getElementById('archetype-select').value = archetype;
-    renderBuild(archetype, null, null);
-    return;
-  }
-
-  // Try case-insensitive match
-  const keys = Object.keys(ARCHETYPE_SKILLS);
-  const match = keys.find(k => k.toLowerCase() === archetype.toLowerCase());
-  if (match) {
-    document.getElementById('archetype-select').value = match;
-    renderBuild(match, null, null);
-    return;
-  }
-
-  // Try partial match
-  const partial = keys.find(k => k.toLowerCase().includes(archetype.toLowerCase()) || archetype.toLowerCase().includes(k.toLowerCase()));
-  if (partial) {
-    document.getElementById('archetype-select').value = partial;
-    renderBuild(partial, null, null);
-    return;
-  }
-
-  // Not found
-  document.getElementById('results-area').innerHTML = `
-    <div class="no-data">
-      Could not find archetype "<strong>${archetype}</strong>" — try selecting it manually above.
-    </div>`;
+function syncNamesFromInputs() {
+  const inputs = document.querySelectorAll('#player-inputs input');
+  const names = [];
+  inputs.forEach(i => names.push(i.value.trim()));
+  document.getElementById('player-inputs')._names = names;
+  return names;
 }
 
-// ============================================================
-// RENDER FROM SELECTS
-// ============================================================
-function renderFromSelects() {
-  const archetype = document.getElementById('archetype-select').value;
-  if (!archetype) return;
-  renderBuild(archetype, null, null);
-}
+document.getElementById('btn-add-player').addEventListener('click', () => {
+  const names = syncNamesFromInputs();
+  names.push('');
+  players = [];
+  document.getElementById('player-inputs')._names = names;
+  rerenderSetupFromNames(names);
+});
 
-// ============================================================
-// RENDER BUILD
-// ============================================================
-function renderBuild(archetype, playerClass, ascendancy) {
-  const skills = ARCHETYPE_SKILLS[archetype] || [];
-  const area = document.getElementById('results-area');
-
-  const classLine = [playerClass, ascendancy ? `(${ascendancy})` : ''].filter(Boolean).join(' ');
-
-  let html = `
-    <div class="build-header">
-      <div class="build-eyebrow">Your Build</div>
-      <div class="build-name">${archetype}</div>
-      ${classLine ? `<div class="build-class">${classLine}</div>` : ''}
-    </div>
-  `;
-
-  if (skills.length === 0) {
-    html += `<div class="no-data">No specific skill gem data for this archetype yet — check the Archetype Codex for details.</div>`;
-  } else {
-    html += `<div class="section-title">Skill Gem Unlock Order</div>`;
-    html += `<div class="timeline">`;
-
-    skills.forEach(gem => {
-      const typeLabel = gem.type === 'spirit' ? 'Spirit Gem' : gem.type === 'support' ? 'Support Gem' : 'Skill Gem';
-      html += `
-        <div class="timeline-item">
-          <div class="timeline-dot \${gem.type}">\${gem.level}</div>
-          <a class="timeline-content" href="\${gem.url}" target="_blank" rel="noopener">
-            <div class="timeline-gem-name">\${gem.name}</div>
-            <div class="timeline-gem-meta \${gem.type}">Level \${gem.level} · \${typeLabel} · poe2db ↗</div>
-          </a>
-        </div>
-      `;
+function rerenderSetupFromNames(names) {
+  const container = document.getElementById('player-inputs');
+  container._names = names;
+  container.innerHTML = '';
+  names.forEach((name, i) => {
+    const row = document.createElement('div');
+    row.className = 'player-row';
+    row.innerHTML = `
+      <span class="player-num">${i + 1}</span>
+      <input type="text" placeholder="Exile ${i + 1}" value="${name}" data-idx="${i}" maxlength="20">
+      ${names.length > 2 ? `<button class="btn-remove" data-remove="${i}">×</button>` : ''}
+    `;
+    container.appendChild(row);
+  });
+  container.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      container._names[parseInt(inp.dataset.idx)] = inp.value.trim();
     });
+  });
+  container.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const names2 = syncNamesFromInputs();
+      names2.splice(parseInt(btn.dataset.remove), 1);
+      rerenderSetupFromNames(names2);
+    });
+  });
+}
 
-    html += `</div>`;
+document.getElementById('btn-start').addEventListener('click', () => {
+  const names = syncNamesFromInputs().filter(n => n.length > 0);
+  if (names.length < 2) { showToast('You need at least 2 exiles.', true); return; }
+  players = names.map(n => createPlayer(n));
+  logEntries = [];
+  vetoMode = { active: false, sourceIdx: null, type: null };
+  showScreen('game-screen');
+  renderGame();
+  addLog('The Vetology has commenced. Let the rolls begin.', 'event-roll');
+});
 
-    // Keystones section
-    const keystoneNames = ARCHETYPE_KEYSTONES[archetype] || [];
-    if (keystoneNames.length > 0) {
-      html += `<div class="section-title">Key Passives / Keystones</div>`;
-      html += `<div class="keystone-list">`;
-      keystoneNames.forEach(name => {
-        const k = KEYSTONES[name];
-        if (!k) return;
-        const icons = {
-          'Chaos Inoculation': '🛡️', 'Eldritch Battery': '⚡', 'Mind Over Matter': '🧠',
-          'Blood Magic': '🩸', "Giant's Blood": '💪', 'Acrobatics': '🤸',
-          'Unwavering Stance': '🗿', 'Iron Reflexes': '🔩', 'Resolute Technique': '🎯',
-          'Elemental Overload': '🌀', 'Avatar of Fire': '🔥', 'Pain Attunement': '💀',
-          'Withering Presence': '☠️', 'Ancestral Bond': '🏺', 'Ghost Dance': '👻',
-          'Mortal Conviction': '⚗️', 'Iron Will': '⚔️', 'Iron Grip': '✊',
-        };
-        const icon = icons[name] || '◆';
-        html += `
-          <a class="keystone-row" href="${k.url}" target="_blank" rel="noopener">
-            <div class="keystone-icon">${icon}</div>
-            <div class="keystone-info">
-              <span class="keystone-name">${name}</span>
-              <div class="keystone-desc">${k.desc}</div>
-            </div>
-            <span class="keystone-link-arrow">↗</span>
-          </a>
-        `;
-      });
-      html += `</div>`;
+// ============================================================
+// GAME SCREEN
+// ============================================================
+function roll() {
+  const r = ROLL_TABLE[Math.floor(Math.random() * ROLL_TABLE.length)];
+  const archetype = ARCHETYPES[Math.floor(Math.random() * ARCHETYPES.length)];
+  return { ...r, archetype };
+}
+
+function renderGame() {
+  const body = document.getElementById('game-body');
+  body.innerHTML = '';
+
+  players.forEach((p, idx) => {
+    const card = document.createElement('div');
+    card.className = `player-card${p.settled ? ' settled' : ''}${p.vetoed ? ' vetoed' : ''}`;
+    card.id = `player-card-${idx}`;
+
+    const statusLabel = p.settled ? 'Settled' : (p.roll ? 'Considering' : 'Awaiting Roll');
+    const badgeClass = p.settled ? 'badge-settled' : (p.vetoed ? 'badge-vetoed' : 'badge-rolling');
+
+    // Build pip rows
+    const selfPips = buildPips(p.selfVetoes, 5, 'self');
+    const hostilePips = buildPips(p.hostileVetoes, 5, 'hostile');
+    const reprisalPips = p.reprisalVetoes > 0
+      ? `<div class="pip-row">${'<div class="pip reprisal"></div>'.repeat(p.reprisalVetoes)}<span class="pip-type-label">reprisal</span></div>`
+      : '';
+
+    // Roll display
+    let rollHTML = `<span class="roll-placeholder">Not yet rolled</span>`;
+    if (p.roll) {
+      rollHTML = `
+        <div class="roll-class">${p.roll.class}</div>
+        <div class="roll-ascendancy">${p.roll.ascendancy}</div>
+        <div class="roll-archetype">${p.roll.archetype}</div>
+      `;
     }
+
+    // Action buttons
+    const hasRoll = !!p.roll;
+    const isSettled = p.settled;
+
+    let actionsHTML = '';
+
+    if (vetoMode.active && vetoMode.sourceIdx !== idx) {
+      // In veto targeting mode - show this player as a target
+      const canTarget = p.settled;
+      actionsHTML = `
+        <button class="btn-action veto-target ${canTarget ? '' : ''}"
+          ${canTarget ? '' : 'disabled'}
+          onclick="executeVeto(${vetoMode.sourceIdx}, ${idx})">
+          ${canTarget ? 'Veto this Exile' : 'Not settled yet'}
+        </button>
+        <button class="btn-action" onclick="cancelVetoMode()">Cancel</button>
+      `;
+    } else if (vetoMode.active && vetoMode.sourceIdx === idx) {
+      actionsHTML = `<button class="btn-action" onclick="cancelVetoMode()" style="grid-column:1/-1">Cancel Veto</button>`;
+    } else {
+      const rollLabel = hasRoll ? 'Reroll (Self-Veto)' : 'Roll';
+      const selfDisabled = hasRoll && !canVetoSelf(p) ? 'disabled' : '';
+      const settleDisabled = !hasRoll || isSettled ? 'disabled' : '';
+      const vetoDisabled = !canVetoHostile(p) ? 'disabled' : '';
+
+      actionsHTML = `
+        <button class="btn-action roll" onclick="doRoll(${idx})" ${selfDisabled}>${rollLabel}</button>
+        <button class="btn-action settle" onclick="doSettle(${idx})" ${settleDisabled}>Settle</button>
+        <button class="btn-action veto-target" onclick="beginVetoMode(${idx})" ${vetoDisabled}>Cast Veto</button>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="player-card-header">
+        <span class="player-name">${p.name}</span>
+        <span class="player-status-badge ${badgeClass}">${statusLabel}</span>
+      </div>
+      <div class="player-card-body">
+        <div class="roll-display" id="roll-display-${idx}">${rollHTML}</div>
+        <div class="veto-section">
+          <div class="veto-label">Self-Vetoes</div>
+          <div class="pip-row">${selfPips}<span class="pip-type-label">${p.selfVetoes} remaining</span></div>
+          <div class="veto-label">Hostile Vetoes</div>
+          <div class="pip-row">${hostilePips}<span class="pip-type-label">${p.hostileVetoes} remaining</span></div>
+          ${reprisalPips}
+        </div>
+        <div class="card-actions">${actionsHTML}</div>
+      </div>
+    `;
+
+    body.appendChild(card);
+  });
+
+  // Veto banner
+  const banner = document.getElementById('veto-banner');
+  if (vetoMode.active) {
+    const src = players[vetoMode.sourceIdx];
+    banner.textContent = `${src.name} is casting a Hostile Veto — select a Settled exile to target.`;
+    banner.classList.add('visible');
+  } else {
+    banner.classList.remove('visible');
   }
 
-  area.innerHTML = html;
+  renderLog();
+}
+
+function buildPips(remaining, total, type) {
+  let html = '';
+  for (let i = 0; i < total; i++) {
+    const spent = i >= remaining;
+    html += `<div class="pip ${type}${spent ? ' spent' : ''}"></div>`;
+  }
+  return html;
+}
+
+// ============================================================
+// ACTIONS
+// ============================================================
+function doRoll(idx) {
+  const p = players[idx];
+  if (p.roll && !canVetoSelf(p)) return;
+
+  if (p.roll) {
+    // Self-veto
+    p.selfVetoes--;
+    addLog(`${p.name} burns a Self-Veto and rolls again.`, 'event-veto');
+  }
+
+  p.settled = false;
+  p.vetoed = false;
+
+  // Animate roll
+  const display = document.getElementById(`roll-display-${idx}`);
+  if (display) display.classList.add('roll-animating');
+
+  let ticks = 0;
+  const interval = setInterval(() => {
+    const r = roll();
+    if (display) {
+      display.innerHTML = `<div class="roll-class">${r.class}</div><div class="roll-ascendancy">${r.ascendancy}</div><div class="roll-archetype">${r.archetype}</div>`;
+    }
+    ticks++;
+    if (ticks > 18) {
+      clearInterval(interval);
+      if (display) display.classList.remove('roll-animating');
+      p.roll = r;
+      addLog(`${p.name} rolled: ${r.class} (${r.ascendancy}) — ${r.archetype}.`, 'event-roll');
+      renderGame();
+    }
+  }, 60);
+}
+
+function doSettle(idx) {
+  const p = players[idx];
+  if (!p.roll || p.settled) return;
+  p.settled = true;
+  p.vetoed = false;
+  addLog(`${p.name} has Settled on ${p.roll.class} (${p.roll.ascendancy}) as ${p.roll.archetype}.`, 'event-settle');
+  renderGame();
+
+  // Animate gold pulse
+  setTimeout(() => {
+    const card = document.getElementById(`player-card-${idx}`);
+    if (card) { card.style.animation = 'pulse-gold 0.6s ease'; setTimeout(() => card.style.animation = '', 700); }
+  }, 50);
+}
+
+function beginVetoMode(idx) {
+  const p = players[idx];
+  if (!canVetoHostile(p)) return;
+
+  const anySettled = players.some((pl, i) => i !== idx && pl.settled);
+  if (!anySettled) { showToast('No Settled exiles to Veto.', true); return; }
+
+  vetoMode = { active: true, sourceIdx: idx };
+  renderGame();
+}
+
+function cancelVetoMode() {
+  vetoMode = { active: false, sourceIdx: null };
+  renderGame();
+}
+
+function executeVeto(sourceIdx, targetIdx) {
+  const src = players[sourceIdx];
+  const tgt = players[targetIdx];
+
+  if (!tgt.settled) { showToast('Can only Veto a Settled exile.', true); return; }
+
+  // Use reprisal first, then hostile
+  if (src.reprisalVetoes > 0) {
+    src.reprisalVetoes--;
+  } else {
+    src.hostileVetoes--;
+  }
+
+  const prevTotal = totalVetoes(tgt);
+
+  tgt.settled = false;
+  tgt.vetoed = true;
+  tgt.roll = null;
+
+  addLog(`${src.name} Vetoes ${tgt.name}! Their build is annulled.`, 'event-veto');
+
+  // Vengeance Clause: target had exactly 1 veto of any kind remaining AND was settled
+  if (prevTotal === 1) {
+    tgt.reprisalVetoes++;
+    addLog(`VENGEANCE CLAUSE — ${tgt.name} had but one Veto remaining. They receive a Veto of Reprisal!`, 'event-reprisal');
+    showToast(`Vengeance Clause! ${tgt.name} gains a Reprisal Veto!`, false);
+
+    setTimeout(() => {
+      const card = document.getElementById(`player-card-${targetIdx}`);
+      if (card) card.classList.add('reprisal');
+      setTimeout(() => { if (card) card.classList.remove('reprisal'); }, 800);
+    }, 100);
+  }
+
+  vetoMode = { active: false, sourceIdx: null };
+  renderGame();
+}
+
+// ============================================================
+// LOG
+// ============================================================
+function addLog(msg, cls = '') {
+  logEntries.unshift({ msg, cls });
+  if (logEntries.length > 50) logEntries.pop();
+  renderLog();
+}
+
+function renderLog() {
+  const container = document.getElementById('log-entries');
+  if (!container) return;
+  container.innerHTML = logEntries
+    .map(e => `<div class="log-entry ${e.cls}">${e.msg}</div>`)
+    .join('');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, isRed = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast${isRed ? ' red' : ''} visible`;
+  setTimeout(() => t.classList.remove('visible'), 3000);
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+document.getElementById('btn-reset-game').addEventListener('click', () => {
+  if (confirm('Start a new session? This will reset all rolls and vetoes.')) {
+    players = [];
+    logEntries = [];
+    vetoMode = { active: false, sourceIdx: null };
+    showScreen('setup-screen');
+    renderSetup();
+  }
+});
+
+// ============================================================
+// TAB SWITCHING
+// ============================================================
+function showTab(id) {
+  // Hide game/reference screens but not setup
+  document.getElementById('game-screen').classList.remove('active');
+  document.getElementById('reference-screen').classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (id === 'game-screen') {
+    document.querySelectorAll('#tab-session').forEach(b => b.classList.add('active'));
+  } else {
+    document.querySelectorAll('#tab-codex').forEach(b => b.classList.add('active'));
+  }
 }
 
 // ============================================================
 // INIT
 // ============================================================
-populateSelects();
-
-// Check URL params for pre-fill
-const params = new URLSearchParams(window.location.search);
-const urlArchetype = params.get('archetype');
-const urlClass = params.get('class');
-const urlAsc = params.get('asc');
-if (urlArchetype) {
-  document.getElementById('archetype-select').value = urlArchetype;
-  renderBuild(urlArchetype, urlClass, urlAsc);
-}
+renderSetup();
 </script>
+
+<!-- REFERENCE SCREEN -->
+<div id="reference-screen" class="screen">
+  <div class="tab-bar">
+    <button class="tab-btn" onclick="showTab('game-screen')">Session</button>
+    <button class="tab-btn active" onclick="showTab('reference-screen')">Archetype Codex</button>
+  </div>
+  <div class="ref-body">
+
+    <div class="ref-category">
+      <div class="ref-category-title">Melee</div>
+      <div class="ref-grid">
+        <div class="ref-item">The Butcher (Bleed Stacker + Blood Stuff)</div>
+        <div class="ref-item">Achilles 2004 (Armour Break Brawler)</div>
+        <div class="ref-item">The Stungun (Stun Locker)</div>
+        <div class="ref-item">The True Warrior (Rage Berserker, No Chest Armour)</div>
+        <div class="ref-item">The Spartan (Shield Basher)</div>
+        <div class="ref-item">The Idol Worshipper (Totems + Offering Skills)</div>
+        <div class="ref-item">The Sufi (Whirlwind + Auras)</div>
+        <div class="ref-item">The Varangian (Fortify Tank)</div>
+        <div class="ref-item">Braum (Slam + Fortify + Shield, No Chest Armour)</div>
+        <div class="ref-item">The Phlebotomist</div>
+        <div class="ref-item special">Bannerman (2H Mace, Buffs + Shouts)</div>
+        <div class="ref-item special">The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Ranged</div>
+      <div class="ref-grid">
+        <div class="ref-item">The Mongol (Lightning Arrow Sniper, Rhoa Mount)</div>
+        <div class="ref-item">The Plague Doctor (Poison Burst Arrow + Plague Bearer + Herald of Plague)</div>
+        <div class="ref-item">Rambo (Bow + Barrage, No Chest Armour)</div>
+        <div class="ref-item">Demolition Man (Explosive Shot + Grenades + Siege Ballista)</div>
+        <div class="ref-item">Artemis (Spiral Volley + Ice Shot)</div>
+        <div class="ref-item">Hanzjoe (Lightning Arrow + Shockchain Arrow)</div>
+        <div class="ref-item">Van Helsing (Crossbow + Explosive Shot + Grenades)</div>
+        <div class="ref-item">Junkrat (Grenade Spam + Bombs, All Grenades All The Time)</div>
+        <div class="ref-item">Ifrit (Infernal Cry + Herald of Ash + Flame Wall)</div>
+        <div class="ref-item">Shyvana (Shapeshifter + Volcanic Fissure + Flame Wall + Herald of Ash)</div>
+        <div class="ref-item">Athena (Spear + Herald of Thunder + Warcries)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Elemental Spells</div>
+      <div class="ref-grid">
+        <div class="ref-item">Frozen Wasteland Builder</div>
+        <div class="ref-item">Surtr (Fireball + Fire Spells)</div>
+        <div class="ref-item">Sephiroth (Comet + Quarterstaff + Cast While Channelling + Dark Effigy)</div>
+        <div class="ref-item">The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)</div>
+        <div class="ref-item">Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)</div>
+        <div class="ref-item">Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)</div>
+        <div class="ref-item">Cold Snap Dotter</div>
+        <div class="ref-item">Full Sorcery Glass Cannon</div>
+        <div class="ref-item special">More Cow Bell (Tempest Bell)</div>
+        <div class="ref-item special">The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)</div>
+        <div class="ref-item special">The Mud Blood (No Magic Spells, Melee + Pet Only)</div>
+        <div class="ref-item special">The Karen (Cries + Shouts, Totems + Pets)</div>
+        <div class="ref-item special">The Pacifist (Straight Support, No Direct Damage)</div>
+        <div class="ref-item special">Pants Pisser - DoT Zone Puddle Maker</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Chaos / DoT</div>
+      <div class="ref-grid">
+        <div class="ref-item">Poison DoT Stacker</div>
+        <div class="ref-item">Tzeentch (All Chaos Spells, All The Time)</div>
+        <div class="ref-item">Aids Spreader (Corrupting Cry + Blood Boil)</div>
+        <div class="ref-item">Energy Vampire (Withering Touch + Withering Support)</div>
+        <div class="ref-item">The Leech (Essence Drain + Withering)</div>
+        <div class="ref-item special">The Doomsayer (Chaos + Bone Spells + Cast While Channeling)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Minions</div>
+      <div class="ref-grid">
+        <div class="ref-item">Skeleton Army General</div>
+        <div class="ref-item">Spectre Commander</div>
+        <div class="ref-item">Hellraiser (Raging Spirit Swarm)</div>
+        <div class="ref-item">Zombie &amp; Corpsemaster</div>
+        <div class="ref-item">Minion Bomber</div>
+        <div class="ref-item">Full Conversion Necromancer (you are merely a vessel, the dead do everything)</div>
+        <div class="ref-item special">The Negligent Parent (Minions + Cast on Minion Death)</div>
+        <div class="ref-item special">Pokemon Trainer (One Spectre. First one tamed. You love it. It stays.)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Corpse / Trigger</div>
+      <div class="ref-grid">
+        <div class="ref-item">Detonate Dead Bomber</div>
+        <div class="ref-item">Cast On Crit Machine</div>
+        <div class="ref-item special">The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)</div>
+        <div class="ref-item special">The Stockbroker (Barrier Invocation)</div>
+        <div class="ref-item special">The Toy Maker (Dark Effigy Totem + Contagion + Despair)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Defence / Gimmick</div>
+      <div class="ref-grid">
+        <div class="ref-item">Life Tap Caster</div>
+        <div class="ref-item">Energy Shield Hoarder</div>
+        <div class="ref-item">Recoup Bricktank</div>
+        <div class="ref-item">Max Block Turtle</div>
+        <div class="ref-item">Evasion Ghost</div>
+        <div class="ref-item">Shapeshifter</div>
+        <div class="ref-item special">Stop Hitting Yourself (Thorns Tank)</div>
+        <div class="ref-item special">The Lichform (Chaos Inoculation + Essence Drain + Contagion + Withering Presence)</div>
+        <div class="ref-item special">The Glass Saint (Chaos Inoculation + Arc + Archmage + Orb of Storms)</div>
+        <div class="ref-item special">The Colossus (Giant's Blood + Dual Two-Handed Maces + Boneshatter + Seismic Cry)</div>
+        <div class="ref-item special">The Flagellant (Blood Magic + Lifetap + Corrupting Cry + Life Leech)</div>
+        <div class="ref-item special">The Mindwall (Mind Over Matter + Archmage + Arc + Orb of Storms)</div>
+        <div class="ref-item special">The Capacitor (Eldritch Battery + Mind Over Matter + Spark + Archmage)</div>
+        <div class="ref-item special">The Hexblade (Whispers of Doom + Blasphemy + Temporal Chains + Despair)</div>
+        <div class="ref-item special">The Bullfighter (Acrobatics + Rake + Disengage + Blood Hunt)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Utility / Weird</div>
+      <div class="ref-grid">
+        <div class="ref-item">Curse Stacker</div>
+        <div class="ref-item">Trap Layer</div>
+        <div class="ref-item">The Monsoon (All Heralds)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">WoW</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Death Knight (Disease DoT + Undead Army)</div>
+        <div class="ref-item crossover">Frost Mage (Freeze Everything, Then Shatter)</div>
+        <div class="ref-item crossover">Shadow Priest (Chaos DoT + Life Drain)</div>
+        <div class="ref-item crossover">Warlock (Minions + Curses + Chaos)</div>
+        <div class="ref-item crossover">Feral Druid (Shapeshifter + Melee + Bleeds)</div>
+        <div class="ref-item crossover">Enhancement Shaman (Melee + Lightning Hybrid)</div>
+        <div class="ref-item crossover">Survival Hunter (Traps + DoT + Pet)</div>
+        <div class="ref-item crossover">Ret Paladin (Big Slow Hits + Aura Bot)</div>
+        <div class="ref-item crossover">Rogue (Poisons + Blind)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Dark Souls / Elden Ring</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Bleed Arcane Build (Bleed + Chaos Hybrid)</div>
+        <div class="ref-item crossover">Faith Caster (Life Tap + Minions)</div>
+        <div class="ref-item crossover">Frost Knight (Freeze + Melee Hybrid)</div>
+        <div class="ref-item crossover">Dragon Communion (Elemental Melee Hybrid)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Diablo</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Bone Necromancer (Minion + Projectile Chaos)</div>
+        <div class="ref-item crossover">Hammerdin (Infinite Projectile Spam)</div>
+        <div class="ref-item crossover">Frozen Orb Sorceress (Cold Projectile Abuser)</div>
+        <div class="ref-item crossover">Whirlwind Barbarian (Spin to Win)</div>
+        <div class="ref-item crossover">Poison Nova Witch Doctor (Chaos DoT Explosion)</div>
+        <div class="ref-item crossover">Lightning Javazon (Chain Lightning Spear)</div>
+        <div class="ref-item crossover">The Short Circuit (Infinite Spark + Lightning Loop)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Final Fantasy</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Dark Knight (Life Tap + Big Slow Melee)</div>
+        <div class="ref-item crossover">Black Mage (Pure Elemental Nuke)</div>
+        <div class="ref-item crossover">Summoner (Full Minion Conversion)</div>
+        <div class="ref-item crossover">Red Mage (Spell + Melee Hybrid)</div>
+        <div class="ref-item crossover">Dragoon (Spear Leap Attacker)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">D&amp;D</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Bladesinger (Spell + Melee Cast On Crit)</div>
+        <div class="ref-item crossover">Eldritch Knight (Shield Tank + Spellcaster)</div>
+        <div class="ref-item crossover">Arcane Trickster (Evasion + Chaos Burst)</div>
+        <div class="ref-item crossover">Circle of Spores Druid (Poison DoT Aura)</div>
+        <div class="ref-item crossover">Oathbreaker Paladin (Undead Army + Life Tap)</div>
+        <div class="ref-item crossover">Draconic Sorcerer (Elemental Nuke Glass Cannon)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">DC</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Poison Ivy (Wildsurge Incantation + Entangle + Thrashing Vines + Contagion + Poison)</div>
+        <div class="ref-item crossover">Batman (Cluster Grenade + Gas Grenade + Explosive Grenade + Crossbow)</div>
+        <div class="ref-item crossover">Bane (Lifetap + Seismic Cry + Hammer of the Gods + Rage)</div>
+        <div class="ref-item crossover">Mr Freeze (Cold Snap + Vortex + Frost Bomb + Creeping Frost)</div>
+        <div class="ref-item crossover">Ra's al Ghul (Lifetap + Temporal Rift + Corrupting Cry + Vitality)</div>
+        <div class="ref-item crossover">Two-Face (Elemental Conflux + Cast on Elemental Ailment + Arc + Cold Snap)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Marvel</div>
+      <div class="ref-grid">
+        <div class="ref-item crossover">Captain America (Shield + Rallying Cries)</div>
+        <div class="ref-item crossover">Thor (Lightning Herald + Hammers)</div>
+        <div class="ref-item crossover">Hela (Bonestorm + Detonate Dead + Bone Cage)</div>
+        <div class="ref-item crossover">Loki (Cast on Minion Death + Blasphemy Curses + Skeletal Warriors)</div>
+        <div class="ref-item crossover">Scarlet Witch (Contagion + Wither + Cast While Channelling)</div>
+        <div class="ref-item crossover">Ghost Rider (Flame Wall + Ignite DoT + Infernal Cry + Rhoa Mount)</div>
+        <div class="ref-item crossover">Magneto (Armour Breaker + Intimidating Cry + Armour Strip)</div>
+        <div class="ref-item crossover">Gambit (Whirlwind Lance + Twister + Explosive Spear)</div>
+      </div>
+    </div>
+
+    <div class="game-footer" style="margin-top:16px;">
+      <p class="footer-seal">Vetology Council · Est. by the Council of Dorks · Binding upon All Exiles</p>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
