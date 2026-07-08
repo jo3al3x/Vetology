@@ -5,24 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vetology — Build Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=VT323&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ── DAY: Sunlit Stone & Sky (bright alt theme; NOT brown). Mirrors index.html.
+   The --gold* tokens are the app's accent ramp; in Day they hold slate-blue. ── */
 :root{
-  --gold:#c9a84c;--gold-light:#e8d08a;--gold-dark:#8b6914;--gold-muted:#5a3f12;
-  --bg-deep:#0a0704;--bg-dark:#0d0a05;--bg-mid:#120e07;--bg-card:#1a1209;
-  --text-primary:#e8d08a;--text-secondary:#c4a86a;--text-muted:#b89a5a;--text-dim:#6b5530;
-  --border:#3d2b0a;--border-gold:#8b6914;
-  --spirit:#7a5aaa;--spirit-light:#c0a8e0;
-  --green:#2a6a4a;--green-light:#80c0a0;
-  --red:#8b1a1a;--red-bright:#c0392b;--red-light:#e05050;
-  --asc:#3a6a2a;--asc-light:#a0d880;--asc-selected:#5a9a3a;
+  --gold:#2f6690;--gold-light:#1b3c58;--gold-dark:#2a5578;--gold-muted:#7fa3c0;
+  --bg-deep:#dbe4ec;--bg-dark:#cad6e1;--bg-mid:#e4ecf3;--bg-card:#f5f9fc;
+  --text-primary:#15283a;--text-secondary:#2c4459;--text-muted:#4a6076;--text-dim:#8298ac;
+  --border:#b7c6d4;--border-gold:#4a7ba6;
+  --red:#b3261e;--red-bright:#d13c30;--red-light:#a51f18;
+  /* guide accents — day (darkened for contrast on light panels) */
+  --spirit:#6f52a6;--spirit-light:#4a2f7a;
+  --green:#2e7d55;--green-light:#1f6b46;
+  --asc:#3f7a2a;--asc-light:#2f6a1c;--asc-selected:#4f9a2f;
+  /* storm scene — day = sunny, no rain/lightning */
+  --sky-top:#9bd6f6;--sky-bottom:#57b2ec;--castle:#9aa7b3;--win:#ffd27a;
+  --rain:transparent;--flash:transparent;--cloud:rgba(255,255,255,.92);--bird:rgba(38,52,68,.72);
+  --castle-art:url("assets/castle-day.png");
+  /* readability veils that subdue the busy castle behind dense areas */
+  --veil:rgba(219,228,236,.88);--veil-soft:rgba(219,228,236,.42);
+}
+/* ── DARK: Midnight & Gold — cool navy to harmonise with the stormy castle ── */
+:root[data-theme="dark"]{
+  --gold:#c9a84c;--gold-light:#ecd88f;--gold-dark:#97844a;--gold-muted:#3f4a63;
+  --bg-deep:#080b14;--bg-dark:#0a0e1a;--bg-mid:#0e1322;--bg-card:#141b2c;
+  --text-primary:#e7ecf4;--text-secondary:#bcc4d4;--text-muted:#8f97ab;--text-dim:#596478;
+  --border:#283148;--border-gold:#7f6d3c;
+  --red:#8b1a1a;--red-bright:#c0392b;--red-light:#e0716a;
+  /* guide accents — night (brightened to pop on navy) */
+  --spirit:#8a6ac0;--spirit-light:#c0a8e0;
+  --green:#3a8a5f;--green-light:#80c0a0;
+  --asc:#4a7a3a;--asc-light:#a0d880;--asc-selected:#5a9a3a;
+  /* storm scene — night = stormy */
+  --sky-top:#17203a;--sky-bottom:#06060e;--castle:#04030a;--win:#ffcf6b;
+  --rain:rgba(200,220,255,.22);--flash:rgba(185,205,255,.55);--cloud:rgba(150,170,210,.15);--bird:transparent;
+  --castle-art:url("assets/castle-night.png");
+  /* readability veils that subdue the busy castle behind dense areas */
+  --veil:rgba(8,11,20,.86);--veil-soft:rgba(8,11,20,.42);
 }
 html,body{min-height:100vh;background:var(--bg-deep);color:var(--text-secondary);font-family:'Crimson Text',Georgia,serif;font-size:17px}
 body{background-image:radial-gradient(ellipse at 20% 20%,rgba(139,105,20,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(139,26,26,.04) 0%,transparent 50%)}
 
 /* HEADER */
-.site-header{background:var(--bg-dark);border-bottom:1px solid var(--border-gold);padding:0 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.header-logo{font-family:'Cinzel Decorative',serif;color:var(--gold-light);font-size:20px;padding:14px 0;text-shadow:0 0 20px rgba(200,160,70,.3)}
+.site-header{background:var(--veil-soft);border-bottom:1px solid var(--border-gold);padding:0 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.header-logo{font-family:'Cinzel Decorative',serif;color:var(--gold-light);font-size:20px;padding:14px 0;text-shadow:2px 2px 0 rgba(0,0,0,.55),0 0 20px rgba(200,160,70,.3)}
 .header-sep{color:var(--gold-muted)}
 .header-subtitle{font-family:'IM Fell English',serif;font-style:italic;color:var(--gold-dark);font-size:14px}
 .header-back{margin-left:auto;background:none;border:.5px solid var(--border-gold);border-radius:2px;color:var(--gold);font-family:'Crimson Text',serif;font-size:14px;padding:6px 14px;text-decoration:none;transition:all .2s}
@@ -47,8 +75,8 @@ select:focus{border-color:var(--gold)}
 .main-layout{display:grid;grid-template-columns:1fr 320px;gap:0;min-height:calc(100vh - 120px)}
 @media(max-width:900px){.main-layout{grid-template-columns:1fr}}
 
-/* LEFT PANEL */
-.left-panel{padding:24px 28px;border-right:1px solid var(--border)}
+/* LEFT PANEL — strong veil so this dense working column stays readable over the castle */
+.left-panel{padding:24px 28px;border-right:1px solid var(--border);background:var(--veil)}
 
 /* RIGHT PANEL */
 .right-panel{padding:24px 20px;background:var(--bg-mid)}
@@ -158,15 +186,21 @@ select:focus{border-color:var(--gold)}
 .no-data{background:var(--bg-card);border:.5px solid var(--border);border-radius:3px;padding:14px;color:var(--text-dim);font-style:italic;font-size:14px;text-align:center;margin-bottom:16px}
 
 /* FOOTER */
-.site-footer{background:var(--bg-dark);border-top:.5px solid var(--border);padding:10px 24px;text-align:center}
+.site-footer{background:var(--veil-soft);border-top:.5px solid var(--border);padding:10px 24px;text-align:center}
 .footer-seal{font-family:'Cinzel Decorative',serif;color:var(--gold-muted);font-size:8px;letter-spacing:.2em;opacity:.6}
 
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg-dark)}::-webkit-scrollbar-thumb{background:var(--gold-muted);border-radius:2px}
 
+/* TOAST */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--bg-card);border:1px solid var(--gold-dark);border-radius:3px;color:var(--gold-light);font-style:italic;font-size:15px;padding:12px 24px;z-index:3000;transition:transform .3s ease;text-align:center;max-width:420px}
+.toast.visible{transform:translateX(-50%) translateY(0)}
+.toast.red{border-color:var(--red-bright);color:var(--red-light)}
+
 /* PRINT / PDF */
 @media print {
   body{background:white;color:#1a1209;font-size:12px}
-  .site-header,.top-controls,.right-panel,.site-footer,.btn-remove-gem,.btn-remove-rule,.add-rule-form,.gem-type-filter,.gem-results,.gem-search-input,.btn-export{display:none!important}
+  .site-header,.top-controls,.right-panel,.site-footer,.btn-remove-gem,.btn-remove-rule,.add-rule-form,.gem-type-filter,.gem-results,.gem-search-input,.btn-export,.toast,#stormscape,.theme-toggle{display:none!important}
+  .left-panel{background:none!important}
   .main-layout{grid-template-columns:1fr;display:block}
   .left-panel{padding:12px;border:none}
   .build-header{background:#f5f0e8;border:1px solid #8b6914;color:#1a1209}
@@ -188,9 +222,161 @@ select:focus{border-color:var(--gold)}
   .timeline-dot{background:white}
   .asc-node-link{display:none}
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PIXEL-MEDIEVAL COHESION LAYER — ported from index.html so the whole
+   site reads as one. Type system + beveled controls + castle backdrop.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Display, headings, labels, buttons → Pixelify Sans (pixel).
+   Prose, inputs, gem/node names, descriptions stay Crimson Text (readable). */
+.header-logo,.header-back,.btn-export,.btn-primary,.ctrl-label,.section-title,
+.build-eyebrow,.build-name,.required-badge,.cosmetic-type-badge,.filter-btn,
+.btn-add-rule,.footer-seal,.timeline-dot,.gem-result-level,.gem-result-type{
+  font-family:'Pixelify Sans','Cinzel Decorative',system-ui,sans-serif !important;
+}
+/* Pixel faces read small — size the tiny labels up so they stay legible. */
+.ctrl-label{font-size:10px !important;letter-spacing:.14em}
+.section-title{font-size:11px !important;letter-spacing:.16em}
+.build-eyebrow{font-size:10px !important}
+.build-name{font-size:22px !important;letter-spacing:.02em}
+.required-badge,.cosmetic-type-badge{font-size:9px !important}
+.footer-seal{font-size:9px !important}
+.btn-primary,.btn-export{font-size:11px !important;letter-spacing:.06em}
+.btn-add-rule,.filter-btn,.header-back{font-size:13px !important}
+
+/* Pixels don't do rounded corners (dots/icons stay round — they're not chrome). */
+.build-header,.asc-node,.timeline-content,.keystone-row,.cosmetic-rule,
+.gem-result-item,.add-rule-form,.no-data,.toast,.build-class,
+.btn-export,.btn-primary,.btn-add-rule,.filter-btn,.header-back,
+.paste-input,.gem-search-input,select,.add-rule-select,
+.required-badge,.cosmetic-type-badge,.btn-remove-gem,.btn-remove-rule{border-radius:0 !important}
+
+/* Chunky beveled buttons (classic 3D DOS UI). */
+.btn-export,.btn-primary,.btn-add-rule,.filter-btn,.header-back{
+  border-width:2px !important;
+  box-shadow:inset -2px -2px 0 rgba(0,0,0,.5),inset 2px 2px 0 rgba(255,255,255,.10);
+}
+.btn-export:active,.btn-primary:active,.btn-add-rule:active,
+.filter-btn:active,.header-back:active{
+  box-shadow:inset 2px 2px 0 rgba(0,0,0,.5),inset -2px -2px 0 rgba(255,255,255,.08);
+  transform:translateY(1px);
+}
+/* The build header reads as a solid pixel plaque. */
+.build-header{border-width:2px !important;box-shadow:4px 4px 0 rgba(0,0,0,.4)}
+
+/* ═══════════════ THEME TOGGLE (fixed, top-right) ═══════════════ */
+.theme-toggle{
+  position:fixed;top:12px;right:12px;z-index:10000;
+  width:38px;height:38px;background:var(--bg-card);color:var(--gold-light);
+  border:2px solid var(--border-gold);cursor:pointer;font-size:18px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset -2px -2px 0 rgba(0,0,0,.4),inset 2px 2px 0 rgba(255,255,255,.14);
+}
+.theme-toggle:hover{border-color:var(--gold)}
+
+/* CRT scanlines + vignette (Night only) — non-interactive overlay. */
+:root[data-theme="dark"] body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background:
+    repeating-linear-gradient(rgba(0,0,0,0) 0 2px,rgba(0,0,0,.10) 2px 3px),
+    radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.38) 100%);
+}
+
+/* ═══════════════ STORMSCAPE — castle · clouds · rain · lightning ═══════════════ */
+/* Page fill is transparent so the fixed z:-1 backdrop shows; opaque/veiled
+   panels keep the dense guide content readable over it. */
+html,body{background:transparent !important}
+#stormscape{
+  position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;
+  background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-bottom) 80%);
+}
+/* Big immersive castle backdrop — fills the viewport, art as center/cover. */
+#stormscape .castle{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+#stormscape .castle svg{width:100%;height:100%;display:block}
+#stormscape .castle::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:var(--castle-art) center center / cover no-repeat;image-rendering:pixelated;
+}
+/* Drifting clouds — two parallax layers on a seamless 200%/tile loop (via --cloud). */
+#stormscape .clouds{
+  position:absolute;top:0;left:0;width:200%;height:62%;z-index:2;
+  background-repeat:repeat-x;background-size:50% 100%;
+  background-image:
+    radial-gradient(58px 22px at 10% 34%,var(--cloud) 0%,transparent 70%),
+    radial-gradient(82px 30px at 21% 46%,var(--cloud) 0%,transparent 72%),
+    radial-gradient(64px 24px at 32% 30%,var(--cloud) 0%,transparent 70%),
+    radial-gradient(104px 38px at 60% 40%,var(--cloud) 0%,transparent 72%),
+    radial-gradient(74px 26px at 80% 28%,var(--cloud) 0%,transparent 70%);
+  animation:clouddrift 90s linear infinite;
+}
+#stormscape .clouds.b{
+  height:46%;opacity:.55;filter:blur(2px);
+  animation-duration:150s;animation-direction:reverse;
+  background-image:
+    radial-gradient(118px 40px at 16% 52%,var(--cloud) 0%,transparent 72%),
+    radial-gradient(88px 32px at 46% 40%,var(--cloud) 0%,transparent 72%),
+    radial-gradient(134px 46px at 74% 54%,var(--cloud) 0%,transparent 72%);
+}
+@keyframes clouddrift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* Tiny birds — daylight only (Night sets --bird transparent). */
+#stormscape .birds{position:absolute;inset:0;z-index:2}
+#stormscape .birds b{position:absolute;width:18px;height:9px;transform:translateX(-12vw);animation:birdfly 46s linear infinite}
+#stormscape .birds b:nth-child(1){top:16%;animation-delay:0s}
+#stormscape .birds b:nth-child(2){top:22%;transform:scale(.7);animation-delay:9s;animation-duration:58s}
+#stormscape .birds b:nth-child(3){top:12%;transform:scale(.85);animation-delay:23s;animation-duration:52s}
+#stormscape .birds b::before,#stormscape .birds b::after{content:'';position:absolute;top:0;width:9px;height:9px;border-top:2px solid var(--bird);border-radius:50%}
+#stormscape .birds b::before{left:0;animation:flapL .55s ease-in-out infinite}
+#stormscape .birds b::after{right:0;animation:flapR .55s ease-in-out infinite}
+@keyframes flapL{0%,100%{transform:rotate(18deg)}50%{transform:rotate(42deg)}}
+@keyframes flapR{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(-42deg)}}
+@keyframes birdfly{from{transform:translate(-12vw,0)}to{transform:translate(114vw,-7vh)}}
+/* Rain is a <canvas> particle system (see initRain() in the script) — Night only. */
+#stormscape .rain-fx{position:absolute;inset:0;z-index:3;pointer-events:none}
+#stormscape .flash{position:absolute;inset:0;z-index:3;background:var(--flash);opacity:0;mix-blend-mode:screen;animation:lightning 8s infinite}
+@keyframes lightning{
+  0%,1.6%,3.6%,5%,53%,55.6%,100%{opacity:0}
+  2%{opacity:.95}2.7%{opacity:.25}3.2%{opacity:.8}
+  54%{opacity:.7}54.8%{opacity:.1}55.2%{opacity:.6}
+}
+#stormscape .bolt{position:absolute;top:-2%;left:60%;width:130px;height:56%;z-index:3;opacity:0;animation:lightning 8s infinite}
+#stormscape .bolt path{fill:none;stroke:var(--flash);stroke-width:3;filter:drop-shadow(0 0 7px var(--flash))}
+#stormscape .silhouette{fill:var(--castle)}
+#stormscape .win{fill:var(--win);animation:winflicker 5s infinite}
+#stormscape .flag{fill:var(--red);transform-origin:left center;animation:flagwave 2.4s ease-in-out infinite}
+@keyframes winflicker{0%,100%{opacity:.92}45%{opacity:.5}72%{opacity:1}}
+@keyframes flagwave{0%,100%{transform:skewX(0) scaleX(1)}50%{transform:skewX(-12deg) scaleX(.9)}}
+@media (prefers-reduced-motion:reduce){
+  #stormscape .flash,#stormscape .bolt,#stormscape .flag,#stormscape .win,
+  #stormscape .clouds,#stormscape .birds b,#stormscape .birds b::before,#stormscape .birds b::after{animation:none}
+  #stormscape .flash,#stormscape .bolt{opacity:0}
+}
 </style>
+<script>
+  /* Set theme before paint (no flash). Default = Night (dark). Shares the
+     'vetology-theme' key with index.html so the choice carries across pages. */
+  (function(){ var t='dark'; try{ t=localStorage.getItem('vetology-theme')||'dark'; }catch(e){} document.documentElement.setAttribute('data-theme',t); })();
+</script>
 </head>
 <body>
+
+<div id="stormscape" aria-hidden="true">
+  <div class="clouds"></div>
+  <div class="clouds b"></div>
+  <div class="birds"><b></b><b></b><b></b></div>
+  <canvas class="rain-fx"></canvas>
+  <svg class="bolt" viewBox="0 0 120 300" preserveAspectRatio="none"><path d="M64 0 L40 120 L70 120 L30 300"/></svg>
+  <div class="flash"></div>
+  <div class="castle">
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
+      <g class="silhouette"><rect x="0" y="212" width="150" height="88"/><rect x="0" y="197" width="21" height="17"/><rect x="40" y="197" width="21" height="17"/><rect x="80" y="197" width="21" height="17"/><rect x="120" y="197" width="21" height="17"/><rect x="1050" y="212" width="150" height="88"/><rect x="1050" y="197" width="21" height="17"/><rect x="1090" y="197" width="21" height="17"/><rect x="1130" y="197" width="21" height="17"/><rect x="1170" y="197" width="21" height="17"/><rect x="246" y="184" width="254" height="116"/><rect x="246" y="169" width="36" height="17"/><rect x="314" y="169" width="36" height="17"/><rect x="382" y="169" width="36" height="17"/><rect x="450" y="169" width="36" height="17"/><rect x="700" y="184" width="254" height="116"/><rect x="700" y="169" width="36" height="17"/><rect x="768" y="169" width="36" height="17"/><rect x="836" y="169" width="36" height="17"/><rect x="904" y="169" width="36" height="17"/><rect x="150" y="118" width="96" height="182"/><rect x="150" y="103" width="13" height="17"/><rect x="175" y="103" width="13" height="17"/><rect x="200" y="103" width="13" height="17"/><rect x="225" y="103" width="13" height="17"/><rect x="954" y="118" width="96" height="182"/><rect x="954" y="103" width="13" height="17"/><rect x="979" y="103" width="13" height="17"/><rect x="1004" y="103" width="13" height="17"/><rect x="1029" y="103" width="13" height="17"/><rect x="500" y="60" width="200" height="240"/><rect x="500" y="45" width="28" height="17"/><rect x="553" y="45" width="28" height="17"/><rect x="606" y="45" width="28" height="17"/><rect x="659" y="45" width="28" height="17"/><rect x="572" y="30" width="56" height="40"/><rect x="572" y="15" width="12" height="17"/><rect x="595" y="15" width="12" height="17"/><polygon points="0,300 0,288 250,280 620,286 900,278 1200,284 1200,300"/><rect x="197" y="66" width="3" height="54"/><rect x="598" y="-2" width="3" height="34"/><rect x="1001" y="66" width="3" height="54"/></g>
+      <rect class="win" x="540" y="108" width="16" height="26"/><rect class="win" x="644" y="108" width="16" height="26"/><rect class="win" x="592" y="150" width="18" height="30"/><rect class="win" x="186" y="168" width="14" height="22"/><rect class="win" x="990" y="168" width="14" height="22"/><rect class="win" x="590" y="40" width="20" height="22"/><path class="win" d="M576,214 h48 v86 h-48 Z M576,214 Q600,184 624,214 Z"/>
+      <polygon class="flag" points="200,68 238,77 200,90"/><polygon class="flag" points="601,0 642,10 601,24"/><polygon class="flag" points="1004,68 1042,77 1004,90"/>
+    </svg>
+  </div>
+</div>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night">☀</button>
 
 <header class="site-header">
   <span class="header-logo">Vetology</span>
@@ -290,529 +476,11 @@ select:focus{border-color:var(--gold)}
   <p class="footer-seal">Vetology Council &middot; Est. by the Council of Dorks &middot; Binding upon All Exiles</p>
 </footer>
 
-<script>
-const ARCHETYPE_SKILLS = {
-  'The Butcher': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-  ],
-  'The Stungun': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-    {name: 'Supercharged Slam', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Supercharged_Slam'},
-  ],
-  'The Spartan': [
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
-    {name: 'Resonating Shield', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Resonating_Shield'},
-    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
-  ],
-  'The Varangian': [
-    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
-    {name: 'Sunder', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Sunder'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'The True Warrior': [
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-    {name: 'Berserk', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Berserk'},
-    {name: 'Eternal Rage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Eternal_Rage'},
-  ],
-  'Achilles 2004': [
-    {name: 'Armour Breaker', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Armour_Breaker'},
-    {name: 'Leap Slam', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Leap_Slam'},
-    {name: 'Sunder', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Sunder'},
-  ],
-  'The Idol Worshipper': [
-    {name: 'Shockwave Totem', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shockwave_Totem'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-    {name: 'Ancestral Warrior Totem', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Warrior_Totem'},
-  ],
-  'The Sufi': [
-    {name: 'Whirling Slash', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Whirling_Slash'},
-    {name: 'Twister', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Twister'},
-  ],
-  'Braum': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-  ],
-  'The Mongol': [
-    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
-    {name: 'Barrage', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Barrage'},
-    {name: 'Rhoa Mount', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Rhoa_Mount'},
-  ],
-  'Rambo': [
-    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
-    {name: 'Barrage', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Barrage'},
-  ],
-  'Artemis': [
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-    {name: 'Spiral Volley', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Spiral_Volley'},
-  ],
-  'Van Helsing': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Explosive Shot', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Shot'},
-    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
-  ],
-  'Ifrit': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-  ],
-  'Hanzjoe': [
-    {name: 'Lightning Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Arrow'},
-    {name: 'Shockchain Arrow', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Shockchain_Arrow'},
-  ],
-  'Junkrat': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Flash Grenade', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Flash_Grenade'},
-    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
-  ],
-  'Demolition Man': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Explosive Shot', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Shot'},
-  ],
-  'The Plague Doctor': [
-    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
-    {name: 'Plague Bearer', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Plague_Bearer'},
-    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
-  ],
-  'Athena': [
-    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-  ],
-  'Surtr': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-  ],
-  'Sephiroth': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Dark Effigy', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Dark_Effigy'},
-    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
-  ],
-  'Palpatine': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Ball Lightning', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Ball_Lightning'},
-  ],
-  'The Lich King': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Deathwing': [
-    {name: 'Volcanic Fissure', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Volcanic_Fissure'},
-    {name: 'Earthshatter', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Earthshatter'},
-  ],
-  'Tzeentch': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Leech': [
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
-  ],
-  'Energy Vampire': [
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Aids Spreader': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
-  ],
-  'Hellraiser': [
-    {name: 'Raging Spirits', level: 4, type: 'skill', url: 'https://poe2db.tw/us/Summon_Raging_Spirits'},
-  ],
-  'The Negligent Parent': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'The Archaeologist': [
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'The Trauma Surgeon': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-  ],
-  'The Toy Maker': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Dark Effigy', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Dark_Effigy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Stockbroker': [
-    {name: 'Barrier Invocation', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Barrier_Invocation'},
-  ],
-  'The Doomsayer': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-  ],
-  'More Cow Bell': [
-    {name: 'Tempest Bell', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Tempest_Bell'},
-  ],
-  'The Avatar': [
-    {name: 'Elemental Conflux', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Elemental_Conflux'},
-    {name: 'Cast on Elemental Ailment', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Cast_on_Elemental_Ailment'},
-  ],
-  'The Monsoon': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-    {name: 'Herald of Ice', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ice'},
-    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
-  ],
-  'The Blood Priest': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Reinhardt': [
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
-    {name: 'Fortifying Cry', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Fortifying_Cry'},
-  ],
-  'Wolverine': [
-    {name: 'Berserk', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Berserk'},
-    {name: 'Eternal Rage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Eternal_Rage'},
-  ],
-  'The Lichform': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
-  ],
-  'The Glass Saint': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'The Colossus': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-  ],
-  'The Flagellant': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
-  ],
-  'The Mindwall': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'The Capacitor': [
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'The Hexblade': [
-    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Bullfighter': [
-    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
-    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
-  ],
-  'Poison Ivy': [
-    {name: 'Entangle', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Entangle'},
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Batman': [
-    {name: 'Explosive Grenade', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Grenade'},
-    {name: 'Flash Grenade', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Flash_Grenade'},
-    {name: 'Cluster Grenade', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Cluster_Grenade'},
-  ],
-  'Bane': [
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-  ],
-  'Mr Freeze': [
-    {name: 'Frost Bomb', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Frost_Bomb'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-  ],
-  'Ra\'s al Ghul': [
-    {name: 'Temporal Rift', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Rift'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
-  ],
-  'Two-Face': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Elemental Conflux', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Elemental_Conflux'},
-  ],
-  'Captain America': [
-    {name: 'Shield Charge', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shield_Charge'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'Thor': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Hammer of the Gods', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Hammer_of_the_Gods'},
-  ],
-  'Hela': [
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'Loki': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Scarlet Witch': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Ghost Rider': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Infernal Cry', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Infernal_Cry'},
-    {name: 'Rhoa Mount', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Rhoa_Mount'},
-  ],
-  'Magneto': [
-    {name: 'Armour Breaker', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Armour_Breaker'},
-    {name: 'Seismic Cry', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Seismic_Cry'},
-  ],
-  'Gambit': [
-    {name: 'Whirling Slash', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Whirling_Slash'},
-    {name: 'Twister', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Twister'},
-    {name: 'Explosive Spear', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Explosive_Spear'},
-  ],
-  'Stop Hitting Yourself': [
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'The Mud Blood': [
-    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
-  ],
-  'The Karen': [
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-    {name: 'Ancestral Warrior Totem', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Warrior_Totem'},
-  ],
-  'The Pacifist': [
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'The Zookeeper': [
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
-  ],
-  'Dog Lover': [
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-  ],
-  'Bearpocalypse': [
-    {name: 'Rampage', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Rampage'},
-    {name: 'Walking Calamity', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Walking_Calamity'},
-  ],
-  'The Bannerman': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'Hammerdin': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-  ],
-  'Shyvana': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-    {name: 'Volcanic Fissure', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Volcanic_Fissure'},
-  ],
-  'Feral Druid': [
-    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
-  ],
-  'Death Knight': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Frost Mage': [
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-  ],
-  'Shadow Priest': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Essence Drain', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Essence_Drain'},
-  ],
-  'Warlock': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Enhancement Shaman': [
-    {name: 'Earthquake', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Earthquake'},
-    {name: 'Shockwave Totem', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Shockwave_Totem'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Volcanic Fissure', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Volcanic_Fissure'},
-  ],
-  'Survival Hunter': [
-    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
-  ],
-  'Ret Paladin': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'Rogue': [
-    {name: 'Poisonburst Arrow', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Poisonburst_Arrow'},
-  ],
-  'Bleed Arcane Build': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-  ],
-  'Faith Caster': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Frost Knight': [
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-  ],
-  'Dragon Communion': [
-    {name: 'Flame Wall', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Flame_Wall'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-  ],
-  'Bone Necromancer': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Bonestorm', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Bonestorm'},
-  ],
-  'Frozen Orb Sorceress': [
-    {name: 'Ice Shot', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Ice_Shot'},
-    {name: 'Frost Wall', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Frost_Wall'},
-  ],
-  'Lightning Javazon': [
-    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-  ],
-  'Dark Knight': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Black Mage': [
-    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
-  ],
-  'Summoner': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Wolf Pack', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Wolf_Pack'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Red Mage': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-  ],
-  'Time Mage': [
-    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Dragoon': [
-    {name: 'Lightning Spear', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Lightning_Spear'},
-    {name: 'Leap Slam', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Leap_Slam'},
-  ],
-  'Bladesinger': [
-    {name: 'Boneshatter', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Boneshatter'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-  ],
-  'Eldritch Knight': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Shield Wall', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Shield_Wall'},
-  ],
-  'Arcane Trickster': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Circle of Spores Druid': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-  ],
-  'Oathbreaker Paladin': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Draconic Sorcerer': [
-    {name: 'Fireball', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Fireball'},
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-  ],
-  'Pokemon Trainer': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Tame Beast', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Tame_Beast'},
-  ],
-  'Full Conversion Necromancer': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'The Phlebotomist': [
-    {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Rake', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Rake'},
-  ],
-  'Zombie & Corpsemaster': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Skeleton Army General': [
-    {name: 'Skeletal Warrior', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Skeletal_Warrior'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Spectre Commander': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'Golem Juggler': [
-  ],
-  'Minion Bomber': [
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-    {name: 'Bone Offering', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Bone_Offering'},
-  ],
-  'Evasion Ghost': [
-    {name: 'Disengage', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Disengage'},
-    {name: 'Wind Dancer', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Wind_Dancer'},
-  ],
-  'Energy Shield Hoarder': [
-    {name: 'Archmage', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Archmage'},
-  ],
-  'Cast On Crit Machine': [
-    {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
-    {name: 'Comet', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Comet'},
-    {name: 'Cast on Critical', level: 14, type: 'spirit', url: 'https://poe2db.tw/us/Cast_on_Critical'},
-  ],
-  'Detonate Dead Bomber': [
-    {name: 'Bone Cage', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Bone_Cage'},
-    {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
-  ],
-  'Shapeshifter': [
-    {name: 'Rampage', level: 11, type: 'skill', url: 'https://poe2db.tw/us/Rampage'},
-    {name: 'Walking Calamity', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Walking_Calamity'},
-  ],
-  'Bannerman': [
-    {name: 'Forge Hammer', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Forge_Hammer'},
-    {name: 'Ancestral Cry', level: 13, type: 'skill', url: 'https://poe2db.tw/us/Ancestral_Cry'},
-  ],
-  'The Warden': [
-    {name: 'Temporal Chains', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Chains'},
-    {name: 'Blasphemy', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Blasphemy'},
-  ],
-  'Pants Pisser - DoT Zone Puddle Maker': [
-    {name: 'Contagion', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Contagion'},
-    {name: 'Wither', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Wither'},
-    {name: 'Despair', level: 9, type: 'skill', url: 'https://poe2db.tw/us/Despair'},
-  ],
-  'Herald Stacker': [
-    {name: 'Herald of Thunder', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Thunder'},
-    {name: 'Herald of Ash', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ash'},
-    {name: 'Herald of Ice', level: 4, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Ice'},
-    {name: 'Herald of Plague', level: 8, type: 'spirit', url: 'https://poe2db.tw/us/Herald_of_Plague'},
-  ],
-};
+<div class="toast" id="toast"></div>
 
-const KEYSTONES = {"Chaos Inoculation": {"url": "https://poe2db.tw/us/Chaos_Inoculation", "desc": "Maximum Life becomes 1, immune to Chaos Damage. Build around Energy Shield."}, "Eldritch Battery": {"url": "https://poe2db.tw/us/Eldritch_Battery", "desc": "Spend Energy Shield before Mana for skill costs. Removes ES recharge."}, "Mind Over Matter": {"url": "https://poe2db.tw/us/Mind_Over_Matter", "desc": "Damage is taken from Mana before Life, but 50% less Mana recovery."}, "Blood Magic": {"url": "https://poe2db.tw/us/Blood_Magic", "desc": "Skills cost Life instead of Mana. No Mana pool."}, "Giant's Blood": {"url": "https://poe2db.tw/us/Giants_Blood", "desc": "Dual wield two-handed maces, axes, or swords. Doubles weapon attribute requirements."}, "Acrobatics": {"url": "https://poe2db.tw/us/Acrobatics", "desc": "30% less damage taken during Dodge Roll. Removes avoidance frames."}, "Unwavering Stance": {"url": "https://poe2db.tw/us/Unwavering_Stance", "desc": "Cannot Dodge Roll, but doubles Stun Threshold."}, "Iron Reflexes": {"url": "https://poe2db.tw/us/Iron_Reflexes", "desc": "Converts all Evasion Rating to Armour."}, "Resolute Technique": {"url": "https://poe2db.tw/us/Resolute_Technique", "desc": "Never deal Critical Strikes, but attacks always hit."}, "Elemental Overload": {"url": "https://poe2db.tw/us/Elemental_Overload", "desc": "40% more Elemental Damage if you've dealt a Crit recently, but no bonus from Crit multiplier."}, "Avatar of Fire": {"url": "https://poe2db.tw/us/Avatar_of_Fire", "desc": "75% of all damage converted to Fire. Cannot deal non-Fire damage."}, "Pain Attunement": {"url": "https://poe2db.tw/us/Pain_Attunement", "desc": "30% more Spell Damage when on Low Life."}, "Withering Presence": {"url": "https://poe2db.tw/us/Withering_Presence", "desc": "Nearby enemies are Withered. You take 50% increased Chaos Damage."}, "Ancestral Bond": {"url": "https://poe2db.tw/us/Ancestral_Bond", "desc": "No totem limit \u2014 each totem reserves Spirit instead. You deal no damage."}, "Ghost Dance": {"url": "https://poe2db.tw/us/Ghost_Dance", "desc": "Recover Energy Shield equal to Evasion Rating when you Dodge Roll."}, "Mortal Conviction": {"url": "https://poe2db.tw/us/Mortal_Conviction", "desc": "Non-Banner auras cost Life to reserve instead of Spirit."}, "Iron Will": {"url": "https://poe2db.tw/us/Iron_Will", "desc": "Strength applies to Spell Damage as well as Melee Damage."}, "Iron Grip": {"url": "https://poe2db.tw/us/Iron_Grip", "desc": "Strength bonus to Melee Physical Damage also applies to Projectile Attacks."}};
-const ARCHETYPE_KEYSTONES = {"The Lichform": ["Chaos Inoculation", "Withering Presence"], "The Glass Saint": ["Chaos Inoculation", "Eldritch Battery"], "The Capacitor": ["Eldritch Battery", "Mind Over Matter"], "The Mindwall": ["Mind Over Matter"], "Energy Shield Hoarder": ["Chaos Inoculation"], "The Colossus": ["Giant's Blood"], "Braum": ["Giant's Blood", "Unwavering Stance"], "The True Warrior": ["Unwavering Stance"], "The Varangian": ["Unwavering Stance"], "Wolverine": ["Pain Attunement"], "The Blood Priest": ["Blood Magic", "Pain Attunement"], "The Flagellant": ["Blood Magic", "Pain Attunement"], "The Idol Worshipper": ["Ancestral Bond"], "The Karen": ["Ancestral Bond"], "Reinhardt": ["Unwavering Stance"], "Evasion Ghost": ["Acrobatics", "Ghost Dance"], "The Bullfighter": ["Acrobatics"], "Surtr": ["Avatar of Fire"], "Ifrit": ["Avatar of Fire"], "Ghost Rider": ["Avatar of Fire"], "Shyvana": ["Avatar of Fire"], "The Sufi": ["Acrobatics"], "Energy Vampire": ["Withering Presence"], "The Toy Maker": ["Withering Presence"], "Hammerdin": ["Giant's Blood", "Iron Will"], "Bannerman": ["Unwavering Stance"], "The Bannerman": ["Unwavering Stance"], "The Monsoon": ["Mortal Conviction"], "The Avatar": ["Elemental Overload"], "Two-Face": ["Elemental Overload"]};
-const ARCHETYPE_RULES_DATA = {"The True Warrior": {"full_name": "The True Warrior (Rage Berserker, No Chest Armour)", "rules": [{"type": "forbidden", "slot": "Body Armour", "item": "Any", "label": "No Body Armour"}]}, "The Mongol": {"full_name": "The Mongol (Lightning Arrow Sniper, Rhoa Mount)", "rules": [{"type": "cosmetic", "slot": "Spirit Gem", "item": "Rhoa Mount", "label": "Rhoa Mount required"}]}, "Rambo": {"full_name": "Rambo (Bow + Barrage, No Chest Armour)", "rules": [{"type": "forbidden", "slot": "Body Armour", "item": "Any", "label": "No Body Armour"}]}, "The Lich King": {"full_name": "The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)", "rules": [{"type": "required", "slot": "Body Armour", "item": "Plate", "label": "Must wear Plate Armour"}, {"type": "required", "slot": "Weapon", "item": "2H Mace", "label": "Must use 2H Weapon"}]}, "Palpatine": {"full_name": "Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)", "rules": [{"type": "required", "slot": "Body Armour", "item": "Robes", "label": "Must wear Robes"}, {"type": "required", "slot": "Helmet", "item": "Hood", "label": "Must wear Hood"}]}, "Captain America": {"full_name": "Captain America (Shield + Rallying Cries)", "rules": [{"type": "required", "slot": "Offhand", "item": "Shield", "label": "Must use Shield"}]}, "Ghost Rider": {"full_name": "Ghost Rider (Flame Wall + Ignite DoT + Infernal Cry + Rhoa Mount)", "rules": [{"type": "cosmetic", "slot": "Spirit Gem", "item": "Rhoa Mount", "label": "Rhoa Mount required"}]}, "Hammerdin": {"full_name": "Hammerdin (Forge Hammer + Maces Only + Aura)", "rules": [{"type": "required", "slot": "Weapon", "item": "1H Mace", "label": "Maces Only"}]}, "The Colossus": {"full_name": "The Colossus (Giant's Blood + Dual Two-Handed Maces + Boneshatter + Seismic Cry)", "rules": [{"type": "required", "slot": "Weapon", "item": "2H Mace", "label": "Must use 2H Weapon"}]}, "Braum": {"full_name": "Braum (Slam + Fortify + Shield, No Chest Armour)", "rules": [{"type": "forbidden", "slot": "Body Armour", "item": "Any", "label": "No Body Armour"}]}, "Eldritch Knight": {"full_name": "Eldritch Knight (Shield Tank + Spellcaster)", "rules": [{"type": "required", "slot": "Offhand", "item": "Shield", "label": "Must use Shield"}]}};
-const ASCENDANCY_NODES = {"Titan":[{"name":"Stone Skin","desc":"50% more Armour from Equipped Body Armour","url":"https://poe2db.tw/us/Titan"},{"name":"Earthbreaker","desc":"Slam skills cause Aftershocks","url":"https://poe2db.tw/us/Titan"},{"name":"Ancestral Empowerment","desc":"Slam skill is Ancestrally Boosted","url":"https://poe2db.tw/us/Titan"},{"name":"Colossal Capacity","desc":"20 additional inventory slots","url":"https://poe2db.tw/us/Titan"},{"name":"Hulking Form","desc":"Small passive skills are 50% more effective","url":"https://poe2db.tw/us/Titan"},{"name":"Crushing Impacts","desc":"Your Slams can cause Heavy Stun","url":"https://poe2db.tw/us/Titan"},{"name":"Surprising Strength","desc":"40% more damage against Heavy Stunned enemies","url":"https://poe2db.tw/us/Titan"},{"name":"Mysterious Lineage","desc":"15% increased Maximum Life; 50% more Armour from Body Armour","url":"https://poe2db.tw/us/Titan"},{"name":"Mountain Splitter","desc":"Every third Slam that doesn't trigger Fissures triggers an extra Aftershock","url":"https://poe2db.tw/us/Titan"}],"Warbringer":[{"name":"War Cry Mastery","desc":"War Cries count as having at least 10 Nearby Enemies","url":"https://poe2db.tw/us/Warbringer"},{"name":"Rite of the Warlord","desc":"Warcries Exert your next Slam skill","url":"https://poe2db.tw/us/Warbringer"},{"name":"Violent Dead","desc":"Exerted attacks deal more damage and create corpses on kill","url":"https://poe2db.tw/us/Warbringer"},{"name":"Ancestor's Fury","desc":"Ancestor Skills count as Exerted; bonus damage","url":"https://poe2db.tw/us/Warbringer"},{"name":"Blood and Sand","desc":"Raging Cry grants charges; enhanced Slam effects","url":"https://poe2db.tw/us/Warbringer"},{"name":"Aspect of Carnage","desc":"More damage taken and dealt \u2014 pure aggression mode","url":"https://poe2db.tw/us/Warbringer"},{"name":"Echoes of Fury","desc":"Warcries reverberate, exerting additional attacks","url":"https://poe2db.tw/us/Warbringer"},{"name":"Bone Shaker","desc":"Exerted attacks have a chance to Maim and Hinder","url":"https://poe2db.tw/us/Warbringer"}],"Smith of Kitava":[{"name":"Living Steel","desc":"Forge your own Body Armour with custom modifiers","url":"https://poe2db.tw/us/Smith_of_Kitava"},{"name":"Tempered by War","desc":"Resistance caps increased; elemental damage mitigation","url":"https://poe2db.tw/us/Smith_of_Kitava"},{"name":"Forged in Fire","desc":"Gain fire damage based on Armour; armour scales offensively","url":"https://poe2db.tw/us/Smith_of_Kitava"},{"name":"Anvil of the Conqueror","desc":"Attacks ignore a portion of enemy Armour","url":"https://poe2db.tw/us/Smith_of_Kitava"},{"name":"Steel Infusion","desc":"Skills gain added physical damage based on Armour rating","url":"https://poe2db.tw/us/Smith_of_Kitava"},{"name":"Molten Shell Mastery","desc":"Molten Shell absorbs more damage and lasts longer","url":"https://poe2db.tw/us/Smith_of_Kitava"},{"name":"Masterwork","desc":"Crafted modifiers on your Body Armour are more effective","url":"https://poe2db.tw/us/Smith_of_Kitava"},{"name":"Unbreakable Will","desc":"Cannot be Stunned while your Armour is above a threshold","url":"https://poe2db.tw/us/Smith_of_Kitava"}],"Deadeye":[{"name":"Gathering Winds","desc":"Gain Tailwind on kill; Tailwind increases action speed","url":"https://poe2db.tw/us/Deadeye"},{"name":"Wind Ward","desc":"Tailwind grants 30% less damage taken from hits","url":"https://poe2db.tw/us/Deadeye"},{"name":"Focal Point","desc":"Marks apply to all nearby enemies around the marked target","url":"https://poe2db.tw/us/Deadeye"},{"name":"Endless Munitions","desc":"Skills fire an additional Projectile","url":"https://poe2db.tw/us/Deadeye"},{"name":"Far Shot","desc":"Projectiles deal more damage the further they travel","url":"https://poe2db.tw/us/Deadeye"},{"name":"Weapon Master","desc":"20 Passive Skill Points become Weapon Set Skill Points","url":"https://poe2db.tw/us/Deadeye"},{"name":"Mirage Archer","desc":"On attack, summon a Mirage Archer that mimics your attack","url":"https://poe2db.tw/us/Deadeye"},{"name":"Eagle Eye","desc":"Ignore enemy Evasion; greatly increased Accuracy","url":"https://poe2db.tw/us/Deadeye"}],"Pathfinder":[{"name":"Nature's Reprisal","desc":"Wither on hit; increased Chaos damage","url":"https://poe2db.tw/us/Pathfinder"},{"name":"Master Fletcher","desc":"Double maximum Poison stacks on enemies","url":"https://poe2db.tw/us/Pathfinder"},{"name":"Veteran Bowyer","desc":"Flasks convert charges to explosions on enemies","url":"https://poe2db.tw/us/Pathfinder"},{"name":"Nature's Boon","desc":"Flask effects apply to nearby allies","url":"https://poe2db.tw/us/Pathfinder"},{"name":"Acrobatic Guard","desc":"Flask charges gained on Dodge Roll","url":"https://poe2db.tw/us/Pathfinder"},{"name":"Toxic Rain Mastery","desc":"Toxic Rain has additional Spore Pods and faster explosion","url":"https://poe2db.tw/us/Pathfinder"},{"name":"Alchemist's Genius","desc":"Flasks gain charges on Critical Strike","url":"https://poe2db.tw/us/Pathfinder"},{"name":"Inveterate","desc":"Immunity to Poison and extra Chaos Resistance from flasks","url":"https://poe2db.tw/us/Pathfinder"}],"Stormweaver":[{"name":"Heart of the Storm","desc":"Recover Energy Shield on Elemental damage taken","url":"https://poe2db.tw/us/Stormweaver"},{"name":"Elemental Affinity","desc":"Gain damage bonus when you deal all three elemental types recently","url":"https://poe2db.tw/us/Stormweaver"},{"name":"Elemental Storm","desc":"Inflicting an elemental ailment summons an Elemental Storm","url":"https://poe2db.tw/us/Stormweaver"},{"name":"Cold Exposure Mastery","desc":"Cold Exposure lowers enemy Resistance further","url":"https://poe2db.tw/us/Stormweaver"},{"name":"Crackling Speed","desc":"Gain Arcane Surge on Crit; faster cast speed scaling","url":"https://poe2db.tw/us/Stormweaver"},{"name":"Infusion Mastery","desc":"Elemental Infusions are easier to stack and more powerful","url":"https://poe2db.tw/us/Stormweaver"},{"name":"Shaper of Storms","desc":"Shock applies to shocked enemy's action speed","url":"https://poe2db.tw/us/Stormweaver"},{"name":"Surge of Power","desc":"More Spell Damage per Power Charge consumed","url":"https://poe2db.tw/us/Stormweaver"}],"Chronomancer":[{"name":"Now and Again","desc":"33% chance to not consume cooldown on skill use","url":"https://poe2db.tw/us/Chronomancer"},{"name":"Time Snap","desc":"Reset all cooldowns (has its own 36s cooldown)","url":"https://poe2db.tw/us/Chronomancer"},{"name":"Temporal Chains Mastery","desc":"Temporal Chains applies more Slow; unaffected by Curse limits","url":"https://poe2db.tw/us/Chronomancer"},{"name":"Inevitable Agony","desc":"Spells cast during Time Freeze trigger again when it ends","url":"https://poe2db.tw/us/Chronomancer"},{"name":"Unbound Encore","desc":"Cast spells twice with one activation","url":"https://poe2db.tw/us/Chronomancer"},{"name":"Rewind","desc":"Teleport to previous position, restoring Life and Mana to earlier values","url":"https://poe2db.tw/us/Chronomancer"},{"name":"Paradoxica","desc":"Actions during Time Freeze deal bonus damage when Time resumes","url":"https://poe2db.tw/us/Chronomancer"},{"name":"Layered Time","desc":"Freeze zones stack with each other for enhanced slow","url":"https://poe2db.tw/us/Chronomancer"}],"Disciple of Varashta":[{"name":"Ruzhan's Wrath","desc":"Ruzhan the Blazing Sword: Fire djinn that deals Fire damage","url":"https://poe2db.tw/us/Disciple_of_Varashta"},{"name":"Kelari's Cunning","desc":"Kelari the Tainted Sands: Chaos djinn that enhances Crits","url":"https://poe2db.tw/us/Disciple_of_Varashta"},{"name":"Navira's Grace","desc":"Navira the Last Mirage: Utility djinn that enhances defences","url":"https://poe2db.tw/us/Disciple_of_Varashta"},{"name":"Djinn Mastery","desc":"Djinn deal significantly more damage and have more life","url":"https://poe2db.tw/us/Disciple_of_Varashta"},{"name":"Elemental Surge","desc":"Trigger an elemental surge when Djinn deal a killing blow","url":"https://poe2db.tw/us/Disciple_of_Varashta"},{"name":"Unbound Avatar","desc":"Gain all three elemental buffs simultaneously","url":"https://poe2db.tw/us/Disciple_of_Varashta"},{"name":"Arcane Attunement","desc":"Spells gain bonuses based on which Djinn are active","url":"https://poe2db.tw/us/Disciple_of_Varashta"},{"name":"Infused Arsenal","desc":"Djinn-enhanced attacks also trigger elemental effects","url":"https://poe2db.tw/us/Disciple_of_Varashta"}],"Invoker":[{"name":"Transcendence","desc":"Hits convert a portion of non-Chaos damage to Chaos","url":"https://poe2db.tw/us/Invoker"},{"name":"Shaper of Flames","desc":"Ignites you inflict deal more damage","url":"https://poe2db.tw/us/Invoker"},{"name":"Shaper of Storms","desc":"Shock effect is more powerful","url":"https://poe2db.tw/us/Invoker"},{"name":"Shaper of Winter","desc":"Chill and Freeze are more effective","url":"https://poe2db.tw/us/Invoker"},{"name":"Unrelenting","desc":"Your Elemental Ailments deal Damage faster","url":"https://poe2db.tw/us/Invoker"},{"name":"Retribution","desc":"Spells triggered by Resonance deal more damage","url":"https://poe2db.tw/us/Invoker"},{"name":"Rising Tempest","desc":"Gain stacks of Resonance faster","url":"https://poe2db.tw/us/Invoker"},{"name":"Pinnacle of Power","desc":"All Resonance stacks grant bonus damage","url":"https://poe2db.tw/us/Invoker"}],"Acolyte of Chayula":[{"name":"Reality Rending","desc":"Gain extra Chaos damage equal to a portion of your base damage","url":"https://poe2db.tw/us/Acolyte_of_Chayula"},{"name":"Waking Dream","desc":"Gain a portion of max Life as Energy Shield; chaos sustain","url":"https://poe2db.tw/us/Acolyte_of_Chayula"},{"name":"Lucid Dreaming","desc":"Double the bonus from Purple Flames (up to 140% chaos damage)","url":"https://poe2db.tw/us/Acolyte_of_Chayula"},{"name":"Chayula's Gift","desc":"Gain Aura supports from Chayula; mitigate Chaos damage to ES","url":"https://poe2db.tw/us/Acolyte_of_Chayula"},{"name":"Dream Eater","desc":"Recover Energy Shield from enemies you Poison","url":"https://poe2db.tw/us/Acolyte_of_Chayula"},{"name":"Void Walker","desc":"Teleport through enemies; ignore collision during Blink","url":"https://poe2db.tw/us/Acolyte_of_Chayula"},{"name":"Unwavering Faith","desc":"Immune to Stun during Channelling","url":"https://poe2db.tw/us/Acolyte_of_Chayula"},{"name":"Rift Caller","desc":"Opening Rifts deals Chaos damage to nearby enemies","url":"https://poe2db.tw/us/Acolyte_of_Chayula"}],"Martial Artist":[{"name":"Hollow Form","desc":"Create illusions of yourself that attack nearby enemies","url":"https://poe2db.tw/us/Martial_Artist"},{"name":"Hollow Focus","desc":"Manifest spiritual energy onto Bells that shatter on attack","url":"https://poe2db.tw/us/Martial_Artist"},{"name":"Hollow Strike","desc":"Attacks have a chance to create a Hollow illusion","url":"https://poe2db.tw/us/Martial_Artist"},{"name":"Iron Body","desc":"Gain Fortify on using a Skill without moving","url":"https://poe2db.tw/us/Martial_Artist"},{"name":"Pressure Points","desc":"Attacks have a chance to inflict Maim and Hinder simultaneously","url":"https://poe2db.tw/us/Martial_Artist"},{"name":"Counter Stance","desc":"Gain bonus Evasion and chance to Dodge after blocking","url":"https://poe2db.tw/us/Martial_Artist"},{"name":"Flowing Motion","desc":"Moving during combat grants stacking attack speed bonus","url":"https://poe2db.tw/us/Martial_Artist"},{"name":"Stone Fist","desc":"Unarmed attacks deal Physical damage as if using a Mace","url":"https://poe2db.tw/us/Martial_Artist"}],"Witchhunter":[{"name":"Inquisitor's Eye","desc":"First hit against an enemy deals greatly increased damage","url":"https://poe2db.tw/us/Witchhunter"},{"name":"Righteous Fire","desc":"Ignite on hit; deal extra fire damage equal to % of max life","url":"https://poe2db.tw/us/Witchhunter"},{"name":"Purge the Unclean","desc":"Instantly slay enemies below a Life threshold","url":"https://poe2db.tw/us/Witchhunter"},{"name":"Sorcery Ward","desc":"Gain Sorcery Ward that absorbs Spell damage","url":"https://poe2db.tw/us/Witchhunter"},{"name":"Ceremonial Ablution","desc":"Sorcery Ward extends to block Physical and Chaos damage","url":"https://poe2db.tw/us/Witchhunter"},{"name":"Hexbolt","desc":"Cursed enemies take more damage from all sources","url":"https://poe2db.tw/us/Witchhunter"},{"name":"Weapon Master","desc":"20 Passive points become Weapon Set points","url":"https://poe2db.tw/us/Witchhunter"},{"name":"Fanaticism","desc":"After killing a Rare or Unique enemy, gain a massive damage buff","url":"https://poe2db.tw/us/Witchhunter"}],"Gemling Legionnaire":[{"name":"Gemling Infusion","desc":"Gems socketed in your equipment gain quality based on your attributes","url":"https://poe2db.tw/us/Gemling_Legionnaire"},{"name":"Living Weapon","desc":"Socketed Skill Gems gain levels based on your primary attribute","url":"https://poe2db.tw/us/Gemling_Legionnaire"},{"name":"Adaptive Capability","desc":"Gain Strength, Dexterity and Intelligence based on equipped gem colours","url":"https://poe2db.tw/us/Gemling_Legionnaire"},{"name":"Tattoo of the Gemling","desc":"Skill gems grant additional bonuses based on their quality","url":"https://poe2db.tw/us/Gemling_Legionnaire"},{"name":"Volatile Crystals","desc":"Gems periodically release energy that damages nearby enemies","url":"https://poe2db.tw/us/Gemling_Legionnaire"},{"name":"Gem Mastery","desc":"Socketed gems gain extra quality; quality bonuses are stronger","url":"https://poe2db.tw/us/Gemling_Legionnaire"},{"name":"Elemental Army","desc":"All skills gain bonus elemental damage based on gem levels","url":"https://poe2db.tw/us/Gemling_Legionnaire"},{"name":"Resonant Shield","desc":"Your Energy Shield scales with the total level of socketed gems","url":"https://poe2db.tw/us/Gemling_Legionnaire"}],"Tactician":[{"name":"Defiance Banner","desc":"Nearby allies gain bonus Armour and Evasion from your banner","url":"https://poe2db.tw/us/Tactician"},{"name":"Rallying Banner","desc":"Banner buffs allies with increased damage","url":"https://poe2db.tw/us/Tactician"},{"name":"Vanguard","desc":"Moving quickly generates charges that increase your defences","url":"https://poe2db.tw/us/Tactician"},{"name":"Suppressing Fire","desc":"Your attacks Hinder enemies, reducing their movement speed","url":"https://poe2db.tw/us/Tactician"},{"name":"Tactical Retreat","desc":"Dodging grants a brief period of immunity to damage","url":"https://poe2db.tw/us/Tactician"},{"name":"Formation","desc":"You and nearby allies gain damage based on proximity to each other","url":"https://poe2db.tw/us/Tactician"},{"name":"Calculated Strike","desc":"Every Nth attack deals greatly increased damage","url":"https://poe2db.tw/us/Tactician"},{"name":"War Footing","desc":"Gain extra flask charges on kill during combat","url":"https://poe2db.tw/us/Tactician"}],"Infernalist":[{"name":"Loyal Hellhound","desc":"Summon a Hellhound companion that absorbs a portion of hits","url":"https://poe2db.tw/us/Infernalist"},{"name":"Demonic Possession","desc":"Transform into Demon Form, greatly increasing Spell damage","url":"https://poe2db.tw/us/Infernalist"},{"name":"Altered Flesh","desc":"20% of Cold Damage Taken as Fire; elemental conversion","url":"https://poe2db.tw/us/Infernalist"},{"name":"Grinning Immolation","desc":"30% more Crit damage; take fire damage per second when you Crit","url":"https://poe2db.tw/us/Infernalist"},{"name":"Beidat's Will","desc":"Convert Maximum Life to Spirit for more Spirit reserves","url":"https://poe2db.tw/us/Infernalist"},{"name":"Pyromantic Pact","desc":"Replace Mana with Infernal Flame \u2014 spells build Flame which deals damage when full","url":"https://poe2db.tw/us/Infernalist"},{"name":"Seething Body","desc":"Gain an Elemental Archon when Infernal Flame is managed precisely","url":"https://poe2db.tw/us/Infernalist"},{"name":"Mastered Darkness","desc":"Remove the Demon Flame stack limit in Demon Form","url":"https://poe2db.tw/us/Infernalist"}],"Blood Mage":[{"name":"Sanguimancy","desc":"Create Life Remnants on kill and Crit; can overflow max life","url":"https://poe2db.tw/us/Blood_Mage"},{"name":"Vitality Siphon","desc":"Leech 10% of Spell Damage as Life","url":"https://poe2db.tw/us/Blood_Mage"},{"name":"Open Sores","desc":"Curse skills last indefinitely","url":"https://poe2db.tw/us/Blood_Mage"},{"name":"Blood Barbs","desc":"Inflict Bleed on hit; Bleeding enemies take more damage","url":"https://poe2db.tw/us/Blood_Mage"},{"name":"Tul's Catalyst","desc":"Life Regeneration rate is massively increased","url":"https://poe2db.tw/us/Blood_Mage"},{"name":"Spellblade","desc":"Gain bonus Spell damage based on your weapon's Physical damage","url":"https://poe2db.tw/us/Blood_Mage"},{"name":"Crimson Power","desc":"Gain Energy Shield equal to a portion of your max Life","url":"https://poe2db.tw/us/Blood_Mage"},{"name":"Gore Spike","desc":"Critical Strikes cause Bleeding; Bleeding enemies are easier to Crit","url":"https://poe2db.tw/us/Blood_Mage"}],"Lich":[{"name":"Essence Glutton","desc":"Gain Energy Shield and Mana from consuming Corpses","url":"https://poe2db.tw/us/Lich"},{"name":"Death Wish","desc":"Skills can consume your own corpse for massive empowerment","url":"https://poe2db.tw/us/Lich"},{"name":"Bone Armour","desc":"Gain an Armour layer from nearby corpses","url":"https://poe2db.tw/us/Lich"},{"name":"Soul Drinker","desc":"Leech Energy Shield from Chaos damage dealt","url":"https://poe2db.tw/us/Lich"},{"name":"Corpse Pact","desc":"Consume corpses to grant buffs to your minions","url":"https://poe2db.tw/us/Lich"},{"name":"Undying Devotion","desc":"Minions that die have a chance to revive with full health","url":"https://poe2db.tw/us/Lich"},{"name":"Necrotic Touch","desc":"Your hits apply stacking Wither to enemies","url":"https://poe2db.tw/us/Lich"},{"name":"Herald of Rot","desc":"On kill, release a nova of Chaos that spreads Poison","url":"https://poe2db.tw/us/Lich"}],"Amazon":[{"name":"Stalking Panther","desc":"Gain stacking Evasion Rating as you move; maintain it on hit","url":"https://poe2db.tw/us/Amazon"},{"name":"Vaal Pact","desc":"Life Leech is instant but no Life Regeneration","url":"https://poe2db.tw/us/Amazon"},{"name":"Quartz Infusion","desc":"Gain Phase on Dodge Roll; pass through enemies briefly","url":"https://poe2db.tw/us/Amazon"},{"name":"Battle Hardened","desc":"Energy Shield does not recharge \u2014 instead gain it from Evasion","url":"https://poe2db.tw/us/Amazon"},{"name":"Diana's Hunt","desc":"Crits while Phasing deal greatly increased damage","url":"https://poe2db.tw/us/Amazon"},{"name":"Spear Mastery","desc":"Spear skills deal bonus damage and pierce additional targets","url":"https://poe2db.tw/us/Amazon"},{"name":"Rampage","desc":"Kill streaks grant stacking damage and speed bonuses","url":"https://poe2db.tw/us/Amazon"},{"name":"Deflection","desc":"Gain chance to Deflect attacks based on Evasion Rating","url":"https://poe2db.tw/us/Amazon"}],"Ritualist":[{"name":"Stolen Modifiers","desc":"Steal modifiers from Rare monsters you kill for a duration","url":"https://poe2db.tw/us/Ritualist"},{"name":"Mind Phylacteries","desc":"Massively increased Charm duration and uptime","url":"https://poe2db.tw/us/Ritualist"},{"name":"Extra Ring Slot","desc":"Equip an additional Ring","url":"https://poe2db.tw/us/Ritualist"},{"name":"Occultist's Presence","desc":"Nearby enemies have reduced Elemental and Chaos Resistances","url":"https://poe2db.tw/us/Ritualist"},{"name":"Soul Thief","desc":"Stolen modifiers last longer and are more powerful","url":"https://poe2db.tw/us/Ritualist"},{"name":"Eldritch Infusion","desc":"Chaos skills gain bonuses from the modifiers you've stolen","url":"https://poe2db.tw/us/Ritualist"},{"name":"Profane Bloom","desc":"Cursed enemies have a chance to Explode on death","url":"https://poe2db.tw/us/Ritualist"},{"name":"Void Ascendant","desc":"Gain a stack of every stolen modifier whenever you ascend","url":"https://poe2db.tw/us/Ritualist"}],"Spirit Walker":[{"name":"Vivid Stampede","desc":"Conjure stampeding Stags on attack; Stags leave Shocked Ground","url":"https://poe2db.tw/us/Spirit_Walker"},{"name":"Primal Bounty","desc":"Owl Spirit grants feathers that add projectiles to your next skill","url":"https://poe2db.tw/us/Spirit_Walker"},{"name":"Wild Protector","desc":"Summon a Bear Spirit that leaps onto enemies \u2014 doesn't use companion slot","url":"https://poe2db.tw/us/Spirit_Walker"},{"name":"Sacred Unity","desc":"Unlocked by taking all three paths \u2014 enhances all Spirit skills","url":"https://poe2db.tw/us/Spirit_Walker"},{"name":"Idolatry","desc":"Greatly boosts minion-focused builds with aura and damage bonuses","url":"https://poe2db.tw/us/Spirit_Walker"},{"name":"The Natural Order","desc":"Tame Beast can capture Boss monsters","url":"https://poe2db.tw/us/Spirit_Walker"},{"name":"Pack Leader","desc":"Your companions gain bonuses based on the number of companions you have","url":"https://poe2db.tw/us/Spirit_Walker"},{"name":"Primal Bond","desc":"Your tamed beast shares your buffs and deals more damage","url":"https://poe2db.tw/us/Spirit_Walker"}],"Oracle":[{"name":"The Lesser Harm","desc":"Reveal hidden passive nodes that can be allocated nearby Keystones","url":"https://poe2db.tw/us/Oracle"},{"name":"Forced Outcome","desc":"Non-Keystone passives in radius of Keystones can be allocated unconnected","url":"https://poe2db.tw/us/Oracle"},{"name":"Unnamed Heartwood","desc":"Gain access to a hidden cluster of powerful oracle-only nodes","url":"https://poe2db.tw/us/Oracle"},{"name":"Converging Paths","desc":"Two passive paths can merge, gaining bonuses from both","url":"https://poe2db.tw/us/Oracle"},{"name":"Harmony Within","desc":"Nodes adjacent to allocated Keystones gain amplified effects","url":"https://poe2db.tw/us/Oracle"},{"name":"Fateful Vision","desc":"See the outcomes of your choices \u2014 respec certain nodes freely","url":"https://poe2db.tw/us/Oracle"},{"name":"The Unseen Path","desc":"Allocate Oracle's hidden suite of passive tree nodes","url":"https://poe2db.tw/us/Oracle"},{"name":"Entwined Realities","desc":"Passives can be allocated from two separate tree positions simultaneously","url":"https://poe2db.tw/us/Oracle"}],"Shaman":[{"name":"Rune Mastery","desc":"Your Rune skills are more powerful and have reduced cooldowns","url":"https://poe2db.tw/us/Shaman"},{"name":"Primal Rage","desc":"Gain Rage from Bear Form attacks; Rage amplifies damage","url":"https://poe2db.tw/us/Shaman"},{"name":"Storm Caller","desc":"Lightning Runes create persistent storm zones","url":"https://poe2db.tw/us/Shaman"},{"name":"Earth Shaker","desc":"Stone Runes cause Aftershocks when shattered","url":"https://poe2db.tw/us/Shaman"},{"name":"Wild Empowerment","desc":"Nature skills gain bonus damage for each different Rune active","url":"https://poe2db.tw/us/Shaman"},{"name":"Blood of the Ancestors","desc":"Ancestor skills empower nearby Runes on activation","url":"https://poe2db.tw/us/Shaman"},{"name":"Feral Soul","desc":"Shapeshifting grants a burst of Rage and damage","url":"https://poe2db.tw/us/Shaman"},{"name":"Totemic Warden","desc":"Your Totems are significantly more durable and deal more damage","url":"https://poe2db.tw/us/Shaman"}]};
-const GEAR_SLOTS = ["Helmet", "Body Armour", "Gloves", "Boots", "Belt", "Amulet", "Ring", "Weapon", "Offhand", "Shield", "Spirit Gem"];
-const GEAR_TYPES_BY_SLOT = {"Helmet": ["Any", "Hood", "Helmet", "Circlet", "Crown"], "Body Armour": ["Any", "Robes", "Plate", "Leather", "Mail", "Cloth"], "Gloves": ["Any", "Gloves", "Gauntlets", "Mitts"], "Boots": ["Any", "Boots", "Greaves", "Slippers"], "Belt": ["Any", "Belt", "Sash", "Cloth Belt"], "Amulet": ["Any", "Amulet", "Talisman"], "Ring": ["Any", "Ring", "Gold Ring", "Sapphire Ring"], "Weapon": ["Any", "2H Mace", "1H Mace", "2H Sword", "1H Sword", "2H Axe", "1H Axe", "Bow", "Crossbow", "Quarterstaff", "Staff", "Wand", "Sceptre", "Dagger", "Spear", "Flail"], "Offhand": ["Any", "Shield", "Quiver", "Focus"], "Shield": ["Any", "Shield", "Buckler", "Tower Shield"], "Spirit Gem": ["Any", "Rhoa Mount", "Wolf Pack", "Tame Beast"]};
-const ALL_GEMS = {"Acidic Concoction":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Acidic_Concoction"},"Ahn's Citadel":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ahns_Citadel"},"Ailith's Chimes":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ailiths_Chimes"},"Align Fate":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Align_Fate"},"Amanamu's Tithe":{"level":1,"type":"support","url":"https://poe2db.tw/us/Amanamus_Tithe"},"Ambush":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ambush"},"Ancestral Spirits":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Ancestral_Spirits"},"Apocalypse":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Apocalypse"},"Arakaali's Lust":{"level":1,"type":"support","url":"https://poe2db.tw/us/Arakaalis_Lust"},"Arbiter's Ignition":{"level":1,"type":"support","url":"https://poe2db.tw/us/Arbiters_Ignition"},"Arcane Surge":{"level":1,"type":"support","url":"https://poe2db.tw/us/Arcane_Surge"},"Arjun's Medal":{"level":1,"type":"support","url":"https://poe2db.tw/us/Arjuns_Medal"},"Armour Demolisher I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Armour_Demolisher_I"},"Armour Explosion":{"level":1,"type":"support","url":"https://poe2db.tw/us/Armour_Explosion"},"Armour Piercing Rounds":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Armour_Piercing_Rounds"},"Atalui's Bloodletting":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ataluis_Bloodletting"},"Atziri's Allure":{"level":1,"type":"support","url":"https://poe2db.tw/us/Atziris_Allure"},"Atziri's Call":{"level":1,"type":"support","url":"https://poe2db.tw/us/Atziris_Call"},"Atziri's Impatience":{"level":1,"type":"support","url":"https://poe2db.tw/us/Atziris_Impatience"},"Auto Reload":{"level":1,"type":"support","url":"https://poe2db.tw/us/Auto_Reload"},"Axe Slash":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Axe_Slash"},"Battershout":{"level":1,"type":"support","url":"https://poe2db.tw/us/Battershout"},"Bhatair's Vengeance":{"level":1,"type":"support","url":"https://poe2db.tw/us/Bhatairs_Vengeance"},"Bleed I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Bleed_I"},"Bleeding Concoction":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Bleeding_Concoction"},"Blindside":{"level":1,"type":"support","url":"https://poe2db.tw/us/Blindside"},"Blood Boil":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Blood_Boil"},"Bloodlust":{"level":1,"type":"support","url":"https://poe2db.tw/us/Bloodlust"},"Bone Blast":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Bone_Blast"},"Boneshatter":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Boneshatter"},"Bow Shot":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Bow_Shot"},"Brutality I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Brutality_I"},"Brutus' Brain":{"level":1,"type":"support","url":"https://poe2db.tw/us/Brutus_Brain"},"Burgeon I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Burgeon_I"},"Called Shots":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Called_Shots"},"Cast on Block":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Cast_on_Block"},"Cast on Freeze":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Cast_on_Freeze"},"Cast on Ignite":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Cast_on_Ignite"},"Cast on Shock":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Cast_on_Shock"},"Chain I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Chain_I"},"Chaos Bolt":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Chaos_Bolt"},"Charge Profusion I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Charge_Profusion_I"},"Cirel's Cultivation":{"level":1,"type":"support","url":"https://poe2db.tw/us/Cirels_Cultivation"},"Clarity I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Clarity_I"},"Claw Stab":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Claw_Stab"},"Cold Attunement":{"level":1,"type":"support","url":"https://poe2db.tw/us/Cold_Attunement"},"Combo Finisher I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Combo_Finisher_I"},"Commandment":{"level":1,"type":"support","url":"https://poe2db.tw/us/Commandment"},"Companion: {0}":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Companion%3A_%7B0%7D"},"Compressed Duration I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Compressed_Duration_I"},"Concentrated Area":{"level":1,"type":"support","url":"https://poe2db.tw/us/Concentrated_Area"},"Conductivity":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Conductivity"},"Consecrate":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Consecrate"},"Contagion":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Contagion"},"Controlled Destruction":{"level":1,"type":"support","url":"https://poe2db.tw/us/Controlled_Destruction"},"Corrosion":{"level":1,"type":"support","url":"https://poe2db.tw/us/Corrosion"},"Coursing Current":{"level":1,"type":"support","url":"https://poe2db.tw/us/Coursing_Current"},"Creeping Chill":{"level":1,"type":"support","url":"https://poe2db.tw/us/Creeping_Chill"},"Crescendo I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Crescendo_I"},"Crossbow Shot":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Crossbow_Shot"},"Crystalline Shards":{"level":1,"type":"support","url":"https://poe2db.tw/us/Crystalline_Shards"},"Dagger Stab":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Dagger_Stab"},"Daresso's Passion":{"level":1,"type":"support","url":"https://poe2db.tw/us/Daressos_Passion"},"Dark Pact":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Dark_Pact"},"Dauntless":{"level":1,"type":"support","url":"https://poe2db.tw/us/Dauntless"},"Decompose":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Decompose"},"Deep Freeze":{"level":1,"type":"support","url":"https://poe2db.tw/us/Deep_Freeze"},"Demon Form":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Demon_Form"},"Dialla's Desire":{"level":1,"type":"support","url":"https://poe2db.tw/us/Diallas_Desire"},"Discipline":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Discipline"},"Disengage":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Disengage"},"Doedre's Undoing":{"level":1,"type":"support","url":"https://poe2db.tw/us/Doedres_Undoing"},"Dominus' Grasp":{"level":1,"type":"support","url":"https://poe2db.tw/us/Dominus_Grasp"},"Double Barrel I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Double_Barrel_I"},"Dreamer's Knell":{"level":1,"type":"support","url":"https://poe2db.tw/us/Dreamers_Knell"},"Earthquake":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Earthquake"},"Efficiency I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Efficiency_I"},"Einhar's Beastrite":{"level":1,"type":"support","url":"https://poe2db.tw/us/Einhars_Beastrite"},"Elemental Armament I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Elemental_Armament_I"},"Elemental Army":{"level":1,"type":"support","url":"https://poe2db.tw/us/Elemental_Army"},"Elemental Expression":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Elemental_Expression"},"Elemental Storm":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Elemental_Storm"},"Elemental Surge":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Elemental_Surge"},"Encase in Jade":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Encase_in_Jade"},"Enduring Impact I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Enduring_Impact_I"},"Enervating Nova":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Enervating_Nova"},"Entangle":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Entangle"},"Eonyr's Thunder":{"level":1,"type":"support","url":"https://poe2db.tw/us/Eonyrs_Thunder"},"Escalating Poison":{"level":1,"type":"support","url":"https://poe2db.tw/us/Escalating_Poison"},"Escape Shot":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Escape_Shot"},"Esh's Radiance":{"level":1,"type":"support","url":"https://poe2db.tw/us/Eshs_Radiance"},"Eternal Flame I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Eternal_Flame_I"},"Execute I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Execute_I"},"Expanse":{"level":1,"type":"support","url":"https://poe2db.tw/us/Expanse"},"Explosive Concoction":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Explosive_Concoction"},"Explosive Grenade":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Explosive_Grenade"},"Explosive Spear":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Explosive_Spear"},"Exsanguinate":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Exsanguinate"},"Falling Thunder":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Falling_Thunder"},"Feast of Flesh":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Feast_of_Flesh"},"Ferocity":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ferocity"},"Fire Attunement":{"level":1,"type":"support","url":"https://poe2db.tw/us/Fire_Attunement"},"Fire Spell on Hit":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Fire_Spell_on_Hit"},"Firebolt":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Firebolt"},"Fist of War I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Fist_of_War_I"},"Flail Strike":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Flail_Strike"},"Flame Wall":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Flame_Wall"},"Flamepierce":{"level":1,"type":"support","url":"https://poe2db.tw/us/Flamepierce"},"Flammability":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Flammability"},"Fortress I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Fortress_I"},"Fragmentation Rounds":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Fragmentation_Rounds"},"Freezefork":{"level":1,"type":"support","url":"https://poe2db.tw/us/Freezefork"},"Freezing Shards":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Freezing_Shards"},"Frost Bomb":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Frost_Bomb"},"Frozen Locus":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Frozen_Locus"},"Fulminating Concoction":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Fulminating_Concoction"},"Fulmination":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Fulmination"},"Furious Slam":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Furious_Slam"},"Galvanic Field":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Galvanic_Field"},"Garukhan's Resolve":{"level":1,"type":"support","url":"https://poe2db.tw/us/Garukhans_Resolve"},"Glacial Cascade":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Glacial_Cascade"},"Guatelitzi's Ablation":{"level":1,"type":"support","url":"https://poe2db.tw/us/Guatelitzis_Ablation"},"Hayoxi's Fulmination":{"level":1,"type":"support","url":"https://poe2db.tw/us/Hayoxis_Fulmination"},"Heart of Ice":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Heart_of_Ice"},"Heightened Accuracy I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Heightened_Accuracy_I"},"Heightened Curse":{"level":1,"type":"support","url":"https://poe2db.tw/us/Heightened_Curse"},"Helbrym's Hide":{"level":1,"type":"support","url":"https://poe2db.tw/us/Helbryms_Hide"},"Hourglass":{"level":1,"type":"support","url":"https://poe2db.tw/us/Hourglass"},"Hypothermia":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Hypothermia"},"Ice Bite I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ice_Bite_I"},"Ice Nova":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Ice_Nova"},"Ignite I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ignite_I"},"Impact Shockwave":{"level":1,"type":"support","url":"https://poe2db.tw/us/Impact_Shockwave"},"Impending Doom":{"level":1,"type":"support","url":"https://poe2db.tw/us/Impending_Doom"},"Impurity":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Impurity"},"Inevitable Agony":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Inevitable_Agony"},"Innervate":{"level":1,"type":"support","url":"https://poe2db.tw/us/Innervate"},"Into the Breach":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Into_the_Breach"},"Ixchel's Torment":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ixchels_Torment"},"Kalisa's Crescendo":{"level":1,"type":"support","url":"https://poe2db.tw/us/Kalisas_Crescendo"},"Kaom's Madness":{"level":1,"type":"support","url":"https://poe2db.tw/us/Kaoms_Madness"},"Kelari's Deception":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Kelaris_Deception"},"Kelari's Judgment":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Kelaris_Judgment"},"Kelari's Malediction":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Kelaris_Malediction"},"Kelari, the Tainted Sands":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Kelari%2C_the_Tainted_Sands"},"Khatal's Rejuvenation":{"level":1,"type":"support","url":"https://poe2db.tw/us/Khatals_Rejuvenation"},"Killing Palm":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Killing_Palm"},"Kulemak's Dominion":{"level":1,"type":"support","url":"https://poe2db.tw/us/Kulemaks_Dominion"},"Kurgal's Leash":{"level":1,"type":"support","url":"https://poe2db.tw/us/Kurgals_Leash"},"Last Gasp":{"level":1,"type":"support","url":"https://poe2db.tw/us/Last_Gasp"},"Life Bounty":{"level":1,"type":"support","url":"https://poe2db.tw/us/Life_Bounty"},"Life Drain":{"level":1,"type":"support","url":"https://poe2db.tw/us/Life_Drain"},"Life Remnants":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Life_Remnants"},"Lightning Arrow":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Lightning_Arrow"},"Lightning Attunement":{"level":1,"type":"support","url":"https://poe2db.tw/us/Lightning_Attunement"},"Lightning Bolt":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Lightning_Bolt"},"Lightning Rod":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Lightning_Rod"},"Lockdown":{"level":1,"type":"support","url":"https://poe2db.tw/us/Lockdown"},"Lunar Assault":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Lunar_Assault"},"Mace Strike":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Mace_Strike"},"Magnified Area I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Magnified_Area_I"},"Malady":{"level":1,"type":"support","url":"https://poe2db.tw/us/Malady"},"Malice":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Malice"},"Mana Bounty":{"level":1,"type":"support","url":"https://poe2db.tw/us/Mana_Bounty"},"Mana Drain":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Mana_Drain"},"Manifest Weapon":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Manifest_Weapon"},"Mark of Siphoning":{"level":1,"type":"support","url":"https://poe2db.tw/us/Mark_of_Siphoning"},"Meat Shield I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Meat_Shield_I"},"Meditate":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Meditate"},"Minion Pact I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Minion_Pact_I"},"Mirage Deadeye":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Mirage_Deadeye"},"Mirror of Refraction":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Mirror_of_Refraction"},"Moment of Vulnerability":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Moment_of_Vulnerability"},"Morgana's Tempest":{"level":1,"type":"support","url":"https://poe2db.tw/us/Morganas_Tempest"},"Multishot I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Multishot_I"},"Murderous Intent":{"level":1,"type":"support","url":"https://poe2db.tw/us/Murderous_Intent"},"Navira's Fracturing":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Naviras_Fracturing"},"Navira's Oasis":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Naviras_Oasis"},"Navira's Well":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Naviras_Well"},"Navira, the Last Mirage":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Navira%2C_the_Last_Mirage"},"Ois\u00edn's Oath":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ois%C3%ADns_Oath"},"Opening Move":{"level":1,"type":"support","url":"https://poe2db.tw/us/Opening_Move"},"Overabundance I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Overabundance_I"},"Overabundance III":{"level":1,"type":"support","url":"https://poe2db.tw/us/Overabundance_III"},"Paquate's Pact":{"level":1,"type":"support","url":"https://poe2db.tw/us/Paquates_Pact"},"Parry":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Parry"},"Permafrost Bolts":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Permafrost_Bolts"},"Perpetual Charge":{"level":1,"type":"support","url":"https://poe2db.tw/us/Perpetual_Charge"},"Pierce I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Pierce_I"},"Pin I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Pin_I"},"Poison I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Poison_I"},"Poisonburst Arrow":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Poisonburst_Arrow"},"Power Siphon":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Power_Siphon"},"Precision I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Precision_I"},"Profanity I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Profanity_I"},"Projectile Acceleration I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Projectile_Acceleration_I"},"Projectile Deceleration I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Projectile_Deceleration_I"},"Prolonged Duration I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Prolonged_Duration_I"},"Punch":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Punch"},"Purity of Fire":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Purity_of_Fire"},"Purity of Ice":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Purity_of_Ice"},"Purity of Lightning":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Purity_of_Lightning"},"Pursuit I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Pursuit_I"},"Quarterstaff Strike":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Quarterstaff_Strike"},"Rage I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Rage_I"},"Raise Shield":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Raise_Shield"},"Rakiata's Flow":{"level":1,"type":"support","url":"https://poe2db.tw/us/Rakiatas_Flow"},"Rapid Attacks I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Rapid_Attacks_I"},"Rapid Casting I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Rapid_Casting_I"},"Ratha's Assault":{"level":1,"type":"support","url":"https://poe2db.tw/us/Rathas_Assault"},"Reap":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Reap"},"Retreat I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Retreat_I"},"Ricochet III":{"level":1,"type":"support","url":"https://poe2db.tw/us/Ricochet_III"},"Rigwald's Ferocity":{"level":1,"type":"support","url":"https://poe2db.tw/us/Rigwalds_Ferocity"},"Ritual Sacrifice":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Ritual_Sacrifice"},"Rolling Slam":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Rolling_Slam"},"Romira's Requital":{"level":1,"type":"support","url":"https://poe2db.tw/us/Romiras_Requital"},"Rusted Spikes":{"level":1,"type":"support","url":"https://poe2db.tw/us/Rusted_Spikes"},"Ruzhan's Fury":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Ruzhans_Fury"},"Ruzhan's Reckoning":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Ruzhans_Reckoning"},"Ruzhan's Trap":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Ruzhans_Trap"},"Ruzhan, the Blazing Sword":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Ruzhan%2C_the_Blazing_Sword"},"Sacrificial Lamb I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Sacrificial_Lamb_I"},"Shattering Concoction":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Shattering_Concoction"},"Shock":{"level":1,"type":"support","url":"https://poe2db.tw/us/Shock"},"Shock Siphon":{"level":1,"type":"support","url":"https://poe2db.tw/us/Shock_Siphon"},"Sigil of Power":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Sigil_of_Power"},"Sione's Temper":{"level":1,"type":"support","url":"https://poe2db.tw/us/Siones_Temper"},"Skeletal Sniper":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Sniper"},"Skeletal Warrior":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Warrior"},"Slow Potency":{"level":1,"type":"support","url":"https://poe2db.tw/us/Slow_Potency"},"Solar Orb":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Solar_Orb"},"Sorcery Ward":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Sorcery_Ward"},"Soulrend":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Soulrend"},"Spar":{"level":1,"type":"support","url":"https://poe2db.tw/us/Spar"},"Spark":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Spark"},"Spear Stab":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Spear_Stab"},"Spear Throw":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Spear_Throw"},"Spell Cascade":{"level":1,"type":"support","url":"https://poe2db.tw/us/Spell_Cascade"},"Spellslinger":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Spellslinger"},"Steadfast I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Steadfast_I"},"Stomping Ground":{"level":1,"type":"support","url":"https://poe2db.tw/us/Stomping_Ground"},"Stormchain":{"level":1,"type":"support","url":"https://poe2db.tw/us/Stormchain"},"Summon Infernal Hound":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Summon_Infernal_Hound"},"Supporting Fire":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Supporting_Fire"},"Swift Affliction I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Swift_Affliction_I"},"Sword Slash":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Sword_Slash"},"Tacati's Ire":{"level":1,"type":"support","url":"https://poe2db.tw/us/Tacatis_Ire"},"Tasalio's Rhythm":{"level":1,"type":"support","url":"https://poe2db.tw/us/Tasalios_Rhythm"},"Tawhoa's Tending":{"level":1,"type":"support","url":"https://poe2db.tw/us/Tawhoas_Tending"},"Tecrod's Revenge":{"level":1,"type":"support","url":"https://poe2db.tw/us/Tecrods_Revenge"},"Temper Weapon":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Temper_Weapon"},"Temporal Rift":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Temporal_Rift"},"Thrill of the Kill":{"level":1,"type":"support","url":"https://poe2db.tw/us/Thrill_of_the_Kill"},"Time Freeze":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Time_Freeze"},"Time Snap":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Time_Snap"},"Tireless":{"level":1,"type":"support","url":"https://poe2db.tw/us/Tireless"},"Tul's Stillness":{"level":1,"type":"support","url":"https://poe2db.tw/us/Tuls_Stillness"},"Twister":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Twister"},"Uhtred's Augury":{"level":1,"type":"support","url":"https://poe2db.tw/us/Uhtreds_Augury"},"Uhtred's Exodus":{"level":1,"type":"support","url":"https://poe2db.tw/us/Uhtreds_Exodus"},"Uhtred's Omen":{"level":1,"type":"support","url":"https://poe2db.tw/us/Uhtreds_Omen"},"Unbound Avatar":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Unbound_Avatar"},"Unearth":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Unearth"},"Unleash":{"level":1,"type":"support","url":"https://poe2db.tw/us/Unleash"},"Upheaval I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Upheaval_I"},"Uruk's Smelting":{"level":1,"type":"support","url":"https://poe2db.tw/us/Uruks_Smelting"},"Uul-Netol's Embrace":{"level":1,"type":"support","url":"https://poe2db.tw/us/Uul-Netols_Embrace"},"Vanguard I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Vanguard_I"},"Varashta's Blessing":{"level":1,"type":"support","url":"https://poe2db.tw/us/Varashtas_Blessing"},"Vilenta's Propulsion":{"level":1,"type":"support","url":"https://poe2db.tw/us/Vilentas_Propulsion"},"Vitality I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Vitality_I"},"Void Illusion":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Void_Illusion"},"Volatile Dead":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Volatile_Dead"},"Volcano":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Volcano"},"Whirling Slash":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Whirling_Slash"},"Window of Opportunity I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Window_of_Opportunity_I"},"Wither":{"level":1,"type":"skill","url":"https://poe2db.tw/us/Wither"},"Withering Touch":{"level":1,"type":"support","url":"https://poe2db.tw/us/Withering_Touch"},"Xibaqua's Rending":{"level":1,"type":"support","url":"https://poe2db.tw/us/Xibaquas_Rending"},"Xoph's Pyre":{"level":1,"type":"support","url":"https://poe2db.tw/us/Xophs_Pyre"},"Zarokh's Refrain":{"level":1,"type":"support","url":"https://poe2db.tw/us/Zarokhs_Refrain"},"Zarokh's Revolt":{"level":1,"type":"support","url":"https://poe2db.tw/us/Zarokhs_Revolt"},"Zenith I":{"level":1,"type":"support","url":"https://poe2db.tw/us/Zenith_I"},"Zerphi's Infamy":{"level":1,"type":"support","url":"https://poe2db.tw/us/Zerphis_Infamy"},"[DNT] Crushing Earth":{"level":1,"type":"skill","url":"https://poe2db.tw/us/DNT_Crushing_Earth"},"Abiding Hex":{"level":2,"type":"support","url":"https://poe2db.tw/us/Abiding_Hex"},"Accelerated Growth":{"level":2,"type":"support","url":"https://poe2db.tw/us/Accelerated_Growth"},"Acrimony":{"level":2,"type":"support","url":"https://poe2db.tw/us/Acrimony"},"Adhesive Grenades I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Adhesive_Grenades_I"},"Admixture":{"level":2,"type":"support","url":"https://poe2db.tw/us/Admixture"},"Aftershock I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Aftershock_I"},"Ambrosia":{"level":2,"type":"support","url":"https://poe2db.tw/us/Ambrosia"},"Ammo Conservation I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Ammo_Conservation_I"},"Armour Break I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Armour_Break_I"},"Behead I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Behead_I"},"Bidding I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Bidding_I"},"Blind I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Blind_I"},"Bone Shrapnel":{"level":2,"type":"support","url":"https://poe2db.tw/us/Bone_Shrapnel"},"Boundless Energy I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Boundless_Energy_I"},"Bounty I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Bounty_I"},"Brink I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Brink_I"},"Brutality II":{"level":2,"type":"support","url":"https://poe2db.tw/us/Brutality_II"},"Bursting Plague":{"level":2,"type":"support","url":"https://poe2db.tw/us/Bursting_Plague"},"Cadence":{"level":2,"type":"support","url":"https://poe2db.tw/us/Cadence"},"Catharsis":{"level":2,"type":"support","url":"https://poe2db.tw/us/Catharsis"},"Chain II":{"level":2,"type":"support","url":"https://poe2db.tw/us/Chain_II"},"Cold Penetration":{"level":2,"type":"support","url":"https://poe2db.tw/us/Cold_Penetration"},"Commiserate":{"level":2,"type":"support","url":"https://poe2db.tw/us/Commiserate"},"Concoct I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Concoct_I"},"Considered Casting":{"level":2,"type":"support","url":"https://poe2db.tw/us/Considered_Casting"},"Crackling Barrier":{"level":2,"type":"support","url":"https://poe2db.tw/us/Crackling_Barrier"},"Crater":{"level":2,"type":"support","url":"https://poe2db.tw/us/Crater"},"Danse Macabre":{"level":2,"type":"support","url":"https://poe2db.tw/us/Danse_Macabre"},"Deadly Poison I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Deadly_Poison_I"},"Deathmarch":{"level":2,"type":"support","url":"https://poe2db.tw/us/Deathmarch"},"Defy I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Defy_I"},"Delayed Gratification":{"level":2,"type":"support","url":"https://poe2db.tw/us/Delayed_Gratification"},"Direstrike I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Direstrike_I"},"Double Barrel II":{"level":2,"type":"support","url":"https://poe2db.tw/us/Double_Barrel_II"},"Durability":{"level":2,"type":"support","url":"https://poe2db.tw/us/Durability"},"Electrocute":{"level":2,"type":"support","url":"https://poe2db.tw/us/Electrocute"},"Elemental Armament II":{"level":2,"type":"support","url":"https://poe2db.tw/us/Elemental_Armament_II"},"Embitter":{"level":2,"type":"support","url":"https://poe2db.tw/us/Embitter"},"Empowered Sparks I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Empowered_Sparks_I"},"Encroaching Ground":{"level":2,"type":"support","url":"https://poe2db.tw/us/Encroaching_Ground"},"Excise":{"level":2,"type":"support","url":"https://poe2db.tw/us/Excise"},"Exploit Weakness":{"level":2,"type":"support","url":"https://poe2db.tw/us/Exploit_Weakness"},"Fan The Flames":{"level":2,"type":"support","url":"https://poe2db.tw/us/Fan_The_Flames"},"Fiery Death":{"level":2,"type":"support","url":"https://poe2db.tw/us/Fiery_Death"},"Fire Penetration I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Fire_Penetration_I"},"Focused Curse":{"level":2,"type":"support","url":"https://poe2db.tw/us/Focused_Curse"},"Font of Blood":{"level":2,"type":"support","url":"https://poe2db.tw/us/Font_of_Blood"},"Font of Mana":{"level":2,"type":"support","url":"https://poe2db.tw/us/Font_of_Mana"},"Freeze":{"level":2,"type":"support","url":"https://poe2db.tw/us/Freeze"},"Frenzied Riposte":{"level":2,"type":"support","url":"https://poe2db.tw/us/Frenzied_Riposte"},"Fresh Clip I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Fresh_Clip_I"},"Frost Nexus":{"level":2,"type":"support","url":"https://poe2db.tw/us/Frost_Nexus"},"Frozen Spite":{"level":2,"type":"support","url":"https://poe2db.tw/us/Frozen_Spite"},"Glacier":{"level":2,"type":"support","url":"https://poe2db.tw/us/Glacier"},"Gorge":{"level":2,"type":"support","url":"https://poe2db.tw/us/Gorge"},"Hardy Totems I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Hardy_Totems_I"},"Harmonic Remnants I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Harmonic_Remnants_I"},"Heightened Charges":{"level":2,"type":"support","url":"https://poe2db.tw/us/Heightened_Charges"},"Herbalism I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Herbalism_I"},"Icicle":{"level":2,"type":"support","url":"https://poe2db.tw/us/Icicle"},"Infernal Legion I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Infernal_Legion_I"},"Inhibitor":{"level":2,"type":"support","url":"https://poe2db.tw/us/Inhibitor"},"Intense Agony":{"level":2,"type":"support","url":"https://poe2db.tw/us/Intense_Agony"},"Jagged Ground I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Jagged_Ground_I"},"Lasting Shock":{"level":2,"type":"support","url":"https://poe2db.tw/us/Lasting_Shock"},"Life Leech I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Life_Leech_I"},"Lifetap":{"level":2,"type":"support","url":"https://poe2db.tw/us/Lifetap"},"Lightning Penetration":{"level":2,"type":"support","url":"https://poe2db.tw/us/Lightning_Penetration"},"Living Lightning":{"level":2,"type":"support","url":"https://poe2db.tw/us/Living_Lightning"},"Longshot I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Longshot_I"},"Loyalty":{"level":2,"type":"support","url":"https://poe2db.tw/us/Loyalty"},"Maim":{"level":2,"type":"support","url":"https://poe2db.tw/us/Maim"},"Mana Flare":{"level":2,"type":"support","url":"https://poe2db.tw/us/Mana_Flare"},"Mana Leech":{"level":2,"type":"support","url":"https://poe2db.tw/us/Mana_Leech"},"Mark for Death":{"level":2,"type":"support","url":"https://poe2db.tw/us/Mark_for_Death"},"Minion Instability":{"level":2,"type":"support","url":"https://poe2db.tw/us/Minion_Instability"},"Momentum":{"level":2,"type":"support","url":"https://poe2db.tw/us/Momentum"},"Multishot II":{"level":2,"type":"support","url":"https://poe2db.tw/us/Multishot_II"},"Mysticism I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Mysticism_I"},"Nova Projectiles I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Nova_Projectiles_I"},"Overextend":{"level":2,"type":"support","url":"https://poe2db.tw/us/Overextend"},"Overreach":{"level":2,"type":"support","url":"https://poe2db.tw/us/Overreach"},"Persistent Ground I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Persistent_Ground_I"},"Pin II":{"level":2,"type":"support","url":"https://poe2db.tw/us/Pin_II"},"Pinpoint Critical":{"level":2,"type":"support","url":"https://poe2db.tw/us/Pinpoint_Critical"},"Potent Exposure":{"level":2,"type":"support","url":"https://poe2db.tw/us/Potent_Exposure"},"Raging Cry":{"level":2,"type":"support","url":"https://poe2db.tw/us/Raging_Cry"},"Refraction I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Refraction_I"},"Remnant Potency I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Remnant_Potency_I"},"Retaliate I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Retaliate_I"},"Ricochet I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Ricochet_I"},"Rising Tempest":{"level":2,"type":"support","url":"https://poe2db.tw/us/Rising_Tempest"},"Second Wind I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Second_Wind_I"},"Selfless Remnants":{"level":2,"type":"support","url":"https://poe2db.tw/us/Selfless_Remnants"},"Shock Conduction I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Shock_Conduction_I"},"Shocking Leap":{"level":2,"type":"support","url":"https://poe2db.tw/us/Shocking_Leap"},"Short Fuse I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Short_Fuse_I"},"Skittering Stone I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Skittering_Stone_I"},"Spell Echo":{"level":2,"type":"support","url":"https://poe2db.tw/us/Spell_Echo"},"Stun I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Stun_I"},"Tectonic Slams":{"level":2,"type":"support","url":"https://poe2db.tw/us/Tectonic_Slams"},"Thornskin I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Thornskin_I"},"Upwelling I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Upwelling_I"},"Urgent Totems I":{"level":2,"type":"support","url":"https://poe2db.tw/us/Urgent_Totems_I"},"Vanguard II":{"level":2,"type":"support","url":"https://poe2db.tw/us/Vanguard_II"},"Volcanic Eruption":{"level":2,"type":"support","url":"https://poe2db.tw/us/Volcanic_Eruption"},"Volt":{"level":2,"type":"support","url":"https://poe2db.tw/us/Volt"},"Wildfire":{"level":2,"type":"support","url":"https://poe2db.tw/us/Wildfire"},"Adhesive Grenades II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Adhesive_Grenades_II"},"Alignment I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Alignment_I"},"Ambrosia II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Ambrosia_II"},"Armour Break II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Armour_Break_II"},"Armour Breaker":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Armour_Breaker"},"Armour Demolisher II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Armour_Demolisher_II"},"Astral Projection":{"level":3,"type":"support","url":"https://poe2db.tw/us/Astral_Projection"},"Barbs I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Barbs_I"},"Behead II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Behead_II"},"Biting Frost I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Biting_Frost_I"},"Bleed II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Bleed_II"},"Bone Cage":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Bone_Cage"},"Branching Fissures I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Branching_Fissures_I"},"Brink II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Brink_II"},"Brittle Armour":{"level":3,"type":"support","url":"https://poe2db.tw/us/Brittle_Armour"},"Caltrops":{"level":3,"type":"support","url":"https://poe2db.tw/us/Caltrops"},"Cannibalism I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Cannibalism_I"},"Chaos Attunement":{"level":3,"type":"support","url":"https://poe2db.tw/us/Chaos_Attunement"},"Chaotic Freeze":{"level":3,"type":"support","url":"https://poe2db.tw/us/Chaotic_Freeze"},"Charged Shots I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Charged_Shots_I"},"Clash":{"level":3,"type":"support","url":"https://poe2db.tw/us/Clash"},"Close Combat I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Close_Combat_I"},"Combo Finisher II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Combo_Finisher_II"},"Compressed Duration II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Compressed_Duration_II"},"Cool Headed":{"level":3,"type":"support","url":"https://poe2db.tw/us/Cool_Headed"},"Cooldown Recovery I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Cooldown_Recovery_I"},"Corpse Conservation":{"level":3,"type":"support","url":"https://poe2db.tw/us/Corpse_Conservation"},"Corrupting Cry I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Corrupting_Cry_I"},"Cull The Weak":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Cull_The_Weak"},"Culmination I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Culmination_I"},"Cursed Ground":{"level":3,"type":"support","url":"https://poe2db.tw/us/Cursed_Ground"},"Deadly Herald":{"level":3,"type":"support","url":"https://poe2db.tw/us/Deadly_Herald"},"Deadly Resolve":{"level":3,"type":"support","url":"https://poe2db.tw/us/Deadly_Resolve"},"Decaying Hex":{"level":3,"type":"support","url":"https://poe2db.tw/us/Decaying_Hex"},"Deep Cuts I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Deep_Cuts_I"},"Deliberation":{"level":3,"type":"support","url":"https://poe2db.tw/us/Deliberation"},"Drain Ailments":{"level":3,"type":"support","url":"https://poe2db.tw/us/Drain_Ailments"},"Electromagnetism":{"level":3,"type":"support","url":"https://poe2db.tw/us/Electromagnetism"},"Elemental Discharge":{"level":3,"type":"support","url":"https://poe2db.tw/us/Elemental_Discharge"},"Elemental Focus":{"level":3,"type":"support","url":"https://poe2db.tw/us/Elemental_Focus"},"Energy Capacitor":{"level":3,"type":"support","url":"https://poe2db.tw/us/Energy_Capacitor"},"Energy Retention":{"level":3,"type":"support","url":"https://poe2db.tw/us/Energy_Retention"},"Enfeeble":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Enfeeble"},"Essence Drain":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Essence_Drain"},"Essence Harvest":{"level":3,"type":"support","url":"https://poe2db.tw/us/Essence_Harvest"},"Eternal Flame II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Eternal_Flame_II"},"Eternal Mark":{"level":3,"type":"support","url":"https://poe2db.tw/us/Eternal_Mark"},"Execrate":{"level":3,"type":"support","url":"https://poe2db.tw/us/Execrate"},"Extraction":{"level":3,"type":"support","url":"https://poe2db.tw/us/Extraction"},"Fangs of Frost":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Fangs_of_Frost"},"Feeding Frenzy I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Feeding_Frenzy_I"},"Fireball":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Fireball"},"Fist of War II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Fist_of_War_II"},"Flash Grenade":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Flash_Grenade"},"Fluke":{"level":3,"type":"support","url":"https://poe2db.tw/us/Fluke"},"Fork":{"level":3,"type":"support","url":"https://poe2db.tw/us/Fork"},"Fortress II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Fortress_II"},"Freezing Salvo":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Freezing_Salvo"},"Frost Darts":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Frost_Darts"},"Frostfire":{"level":3,"type":"support","url":"https://poe2db.tw/us/Frostfire"},"Gambleshot":{"level":3,"type":"support","url":"https://poe2db.tw/us/Gambleshot"},"Haemocrystals":{"level":3,"type":"support","url":"https://poe2db.tw/us/Haemocrystals"},"Harmonic Remnants II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Harmonic_Remnants_II"},"Heightened Accuracy II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Heightened_Accuracy_II"},"Hex Bloom":{"level":3,"type":"support","url":"https://poe2db.tw/us/Hex_Bloom"},"High Velocity Rounds":{"level":3,"type":"skill","url":"https://poe2db.tw/us/High_Velocity_Rounds"},"Ice Bite II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Ice_Bite_II"},"Ignite II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Ignite_II"},"Immolate":{"level":3,"type":"support","url":"https://poe2db.tw/us/Immolate"},"Incendiary Shot":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Incendiary_Shot"},"Inexorable Critical I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Inexorable_Critical_I"},"Infernal Cry":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Infernal_Cry"},"Knockback":{"level":3,"type":"support","url":"https://poe2db.tw/us/Knockback"},"Life Leech II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Life_Leech_II"},"Lightning Spear":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Lightning_Spear"},"Living Bomb":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Living_Bomb"},"Longshot II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Longshot_II"},"Magnified Area II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Magnified_Area_II"},"Meat Shield II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Meat_Shield_II"},"Mobility":{"level":3,"type":"support","url":"https://poe2db.tw/us/Mobility"},"Muster":{"level":3,"type":"support","url":"https://poe2db.tw/us/Muster"},"Neural Overload":{"level":3,"type":"support","url":"https://poe2db.tw/us/Neural_Overload"},"Orb of Storms":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Orb_of_Storms"},"Persistent Ground II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Persistent_Ground_II"},"Pierce II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Pierce_II"},"Poison II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Poison_II"},"Poison Spores":{"level":3,"type":"support","url":"https://poe2db.tw/us/Poison_Spores"},"Pounce":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Pounce"},"Practical Magic I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Practical_Magic_I"},"Practiced Combo":{"level":3,"type":"support","url":"https://poe2db.tw/us/Practiced_Combo"},"Projectile Deceleration II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Projectile_Deceleration_II"},"Prolonged Duration II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Prolonged_Duration_II"},"Punch Through":{"level":3,"type":"support","url":"https://poe2db.tw/us/Punch_Through"},"Pursuit II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Pursuit_II"},"Quill Burst":{"level":3,"type":"support","url":"https://poe2db.tw/us/Quill_Burst"},"Rake":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Rake"},"Rearm I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Rearm_I"},"Refraction II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Refraction_II"},"Reinforced Totems I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Reinforced_Totems_I"},"Remnant Potency II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Remnant_Potency_II"},"Rending Apex":{"level":3,"type":"support","url":"https://poe2db.tw/us/Rending_Apex"},"Retreat II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Retreat_II"},"Rip":{"level":3,"type":"support","url":"https://poe2db.tw/us/Rip"},"Ritualistic Curse":{"level":3,"type":"support","url":"https://poe2db.tw/us/Ritualistic_Curse"},"Rolling Magma":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Rolling_Magma"},"Rupture":{"level":3,"type":"support","url":"https://poe2db.tw/us/Rupture"},"Sacrificial Lamb II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Sacrificial_Lamb_II"},"Sacrificial Offering":{"level":3,"type":"support","url":"https://poe2db.tw/us/Sacrificial_Offering"},"Salvo":{"level":3,"type":"support","url":"https://poe2db.tw/us/Salvo"},"Searing Flame I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Searing_Flame_I"},"Shield Charge":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Shield_Charge"},"Shockwave Totem":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Shockwave_Totem"},"Skeletal Arsonist":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Arsonist"},"Snipe":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Snipe"},"Soul Drain":{"level":3,"type":"support","url":"https://poe2db.tw/us/Soul_Drain"},"Splinter Totem I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Splinter_Totem_I"},"Staggering Palm":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Staggering_Palm"},"Static Shocks":{"level":3,"type":"support","url":"https://poe2db.tw/us/Static_Shocks"},"Steadfast II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Steadfast_II"},"Stoicism I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Stoicism_I"},"Stormcaller Arrow":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Stormcaller_Arrow"},"Stormfire":{"level":3,"type":"support","url":"https://poe2db.tw/us/Stormfire"},"Streamlined Rounds":{"level":3,"type":"support","url":"https://poe2db.tw/us/Streamlined_Rounds"},"Strong Hearted":{"level":3,"type":"support","url":"https://poe2db.tw/us/Strong_Hearted"},"Supercritical":{"level":3,"type":"support","url":"https://poe2db.tw/us/Supercritical"},"Swift Affliction II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Swift_Affliction_II"},"Tear":{"level":3,"type":"support","url":"https://poe2db.tw/us/Tear"},"Tempest Bell":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Tempest_Bell"},"Thrill of the Kill II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Thrill_of_the_Kill_II"},"Urgent Totems II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Urgent_Totems_II"},"Verglas":{"level":3,"type":"support","url":"https://poe2db.tw/us/Verglas"},"Vine Arrow":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Vine_Arrow"},"Volatility":{"level":3,"type":"support","url":"https://poe2db.tw/us/Volatility"},"Warm Blooded":{"level":3,"type":"support","url":"https://poe2db.tw/us/Warm_Blooded"},"Wildshards I":{"level":3,"type":"support","url":"https://poe2db.tw/us/Wildshards_I"},"Wind Blast":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Wind_Blast"},"Wing Blast":{"level":3,"type":"skill","url":"https://poe2db.tw/us/Wing_Blast"},"Zenith II":{"level":3,"type":"support","url":"https://poe2db.tw/us/Zenith_II"},"Advancing Storm":{"level":4,"type":"support","url":"https://poe2db.tw/us/Advancing_Storm"},"Aftershock II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Aftershock_II"},"Alignment II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Alignment_II"},"Ammo Conservation II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Ammo_Conservation_II"},"Ancestral Call I":{"level":4,"type":"support","url":"https://poe2db.tw/us/Ancestral_Call_I"},"Arctic Armour":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Arctic_Armour"},"Armour Break III":{"level":4,"type":"support","url":"https://poe2db.tw/us/Armour_Break_III"},"Attrition":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Attrition"},"Bidding II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Bidding_II"},"Blazing Critical":{"level":4,"type":"support","url":"https://poe2db.tw/us/Blazing_Critical"},"Boundless Energy II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Boundless_Energy_II"},"Bounty II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Bounty_II"},"Briarpatch":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Briarpatch"},"Burgeon II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Burgeon_II"},"Burning Inscription":{"level":4,"type":"support","url":"https://poe2db.tw/us/Burning_Inscription"},"Cannibalism II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Cannibalism_II"},"Clarity II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Clarity_II"},"Cold Exposure":{"level":4,"type":"support","url":"https://poe2db.tw/us/Cold_Exposure"},"Concoct II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Concoct_II"},"Concussive Spells":{"level":4,"type":"support","url":"https://poe2db.tw/us/Concussive_Spells"},"Controlled Hazard":{"level":4,"type":"support","url":"https://poe2db.tw/us/Controlled_Hazard"},"Convalescence":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Convalescence"},"Cooldown Recovery II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Cooldown_Recovery_II"},"Crazed Minions":{"level":4,"type":"support","url":"https://poe2db.tw/us/Crazed_Minions"},"Crescendo II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Crescendo_II"},"Culling Strike I":{"level":4,"type":"support","url":"https://poe2db.tw/us/Culling_Strike_I"},"Deadly Poison II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Deadly_Poison_II"},"Delayed Reaction":{"level":4,"type":"support","url":"https://poe2db.tw/us/Delayed_Reaction"},"Derange":{"level":4,"type":"support","url":"https://poe2db.tw/us/Derange"},"Direstrike II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Direstrike_II"},"Echoing Cry":{"level":4,"type":"support","url":"https://poe2db.tw/us/Echoing_Cry"},"Efficiency II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Efficiency_II"},"Empowered Sparks II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Empowered_Sparks_II"},"Enduring Impact II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Enduring_Impact_II"},"Enraged Warcry I":{"level":4,"type":"support","url":"https://poe2db.tw/us/Enraged_Warcry_I"},"Eternal Flame III":{"level":4,"type":"support","url":"https://poe2db.tw/us/Eternal_Flame_III"},"Execute II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Execute_II"},"Exposing Cry":{"level":4,"type":"support","url":"https://poe2db.tw/us/Exposing_Cry"},"Fan The Flames II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Fan_The_Flames_II"},"Feeding Frenzy II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Feeding_Frenzy_II"},"Fire Exposure":{"level":4,"type":"support","url":"https://poe2db.tw/us/Fire_Exposure"},"Fresh Clip II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Fresh_Clip_II"},"Ghost Dance":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Ghost_Dance"},"Grim Feast":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Grim_Feast"},"Hardy Totems II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Hardy_Totems_II"},"Heavy Swing":{"level":4,"type":"support","url":"https://poe2db.tw/us/Heavy_Swing"},"Herald of Ash":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Herald_of_Ash"},"Herald of Blood":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Herald_of_Blood"},"Herald of Ice":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Herald_of_Ice"},"Herald of Thunder":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Herald_of_Thunder"},"Herbalism II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Herbalism_II"},"Hit and Run":{"level":4,"type":"support","url":"https://poe2db.tw/us/Hit_and_Run"},"Hulking Minions":{"level":4,"type":"support","url":"https://poe2db.tw/us/Hulking_Minions"},"Impale":{"level":4,"type":"support","url":"https://poe2db.tw/us/Impale"},"Incision":{"level":4,"type":"support","url":"https://poe2db.tw/us/Incision"},"Inexorable Critical II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Inexorable_Critical_II"},"Infernal Legion II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Infernal_Legion_II"},"Iron Ward":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Iron_Ward"},"Lightning Exposure":{"level":4,"type":"support","url":"https://poe2db.tw/us/Lightning_Exposure"},"Living Lightning II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Living_Lightning_II"},"Long Fuse I":{"level":4,"type":"support","url":"https://poe2db.tw/us/Long_Fuse_I"},"Magma Barrier":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Magma_Barrier"},"Mana Remnants":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Mana_Remnants"},"Mark for Death II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Mark_for_Death_II"},"Mark of Siphoning II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Mark_of_Siphoning_II"},"Minion Pact II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Minion_Pact_II"},"Mysticism II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Mysticism_II"},"Nimble Reload":{"level":4,"type":"support","url":"https://poe2db.tw/us/Nimble_Reload"},"Nova Projectiles II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Nova_Projectiles_II"},"Overabundance II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Overabundance_II"},"Overcharge":{"level":4,"type":"support","url":"https://poe2db.tw/us/Overcharge"},"Payload":{"level":4,"type":"support","url":"https://poe2db.tw/us/Payload"},"Perfected Endurance":{"level":4,"type":"support","url":"https://poe2db.tw/us/Perfected_Endurance"},"Perfection":{"level":4,"type":"support","url":"https://poe2db.tw/us/Perfection"},"Plague Bearer":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Plague_Bearer"},"Precision II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Precision_II"},"Projectile Acceleration II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Projectile_Acceleration_II"},"Rage II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Rage_II"},"Rageforged I":{"level":4,"type":"support","url":"https://poe2db.tw/us/Rageforged_I"},"Raging Spirits":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Raging_Spirits"},"Rapid Attacks II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Rapid_Attacks_II"},"Rapid Casting II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Rapid_Casting_II"},"Ravenous Swarm":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Ravenous_Swarm"},"Remnant Potency III":{"level":4,"type":"support","url":"https://poe2db.tw/us/Remnant_Potency_III"},"Retaliate II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Retaliate_II"},"Ricochet II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Ricochet_II"},"Savage Fury":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Savage_Fury"},"Scavenged Plating":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Scavenged_Plating"},"Searing Flame II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Searing_Flame_II"},"Second Wind II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Second_Wind_II"},"Short Fuse II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Short_Fuse_II"},"Skittering Stone II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Skittering_Stone_II"},"Spectral Volley":{"level":4,"type":"support","url":"https://poe2db.tw/us/Spectral_Volley"},"Stun II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Stun_II"},"Syzygy":{"level":4,"type":"support","url":"https://poe2db.tw/us/Syzygy"},"Thornskin II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Thornskin_II"},"Upwelling II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Upwelling_II"},"Urgent Totems III":{"level":4,"type":"support","url":"https://poe2db.tw/us/Urgent_Totems_III"},"Vitality II":{"level":4,"type":"support","url":"https://poe2db.tw/us/Vitality_II"},"War Banner":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/War_Banner"},"Wind Dancer":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Wind_Dancer"},"Withering Presence":{"level":4,"type":"spirit","url":"https://poe2db.tw/us/Withering_Presence"},"Accelerated Growth II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Accelerated_Growth_II"},"Alignment III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Alignment_III"},"Ammo Conservation III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Ammo_Conservation_III"},"Ancestral Call II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Ancestral_Call_II"},"Arc":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Arc"},"Arctic Howl":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Arctic_Howl"},"Barbs II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Barbs_II"},"Barbs III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Barbs_III"},"Barrage":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Barrage"},"Bidding III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Bidding_III"},"Biting Frost II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Biting_Frost_II"},"Bleed III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Bleed_III"},"Bleed IV":{"level":5,"type":"support","url":"https://poe2db.tw/us/Bleed_IV"},"Blind II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Blind_II"},"Bonestorm":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Bonestorm"},"Brambleslam":{"level":5,"type":"support","url":"https://poe2db.tw/us/Brambleslam"},"Branching Fissures II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Branching_Fissures_II"},"Brutality III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Brutality_III"},"Catalysing Elements":{"level":5,"type":"support","url":"https://poe2db.tw/us/Catalysing_Elements"},"Chain III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Chain_III"},"Chaos Mastery":{"level":5,"type":"support","url":"https://poe2db.tw/us/Chaos_Mastery"},"Charge Profusion II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Charge_Profusion_II"},"Charged Mark":{"level":5,"type":"support","url":"https://poe2db.tw/us/Charged_Mark"},"Charged Shots II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Charged_Shots_II"},"Close Combat II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Close_Combat_II"},"Cold Mastery":{"level":5,"type":"support","url":"https://poe2db.tw/us/Cold_Mastery"},"Corrupting Cry II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Corrupting_Cry_II"},"Crescendo III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Crescendo_III"},"Culling Strike II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Culling_Strike_II"},"Culmination II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Culmination_II"},"Deep Cuts II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Deep_Cuts_II"},"Defy II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Defy_II"},"Devour":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Devour"},"Double Barrel III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Double_Barrel_III"},"Electrocuting Arrow":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Electrocuting_Arrow"},"Elemental Armament III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Elemental_Armament_III"},"Ember Fusillade":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Ember_Fusillade"},"Enraged Warcry II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Enraged_Warcry_II"},"Execute III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Execute_III"},"Expand":{"level":5,"type":"support","url":"https://poe2db.tw/us/Expand"},"Fire Mastery":{"level":5,"type":"support","url":"https://poe2db.tw/us/Fire_Mastery"},"Fire Penetration II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Fire_Penetration_II"},"Fist of War III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Fist_of_War_III"},"Frostbolt":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Frostbolt"},"Fury of the Mountain":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Fury_of_the_Mountain"},"Galvanic Shards":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Galvanic_Shards"},"Gas Grenade":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Gas_Grenade"},"Heft":{"level":5,"type":"support","url":"https://poe2db.tw/us/Heft"},"Holy Descent":{"level":5,"type":"support","url":"https://poe2db.tw/us/Holy_Descent"},"Ice Shards":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Ice_Shards"},"Ice Strike":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Ice_Strike"},"Ice-Tipped Arrows":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Ice-Tipped_Arrows"},"Ignite III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Ignite_III"},"Infernal Legion III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Infernal_Legion_III"},"Jagged Ground II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Jagged_Ground_II"},"Life Leech III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Life_Leech_III"},"Lightning Mastery":{"level":5,"type":"support","url":"https://poe2db.tw/us/Lightning_Mastery"},"Long Fuse II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Long_Fuse_II"},"Minion Mastery":{"level":5,"type":"support","url":"https://poe2db.tw/us/Minion_Mastery"},"Molten Blast":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Molten_Blast"},"Pain Offering":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Pain_Offering"},"Perfect Strike":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Perfect_Strike"},"Persistent Ground III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Persistent_Ground_III"},"Physical Mastery":{"level":5,"type":"support","url":"https://poe2db.tw/us/Physical_Mastery"},"Pierce III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Pierce_III"},"Pin III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Pin_III"},"Poison III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Poison_III"},"Practical Magic II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Practical_Magic_II"},"Profanity II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Profanity_II"},"Projectile Acceleration III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Projectile_Acceleration_III"},"Pursuit III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Pursuit_III"},"Rage III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Rage_III"},"Rageforged II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Rageforged_II"},"Raise Zombie":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Raise_Zombie"},"Rapid Assault":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Rapid_Assault"},"Rapid Attacks III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Rapid_Attacks_III"},"Rapid Casting III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Rapid_Casting_III"},"Rapid Shot":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Rapid_Shot"},"Rearm II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Rearm_II"},"Refraction III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Refraction_III"},"Reinforced Totems II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Reinforced_Totems_II"},"Resonating Shield":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Resonating_Shield"},"Retreat III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Retreat_III"},"Second Wind III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Second_Wind_III"},"Shock Conduction II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Shock_Conduction_II"},"Skeletal Frost Mage":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Frost_Mage"},"Snap":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Snap"},"Spearfield":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Spearfield"},"Splinter Totem II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Splinter_Totem_II"},"Stoicism II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Stoicism_II"},"Storm Lance":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Storm_Lance"},"Stun III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Stun_III"},"Swift Affliction III":{"level":5,"type":"support","url":"https://poe2db.tw/us/Swift_Affliction_III"},"Tempest Flurry":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Tempest_Flurry"},"Thunderstorm":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Thunderstorm"},"Toxic Growth":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Toxic_Growth"},"Upheaval II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Upheaval_II"},"Vaulting Impact":{"level":5,"type":"skill","url":"https://poe2db.tw/us/Vaulting_Impact"},"Wildshards II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Wildshards_II"},"Window of Opportunity II":{"level":5,"type":"support","url":"https://poe2db.tw/us/Window_of_Opportunity_II"},"Artillery Ballista":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Artillery_Ballista"},"Bind Spectre":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Bind_Spectre"},"Blood Hunt":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Blood_Hunt"},"Cross Slash":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Cross_Slash"},"Detonate Dead":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Detonate_Dead"},"Earthshatter":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Earthshatter"},"Elemental Weakness":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Elemental_Weakness"},"Explosive Shot":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Explosive_Shot"},"Ferocious Roar":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Ferocious_Roar"},"Freezing Mark":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Freezing_Mark"},"Gas Arrow":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Gas_Arrow"},"Glacial Bolt":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Glacial_Bolt"},"Glacial Lance":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Glacial_Lance"},"Leap Slam":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Leap_Slam"},"Mana Tempest":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Mana_Tempest"},"Primal Strikes":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Primal_Strikes"},"Profane Ritual":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Profane_Ritual"},"Shield Wall":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Shield_Wall"},"Siphoning Strike":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Siphoning_Strike"},"Sniper's Mark":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Snipers_Mark"},"Spell Totem":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Spell_Totem"},"Storm Wave":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Storm_Wave"},"Temporal Chains":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Temporal_Chains"},"Volcanic Fissure":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Volcanic_Fissure"},"Voltaic Grenade":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Voltaic_Grenade"},"Voltaic Mark":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Voltaic_Mark"},"Vulnerability":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Vulnerability"},"Wave of Frost":{"level":7,"type":"skill","url":"https://poe2db.tw/us/Wave_of_Frost"},"Barkskin":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Barkskin"},"Barrier Invocation":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Barrier_Invocation"},"Blasphemy":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Blasphemy"},"Blink":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Blink"},"Cast on Minion Death":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Cast_on_Minion_Death"},"Combat Frenzy":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Combat_Frenzy"},"Defiance Banner":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Defiance_Banner"},"Elemental Invocation":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Elemental_Invocation"},"Herald of Plague":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Herald_of_Plague"},"Lingering Illusion":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Lingering_Illusion"},"Mirage Archer":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Mirage_Archer"},"Overwhelming Presence":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Overwhelming_Presence"},"Shard Scavenger":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Shard_Scavenger"},"Siphon Elements":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Siphon_Elements"},"Time of Need":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Time_of_Need"},"Trail of Caltrops":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Trail_of_Caltrops"},"Wolf Pack":{"level":8,"type":"spirit","url":"https://poe2db.tw/us/Wolf_Pack"},"Bloodhound's Mark":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Bloodhounds_Mark"},"Charged Staff":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Charged_Staff"},"Dark Effigy":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Dark_Effigy"},"Despair":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Despair"},"Detonating Arrow":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Detonating_Arrow"},"Forge Hammer":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Forge_Hammer"},"Fortifying Cry":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Fortifying_Cry"},"Frost Wall":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Frost_Wall"},"Hand of Chayula":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Hand_of_Chayula"},"Ice Shot":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Ice_Shot"},"Incinerate":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Incinerate"},"Lightning Warp":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Lightning_Warp"},"Mantra of Destruction":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Mantra_of_Destruction"},"Oil Barrage":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Oil_Barrage"},"Oil Grenade":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Oil_Grenade"},"Rain of Arrows":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Rain_of_Arrows"},"Siege Ballista":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Siege_Ballista"},"Skeletal Reaver":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Reaver"},"Stormblast Bolts":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Stormblast_Bolts"},"Sunder":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Sunder"},"Tame Beast":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Tame_Beast"},"Thrashing Vines":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Thrashing_Vines"},"Thunderous Leap":{"level":9,"type":"skill","url":"https://poe2db.tw/us/Thunderous_Leap"},"Ball Lightning":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Ball_Lightning"},"Bone Offering":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Bone_Offering"},"Comet":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Comet"},"Elemental Sundering":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Elemental_Sundering"},"Emergency Reload":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Emergency_Reload"},"Firestorm":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Firestorm"},"Hailstorm Rounds":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Hailstorm_Rounds"},"Hexblast":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Hexblast"},"Mortar Cannon":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Mortar_Cannon"},"Rampage":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Rampage"},"Seismic Cry":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Seismic_Cry"},"Shattering Palm":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Shattering_Palm"},"Shockburst Rounds":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Shockburst_Rounds"},"Shockchain Arrow":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Shockchain_Arrow"},"Skeletal Storm Mage":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Storm_Mage"},"Stampede":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Stampede"},"Supercharged Slam":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Supercharged_Slam"},"Tornado":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Tornado"},"Tornado Shot":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Tornado_Shot"},"Whirling Assault":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Whirling_Assault"},"Whirlwind Lance":{"level":11,"type":"skill","url":"https://poe2db.tw/us/Whirlwind_Lance"},"Ancestral Cry":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Ancestral_Cry"},"Ancestral Warrior Totem":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Ancestral_Warrior_Totem"},"Cluster Grenade":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Cluster_Grenade"},"Eye of Winter":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Eye_of_Winter"},"Flame Breath":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Flame_Breath"},"Flameblast":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Flameblast"},"Flicker Strike":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Flicker_Strike"},"Gathering Storm":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Gathering_Storm"},"Hammer of the Gods":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Hammer_of_the_Gods"},"Lightning Conduit":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Lightning_Conduit"},"Lunar Blessing":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Lunar_Blessing"},"Magnetic Salvo":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Magnetic_Salvo"},"Plasma Blast":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Plasma_Blast"},"Siege Cascade":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Siege_Cascade"},"Skeletal Brute":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Brute"},"Skeletal Cleric":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Skeletal_Cleric"},"Soul Offering":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Soul_Offering"},"Spear of Solaris":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Spear_of_Solaris"},"Spiral Volley":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Spiral_Volley"},"Toxic Domain":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Toxic_Domain"},"Walking Calamity":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Walking_Calamity"},"Wind Serpent's Fury":{"level":13,"type":"skill","url":"https://poe2db.tw/us/Wind_Serpents_Fury"},"Alchemist's Boon":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Alchemists_Boon"},"Archmage":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Archmage"},"Berserk":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Berserk"},"Cast on Critical":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Cast_on_Critical"},"Cast on Dodge":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Cast_on_Dodge"},"Cast on Elemental Ailment":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Cast_on_Elemental_Ailment"},"Charge Regulation":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Charge_Regulation"},"Dread Banner":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Dread_Banner"},"Elemental Conflux":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Elemental_Conflux"},"Eternal Rage":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Eternal_Rage"},"Feral Invocation":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Feral_Invocation"},"Reaper's Invocation":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Reapers_Invocation"},"Rhoa Mount":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Rhoa_Mount"},"Sacrifice":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Sacrifice"},"Trinity":{"level":14,"type":"spirit","url":"https://poe2db.tw/us/Trinity"}};
-const KEYSTONE_EMOJI_CHAR = {
-  "Chaos Inoculation":"shield","Eldritch Battery":"&#9889;","Mind Over Matter":"&#129504;",
-  "Blood Magic":"&#129656;","Giant's Blood":"&#128170;","Acrobatics":"&#129338;",
-  "Unwavering Stance":"&#128511;","Iron Reflexes":"&#128297;","Resolute Technique":"&#127919;",
-  "Elemental Overload":"&#127744;","Avatar of Fire":"&#128293;","Pain Attunement":"&#128128;",
-  "Withering Presence":"&#9760;","Ancestral Bond":"&#128378;","Ghost Dance":"&#128123;",
-  "Mortal Conviction":"&#9879;","Iron Will":"&#9876;","Iron Grip":"&#9994;"
-};
+<script src="data/vetology-data.js"></script>
+<script>
+/* ARCHETYPE_SKILLS .. KEYSTONE_EMOJI_CHAR -> data/vetology-data.js */
 
 var currentArchetype = null;
 var currentAscendancy = null;
@@ -872,26 +540,63 @@ function onAscendancyChange() {
 function parsePaste() {
   var raw = document.getElementById('paste-input').value.trim();
   if (!raw) return;
-  var parts = raw.split(/\s*[-\u2014\u2013]\s*/);
-  var archStr = parts.length >= 2 ? parts[parts.length-1].trim() : raw.trim();
-  var classAsc = parts.length >= 2 ? parts[1].trim() : null;
-  var ascMatch = classAsc ? classAsc.match(/\(([^)]+)\)/) : null;
-  var ascStr = ascMatch ? ascMatch[1].trim() : null;
+  // Our Discord format is "Name \u2014 Class (Asc) \u2014 Archetype", delimited by a
+  // spaced EM/EN dash. We split on that only (not the hyphen-minus) so archetype
+  // names containing a real hyphen stay intact ("Pants Pisser - DoT...").
+  var parts = raw.split(/\s+[\u2014\u2013]\s+/)
+                 .map(function(s){ return s.trim(); })
+                 .filter(function(s){ return s.length; });
+
+  // Archetype is the last segment in our format. Only match against that (and
+  // the whole string as a fallback) so a player's name can't fuzzy-match a build.
+  var archStr = parts.length >= 2 ? parts[parts.length - 1] : raw;
+
+  // Class/ascendancy is a NON-archetype segment carrying "(Ascendancy)". Skip the
+  // last segment: in Plea Bargain there's no ascendancy, so the only parens belong
+  // to the archetype's own descriptor and must not be read as an ascendancy.
+  var classAsc = null, ascStr = null;
+  var lastIdx = parts.length >= 2 ? parts.length - 1 : 0;
+  for (var i = 0; i < lastIdx; i++) {
+    var m = parts[i].match(/\(([^)]+)\)/);
+    if (m) { classAsc = parts[i]; ascStr = m[1].trim(); break; }
+  }
   var found = findArchetype(archStr);
+  if (!found && parts.length >= 2) found = findArchetype(raw);
+
   if (found) {
     document.getElementById('archetype-select').value = found;
     loadArchetype(found, classAsc, ascStr);
+  } else {
+    showToast('Couldn\u2019t match that archetype \u2014 check spelling or pick one from the list.', true);
   }
 }
 
 function findArchetype(name) {
+  if (!name) return null;
   if (ARCHETYPE_SKILLS[name]) return name;
-  var keys = Object.keys(ARCHETYPE_SKILLS);
+  var q = name.toLowerCase().trim();
+  // Strip a trailing "(...)" descriptor so a full Discord archetype like
+  // "Palpatine (Ball Lightning + Herald of Thunder + Arc)" reduces to "palpatine".
+  var qBase = q.replace(/\s*\([^)]*\)\s*$/, '').trim();
+  // Longest keys first so specific names win over shorter substrings.
+  var keys = Object.keys(ARCHETYPE_SKILLS).sort(function(a,b){ return b.length - a.length; });
+
+  // 1. Exact match (with or without the descriptor).
   for (var i = 0; i < keys.length; i++) {
-    if (keys[i].toLowerCase() === name.toLowerCase()) return keys[i];
+    var k = keys[i].toLowerCase();
+    if (k === q || k === qBase) return keys[i];
   }
+  // 2. A known key appears inside the pasted string (full Discord line).
   for (var i = 0; i < keys.length; i++) {
-    if (keys[i].toLowerCase().indexOf(name.toLowerCase()) >= 0) return keys[i];
+    var k = keys[i].toLowerCase();
+    if (qBase.indexOf(k) >= 0 || q.indexOf(k) >= 0) return keys[i];
+  }
+  // 3. The pasted string is a fragment of a key (partial typing). Require >=4
+  //    chars so short names/words can't fuzzy-match ("Ann" -> "The Bannerman").
+  if (qBase.length >= 4) {
+    for (var i = 0; i < keys.length; i++) {
+      if (keys[i].toLowerCase().indexOf(qBase) >= 0) return keys[i];
+    }
   }
   return null;
 }
@@ -1165,12 +870,89 @@ function addGem(name) {
   filterGems();
 }
 
+// ── TOAST ─────────────────────────────────────────────────
+var _toastTimer = null;
+function showToast(msg, isRed) {
+  var t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast' + (isRed ? ' red' : '') + ' visible';
+  if (_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function(){ t.classList.remove('visible'); }, 3200);
+}
+
 // ── PDF EXPORT ────────────────────────────────────────────
 function exportPDF() {
   window.print();
 }
 
+// ── THEME TOGGLE (shares 'vetology-theme' with index.html) ─
+function toggleTheme() {
+  var el = document.documentElement;
+  var next = el.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  el.setAttribute('data-theme', next);
+  try { localStorage.setItem('vetology-theme', next); } catch (e) {}
+  updateThemeToggle();
+}
+function updateThemeToggle() {
+  var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  var btns = document.querySelectorAll('.theme-toggle');
+  for (var i = 0; i < btns.length; i++) btns[i].textContent = dark ? '☀' : '☾';
+}
+
 init();
+updateThemeToggle();
+
+// ── RAIN — canvas particle system (Night only). Irregular droplets. ──
+(function initRain() {
+  var canvas = document.querySelector('.rain-fx');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var drops = [];
+  function makeDrop(seed) {
+    return {
+      x: Math.random() * innerWidth,
+      y: seed ? Math.random() * innerHeight : -20,
+      len: 7 + Math.random() * 17,
+      speed: 340 + Math.random() * 420,
+      wind: 34 + Math.random() * 46,
+      alpha: 0.10 + Math.random() * 0.22,
+      w: Math.random() < 0.22 ? 1.5 : 0.8
+    };
+  }
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.round(innerWidth * innerHeight / 8500);
+    drops = []; for (var i = 0; i < count; i++) drops.push(makeDrop(true));
+  }
+  var last = performance.now();
+  function frame(now) {
+    var dt = Math.min((now - last) / 1000, 0.05); last = now;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    if (!reduce && document.documentElement.getAttribute('data-theme') === 'dark') {
+      ctx.lineCap = 'round';
+      for (var i = 0; i < drops.length; i++) {
+        var d = drops[i];
+        d.y += d.speed * dt; d.x += d.wind * dt;
+        if (d.y > innerHeight + 20) { drops[i] = makeDrop(false); continue; }
+        var slope = d.wind / d.speed;
+        ctx.strokeStyle = 'rgba(205,222,255,' + d.alpha + ')';
+        ctx.lineWidth = d.w;
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - slope * d.len, d.y - d.len);
+        ctx.stroke();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,27 @@
+# ── Secrets — NEVER commit ───────────────────────────────
+# API keys (PixelLab / image-gen etc.) live only on the dev machine.
+# The shipped site makes zero authenticated calls.
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets.json
+secrets.local.json
+**/apikey*.txt
+
+# ── Dev tooling (if we add a generation pipeline) ────────
+node_modules/
+.venv/
+__pycache__/
+*.log
+
+# ── OS / editor junk ─────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ── Local Claude settings (keep machine-local) ───────────
+.claude/settings.local.json

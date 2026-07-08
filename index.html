@@ -4,28 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vetology - Path of Exile 2</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=VT323&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* ── DAY: Sunlit Stone & Sky (bright alt theme; NOT brown) ──
+     Cool stone-grey backgrounds, heraldic slate-blue accent, navy ink.
+     The "--gold*" tokens are the app's accent ramp; in Day they hold a
+     slate-blue that ties to the bright-sky castle art. Darkest value
+     (--gold-light) is the heading colour for contrast on light panels. */
   :root {
+    --gold: #2f6690;
+    --gold-light: #1b3c58;
+    --gold-dark: #2a5578;
+    --gold-muted: #7fa3c0;
+    --bg-deep: #dbe4ec;
+    --bg-dark: #cad6e1;
+    --bg-mid: #e4ecf3;
+    --bg-card: #f5f9fc;
+    --red: #b3261e;
+    --red-bright: #d13c30;
+    --red-light: #a51f18;
+    --text-primary: #15283a;
+    --text-secondary: #2c4459;
+    --text-muted: #4a6076;
+    --text-dim: #8298ac;
+    --border: #b7c6d4;
+    --border-gold: #4a7ba6;
+    /* day scene — bright sky, no rain, no lightning.
+       --sky-bottom matches the castle-day PNG's upper sky so the CSS
+       gradient blends seamlessly into the art at the horizon. */
+    --sky-top: #9bd6f6;
+    --sky-bottom: #57b2ec;
+    --castle: #9aa7b3;
+    --win: #ffd27a;
+    --rain: transparent;
+    --flash: transparent;
+    --cloud: rgba(255,255,255,.92);   /* drifting white daytime clouds */
+    --bird: rgba(38,52,68,.72);       /* tiny bird silhouettes (day only) */
+    --castle-art: url("assets/castle-day.png"); /* PixelLab-generated; SVG shows if absent */
+  }
+  /* ── DARK: Midnight & Gold — cool navy to harmonise with the stormy castle ── */
+  :root[data-theme="dark"] {
     --gold: #c9a84c;
-    --gold-light: #e8d08a;
-    --gold-dark: #8b6914;
-    --gold-muted: #5a3f12;
-    --bg-deep: #0a0704;
-    --bg-dark: #0d0a05;
-    --bg-mid: #120e07;
-    --bg-card: #1a1209;
+    --gold-light: #ecd88f;
+    --gold-dark: #97844a;
+    --gold-muted: #3f4a63;
+    --bg-deep: #080b14;
+    --bg-dark: #0a0e1a;
+    --bg-mid: #0e1322;
+    --bg-card: #141b2c;
     --red: #8b1a1a;
     --red-bright: #c0392b;
-    --red-light: #e05050;
-    --text-primary: #e8d08a;
-    --text-secondary: #c4a86a;
-    --text-muted: #b89a5a;
-    --text-dim: #6b5530;
-    --border: #3d2b0a;
-    --border-gold: #8b6914;
+    --red-light: #e0716a;
+    --text-primary: #e7ecf4;
+    --text-secondary: #bcc4d4;
+    --text-muted: #8f97ab;
+    --text-dim: #596478;
+    --border: #283148;
+    --border-gold: #7f6d3c;
+    /* storm scene */
+    --sky-top: #17203a;
+    --sky-bottom: #06060e;
+    --castle: #04030a;
+    --win: #ffcf6b;
+    --rain: rgba(200,220,255,.22);
+    --flash: rgba(185,205,255,.55);
+    --cloud: rgba(150,170,210,.15);   /* faint slate storm clouds drifting */
+    --bird: transparent;              /* no birds in the storm */
+    --castle-art: url("assets/castle-night.png"); /* PixelLab-generated; SVG shows if absent */
   }
 
   html, body {
@@ -56,15 +104,19 @@
   .logo-block {
     text-align: center;
     margin-bottom: 40px;
+    padding: 28px 40px;
+    /* soft scrim keeps the header text legible over the busy castle */
+    background: radial-gradient(ellipse 80% 135% at 50% 46%, rgba(6,9,16,.82), rgba(6,9,16,0) 72%);
   }
 
   .logo-eyebrow {
     font-style: italic;
-    color: var(--gold);
+    color: var(--gold-light);
     font-size: 13px;
     letter-spacing: 0.35em;
     text-transform: uppercase;
     margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0,0,0,.9);
   }
 
   .logo-title {
@@ -78,10 +130,11 @@
 
   .logo-sub {
     font-style: italic;
-    color: var(--gold-dark);
+    color: var(--text-primary);
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.1em;
+    text-shadow: 0 2px 8px rgba(0,0,0,.95);
   }
 
   .setup-card {
@@ -191,6 +244,25 @@
 
   .btn-primary:hover { background: var(--gold); }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* MODE TOGGLE */
+  .mode-toggle { display: flex; gap: 8px; margin-bottom: 10px; }
+  .mode-btn {
+    flex: 1; background: var(--bg-dark); border: 0.5px solid var(--border);
+    border-radius: 2px; color: var(--text-dim); cursor: pointer;
+    font-family: 'Cinzel Decorative', serif; font-size: 10px; letter-spacing: 0.1em;
+    padding: 10px 8px; transition: all 0.2s;
+  }
+  .mode-btn:hover { border-color: var(--gold-dark); color: var(--gold); }
+  .mode-btn.active { border-color: var(--gold); color: var(--gold-light); background: rgba(139,105,20,0.15); }
+  .mode-desc { font-style: italic; color: var(--text-dim); font-size: 13px; text-align: center; margin-bottom: 20px; min-height: 18px; }
+  .card-asc-select {
+    background: var(--bg-dark); border: 0.5px solid var(--gold-dark); border-radius: 2px;
+    color: var(--text-primary); font-family: 'Crimson Text', Georgia, serif; font-size: 14px;
+    padding: 5px 8px; margin: 6px 0 2px; outline: none; cursor: pointer; max-width: 100%;
+  }
+  .card-asc-select:focus { border-color: var(--gold); }
+  .asc-hint { font-size: 11px; font-style: italic; color: var(--gold-dark); margin-top: 2px; }
 
   /* GAME SCREEN */
   #game-screen {
@@ -821,10 +893,10 @@
   .modal-close:hover { border-color: var(--red); color: var(--red-light); }
 
   .btn-faq {
-    background: rgba(139,105,20,0.08);
+    background: rgba(8,11,20,0.82);
     border: 1px solid var(--border-gold);
     border-radius: 2px;
-    color: var(--gold);
+    color: var(--gold-light);
     cursor: pointer;
     font-family: 'Crimson Text', Georgia, serif;
     font-style: normal;
@@ -838,9 +910,208 @@
   }
 
   .btn-faq:hover { border-color: var(--gold-dark); color: var(--gold); }
+  /* ═══════════════════════════════════════════════════════════════
+     PIXEL-MEDIEVAL THEME (Agent #4) — DOS-CRPG × illuminated manuscript.
+     Additive override layer. Delete this whole block to revert to classic.
+     ═══════════════════════════════════════════════════════════════ */
+  :root { --parchment: #e8d8b0; --stone: #241b12; }
+
+  /* Blocky pixel display font for headings, buttons, names; serif stays for prose */
+  .logo-title, .logo-eyebrow, .setup-card h2, .game-header-title, .modal-title,
+  .tab-btn, .btn-primary, .player-name, .roll-class, .section-title,
+  .footer-seal, .player-status-badge, .veto-label, .mode-btn {
+    font-family: 'Pixelify Sans', 'Cinzel Decorative', serif !important;
+  }
+  .logo-title { text-shadow: 4px 4px 0 #000, 0 0 26px rgba(200,160,70,.35); }
+
+  /* Pixels don't do rounded corners */
+  .setup-card, .player-card, .player-card-header, .btn-primary, .btn-secondary,
+  .btn-action, .btn-add, .btn-remove, .btn-faq, input[type="text"], .roll-display,
+  .modal, .toast, .mode-btn, .player-status-badge, .card-asc-select, .ref-item,
+  .veto-mode-banner, .pip { border-radius: 0 !important; }
+
+  /* Chunky beveled buttons (classic 3D DOS UI) */
+  .btn-primary, .btn-secondary, .btn-action, .btn-add, .btn-faq, .mode-btn {
+    border-width: 2px !important;
+    box-shadow: inset -2px -2px 0 rgba(0,0,0,.55), inset 2px 2px 0 rgba(232,208,138,.16);
+  }
+  .btn-primary:active, .btn-secondary:active, .btn-action:active,
+  .btn-faq:active, .mode-btn:active {
+    box-shadow: inset 2px 2px 0 rgba(0,0,0,.55), inset -2px -2px 0 rgba(232,208,138,.10);
+    transform: translateY(1px);
+  }
+
+  /* Blocky, drop-shadowed frames for the big panels */
+  .setup-card, .player-card, .modal {
+    border-width: 2px !important;
+    box-shadow: 5px 5px 0 rgba(0,0,0,.5);
+  }
+
+  /* Terminal-style chronicle/log */
+  .log-entry, .log-title { font-family: 'VT323', monospace !important; font-size: 15px; letter-spacing: .04em; }
+
+  /* ═══════════════ TYPE SYSTEM — cohesive & on-theme ═══════════════
+     Display + every control → Pixelify Sans (pixel). Prose, inputs, taglines →
+     Crimson Text (serif manuscript). Event log → VT323 (terminal). */
+  .logo-title, .logo-eyebrow, .setup-card h2, .game-header-title, .modal-title,
+  .modal-title-small, .modal-article-label, .modal-seal-text, .tab-btn,
+  .section-title, .footer-seal, .player-name, .player-num, .player-status-badge,
+  .roll-class, .veto-label, .ctrl-label, .log-title, .result-player,
+  .ref-category-title, .required-badge, .cosmetic-type-badge,
+  .btn-primary, .btn-secondary, .btn-action, .btn-add, .btn-faq, .btn-add-rule,
+  .filter-btn, .mode-btn {
+    font-family: 'Pixelify Sans', 'Cinzel Decorative', system-ui, sans-serif !important;
+  }
+  /* Pixel faces read small — size the controls up for legibility */
+  .mode-btn      { font-size: 13px !important; letter-spacing: .04em; padding: 12px 8px; }
+  .btn-primary   { font-size: 15px !important; letter-spacing: .08em; padding: 15px 24px; }
+  .btn-action    { font-size: 13px !important; }
+  .btn-secondary { font-size: 13px !important; }
+  .tab-btn       { font-size: 12px !important; }
+  .section-title { font-size: 11px !important; letter-spacing: .18em; }
+
+  /* CRT scanlines + vignette (dark/night only) — non-interactive overlay */
+  :root[data-theme="dark"] body::after {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+    background:
+      repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,.10) 2px 3px),
+      radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,.38) 100%);
+  }
+
+  /* ═══════════════ THEME TOGGLE (fixed, top-right) ═══════════════ */
+  .theme-toggle {
+    position: fixed; top: 12px; right: 12px; z-index: 10000;
+    width: 38px; height: 38px; background: var(--bg-card); color: var(--gold-light);
+    border: 2px solid var(--border-gold); cursor: pointer; font-size: 18px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset -2px -2px 0 rgba(0,0,0,.4), inset 2px 2px 0 rgba(255,255,255,.14);
+  }
+  .theme-toggle:hover { border-color: var(--gold); }
+
+  /* ═══════════════ STORMSCAPE — castle · rain · lightning (no assets) ═══════════════ */
+  /* Let the fixed z:-1 backdrop show: page fill is transparent, storm is the base. */
+  html, body { background: transparent !important; }
+  #stormscape {
+    position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 80%);
+  }
+  /* ── LAYERING ──  castle art sits at the BACK (z1); weather drifts OVER it:
+     clouds z2, rain/lightning z3. Cards live in normal flow above the whole
+     z:-1 backdrop. This is why the animated weather is now visible. */
+
+  /* Big immersive castle backdrop — fills the viewport, art as center/cover. */
+  #stormscape .castle { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  #stormscape .castle svg { width: 100%; height: 100%; display: block; }
+  /* PixelLab castle art overlays the SVG placeholder once generated into /assets.
+     If the PNG is missing the url() simply fails to paint and the SVG shows through. */
+  #stormscape .castle::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: var(--castle-art) center center / cover no-repeat;
+    image-rendering: pixelated;
+  }
+
+  /* Drifting clouds (both themes; colour + opacity via --cloud). Two parallax
+     layers on a 200%-wide tile so the horizontal loop is seamless. */
+  #stormscape .clouds {
+    position: absolute; top: 0; left: 0; width: 200%; height: 62%; z-index: 2;
+    background-repeat: repeat-x; background-size: 50% 100%;
+    background-image:
+      radial-gradient(58px 22px at 10% 34%, var(--cloud) 0%, transparent 70%),
+      radial-gradient(82px 30px at 21% 46%, var(--cloud) 0%, transparent 72%),
+      radial-gradient(64px 24px at 32% 30%, var(--cloud) 0%, transparent 70%),
+      radial-gradient(104px 38px at 60% 40%, var(--cloud) 0%, transparent 72%),
+      radial-gradient(74px 26px at 80% 28%, var(--cloud) 0%, transparent 70%);
+    animation: clouddrift 90s linear infinite;
+  }
+  #stormscape .clouds.b {
+    height: 46%; opacity: .55; filter: blur(2px);
+    animation-duration: 150s; animation-direction: reverse;
+    background-image:
+      radial-gradient(118px 40px at 16% 52%, var(--cloud) 0%, transparent 72%),
+      radial-gradient(88px 32px at 46% 40%, var(--cloud) 0%, transparent 72%),
+      radial-gradient(134px 46px at 74% 54%, var(--cloud) 0%, transparent 72%);
+  }
+  @keyframes clouddrift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Tiny birds — daylight only (night sets --bird transparent). Each drifts
+     across the sky while its two wings flap. */
+  #stormscape .birds { position: absolute; inset: 0; z-index: 2; }
+  #stormscape .birds b {
+    position: absolute; width: 18px; height: 9px;
+    transform: translateX(-12vw);
+    animation: birdfly 46s linear infinite;
+  }
+  #stormscape .birds b:nth-child(1) { top: 16%; animation-delay: 0s; }
+  #stormscape .birds b:nth-child(2) { top: 22%; transform: scale(.7); animation-delay: 9s; animation-duration: 58s; }
+  #stormscape .birds b:nth-child(3) { top: 12%; transform: scale(.85); animation-delay: 23s; animation-duration: 52s; }
+  #stormscape .birds b::before, #stormscape .birds b::after {
+    content: ''; position: absolute; top: 0; width: 9px; height: 9px;
+    border-top: 2px solid var(--bird); border-radius: 50%;
+  }
+  #stormscape .birds b::before { left: 0; animation: flapL .55s ease-in-out infinite; }
+  #stormscape .birds b::after  { right: 0; animation: flapR .55s ease-in-out infinite; }
+  @keyframes flapL { 0%,100% { transform: rotate(18deg); } 50% { transform: rotate(42deg); } }
+  @keyframes flapR { 0%,100% { transform: rotate(-18deg); } 50% { transform: rotate(-42deg); } }
+  @keyframes birdfly {
+    from { transform: translate(-12vw, 0); }
+    to   { transform: translate(114vw, -7vh); }
+  }
+
+  /* Rain — full-bleed, over everything (z3). Invisible in Day (--rain: transparent). */
+  /* Rain is a <canvas> particle system (see initRain() in the script) — real
+     irregular droplets with varied length/speed/opacity, not a repeating
+     gradient. Sits over the castle; only drawn in the Night theme. */
+  #stormscape .rain-fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  #stormscape .flash {
+    position: absolute; inset: 0; z-index: 3; background: var(--flash); opacity: 0;
+    mix-blend-mode: screen; animation: lightning 8s infinite;
+  }
+  @keyframes lightning {
+    0%, 1.6%, 3.6%, 5%, 53%, 55.6%, 100% { opacity: 0; }
+    2% { opacity: .95; } 2.7% { opacity: .25; } 3.2% { opacity: .8; }
+    54% { opacity: .7; } 54.8% { opacity: .1; } 55.2% { opacity: .6; }
+  }
+  #stormscape .bolt {
+    position: absolute; top: -2%; left: 60%; width: 130px; height: 56%; z-index: 3;
+    opacity: 0; animation: lightning 8s infinite;
+  }
+  #stormscape .bolt path { fill: none; stroke: var(--flash); stroke-width: 3; filter: drop-shadow(0 0 7px var(--flash)); }
+  #stormscape .silhouette { fill: var(--castle); }
+  #stormscape .win { fill: var(--win); animation: winflicker 5s infinite; }
+  #stormscape .flag { fill: var(--red); transform-origin: left center; animation: flagwave 2.4s ease-in-out infinite; }
+  @keyframes winflicker { 0%,100% { opacity: .92; } 45% { opacity: .5; } 72% { opacity: 1; } }
+  @keyframes flagwave { 0%,100% { transform: skewX(0) scaleX(1); } 50% { transform: skewX(-12deg) scaleX(.9); } }
+  @media (prefers-reduced-motion: reduce) {
+    #stormscape .rain, #stormscape .flash, #stormscape .bolt, #stormscape .flag, #stormscape .win,
+    #stormscape .clouds, #stormscape .birds b, #stormscape .birds b::before, #stormscape .birds b::after { animation: none; }
+    #stormscape .flash, #stormscape .bolt { opacity: 0; }
+  }
 </style>
+<script>
+  /* Set theme before paint (no flash). Default = Night (dark); remembers your toggle. */
+  (function(){ var t = 'dark'; try { t = localStorage.getItem('vetology-theme') || 'dark'; } catch(e){} document.documentElement.setAttribute('data-theme', t); })();
+</script>
 </head>
 <body>
+
+<div id="stormscape" aria-hidden="true">
+  <div class="clouds"></div>
+  <div class="clouds b"></div>
+  <div class="birds"><b></b><b></b><b></b></div>
+  <canvas class="rain-fx"></canvas>
+  <svg class="bolt" viewBox="0 0 120 300" preserveAspectRatio="none"><path d="M64 0 L40 120 L70 120 L30 300"/></svg>
+  <div class="flash"></div>
+  <div class="castle">
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
+      <g class="silhouette"><rect x="0" y="212" width="150" height="88"/><rect x="0" y="197" width="21" height="17"/><rect x="40" y="197" width="21" height="17"/><rect x="80" y="197" width="21" height="17"/><rect x="120" y="197" width="21" height="17"/><rect x="1050" y="212" width="150" height="88"/><rect x="1050" y="197" width="21" height="17"/><rect x="1090" y="197" width="21" height="17"/><rect x="1130" y="197" width="21" height="17"/><rect x="1170" y="197" width="21" height="17"/><rect x="246" y="184" width="254" height="116"/><rect x="246" y="169" width="36" height="17"/><rect x="314" y="169" width="36" height="17"/><rect x="382" y="169" width="36" height="17"/><rect x="450" y="169" width="36" height="17"/><rect x="700" y="184" width="254" height="116"/><rect x="700" y="169" width="36" height="17"/><rect x="768" y="169" width="36" height="17"/><rect x="836" y="169" width="36" height="17"/><rect x="904" y="169" width="36" height="17"/><rect x="150" y="118" width="96" height="182"/><rect x="150" y="103" width="13" height="17"/><rect x="175" y="103" width="13" height="17"/><rect x="200" y="103" width="13" height="17"/><rect x="225" y="103" width="13" height="17"/><rect x="954" y="118" width="96" height="182"/><rect x="954" y="103" width="13" height="17"/><rect x="979" y="103" width="13" height="17"/><rect x="1004" y="103" width="13" height="17"/><rect x="1029" y="103" width="13" height="17"/><rect x="500" y="60" width="200" height="240"/><rect x="500" y="45" width="28" height="17"/><rect x="553" y="45" width="28" height="17"/><rect x="606" y="45" width="28" height="17"/><rect x="659" y="45" width="28" height="17"/><rect x="572" y="30" width="56" height="40"/><rect x="572" y="15" width="12" height="17"/><rect x="595" y="15" width="12" height="17"/><polygon points="0,300 0,288 250,280 620,286 900,278 1200,284 1200,300"/><rect x="197" y="66" width="3" height="54"/><rect x="598" y="-2" width="3" height="34"/><rect x="1001" y="66" width="3" height="54"/></g>
+      <rect class="win" x="540" y="108" width="16" height="26"/><rect class="win" x="644" y="108" width="16" height="26"/><rect class="win" x="592" y="150" width="18" height="30"/><rect class="win" x="186" y="168" width="14" height="22"/><rect class="win" x="990" y="168" width="14" height="22"/><rect class="win" x="590" y="40" width="20" height="22"/><path class="win" d="M576,214 h48 v86 h-48 Z M576,214 Q600,184 624,214 Z"/>
+      <polygon class="flag" points="200,68 238,77 200,90"/><polygon class="flag" points="601,0 642,10 601,24"/><polygon class="flag" points="1004,68 1042,77 1004,90"/>
+    </svg>
+  </div>
+</div>
+
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night">☀</button>
 
 <!-- SETUP SCREEN -->
 <div id="setup-screen" class="screen active">
@@ -855,6 +1126,11 @@
 
   <div class="setup-card">
     <h2>Summon the Exiles</h2>
+    <div class="mode-toggle">
+      <button type="button" class="mode-btn active" data-mode="max" onclick="setMode('max')">Maximum Sentence</button>
+      <button type="button" class="mode-btn" data-mode="plea" onclick="setMode('plea')">Plea Bargain</button>
+    </div>
+    <p class="mode-desc" id="mode-desc">Class + Ascendancy + Archetype &mdash; fate decides everything.</p>
     <div class="player-inputs" id="player-inputs"></div>
     <button class="btn-add" id="btn-add-player">+ Add another exile</button>
     <button class="btn-primary" id="btn-start">Commence the Vetology</button>
@@ -972,23 +1248,16 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="data/vetology-data.js"></script>
 <script>
 // ============================================================
 // POE2 DATA - Classes + Ascendancies (including upcoming patch)
 // ============================================================
-// Accurate as of PoE2 patch 0.4.0 + 0.5.0 confirmed ascendancies
-// Accurate as of PoE2 0.5.0 (Return of the Ancients, May 29 2026)
-const POE2_BUILDS = [
-  { class: "Warrior", ascendancies: ["Titan", "Warbringer"] },
-  { class: "Ranger", ascendancies: ["Deadeye", "Pathfinder"] },
-  { class: "Sorceress", ascendancies: ["Stormweaver", "Chronomancer", "Disciple of Varashta"] },
-  { class: "Monk", ascendancies: ["Invoker", "Acolyte of Chayula", "Martial Artist"] },
-  { class: "Mercenary", ascendancies: ["Witchhunter", "Gemling Legionnaire"] },
-  { class: "Witch", ascendancies: ["Infernalist", "Blood Mage"] },
-  { class: "Druid", ascendancies: ["Shaman", "Oracle"] },
-  { class: "Huntress", ascendancies: ["Amazon", "Ritualist", "Spirit Walker"] },
-];
-
+// Full 22-ascendancy roster across 8 released classes, as of PoE2 0.5.0
+// (Return of the Ancients, ~May 29 2026). Verified 2026-07-08 — see
+// PATCH_1.0_PREP.md. Smith of Kitava / Tactician / Lich added to match the
+// live roster (the planner already had their trees).
+/* POE2_BUILDS -> data/vetology-data.js */
 // Flatten into individual rollable results
 const ROLL_TABLE = [];
 POE2_BUILDS.forEach(b => {
@@ -997,104 +1266,25 @@ POE2_BUILDS.forEach(b => {
   });
 });
 
-const ARCHETYPES = [
-  "The Butcher (Bleed Stacker + Blood Stuff)","Achilles 2004 (Armour Break Brawler)","The Stungun (Stun Locker)",
-  "The True Warrior (Rage Berserker, No Chest Armour)","The Spartan (Shield Basher)","The Idol Worshipper (Totems + Offering Skills)","The Sufi (Whirlwind + Auras)","The Varangian (Fortify Tank)",
-  "The Mongol (Lightning Arrow Sniper, Rhoa Mount)","The Plague Doctor (Poison Burst Arrow + Plague Bearer + Herald of Plague)","Rambo (Bow + Barrage, No Chest Armour)",
-  "Demolition Man (Explosive Shot + Grenades + Siege Ballista)","Artemis (Spiral Volley + Ice Shot)","Hanzjoe (Lightning Arrow + Shockchain Arrow)",
-  "Van Helsing (Crossbow + Explosive Shot + Grenades)","Junkrat (Grenade Spam + Bombs, All Grenades All The Time)",  "Ifrit (Infernal Cry + Herald of Ash + Flame Wall)","Shyvana (Shapeshifter + Volcanic Fissure + Flame Wall + Herald of Ash)",
-  "Frozen Wasteland Builder","Surtr (Fireball + Fire Spells)",
-  "Sephiroth (Comet + Quarterstaff + Cast While Channelling + Dark Effigy)","The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)",
-  "Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)","Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)",
-  "Cold Snap Dotter",
-  "Tzeentch (All Chaos Spells, All The Time)","Aids Spreader (Corrupting Cry + Blood Boil)",
-  "Energy Vampire (Withering Touch + Withering Support)","The Leech (Essence Drain + Withering)",
-  "Skeleton Army General","Spectre Commander","Hellraiser (Raging Spirit Swarm)","Zombie & Corpsemaster","Minion Bomber",
-  "Full Conversion Necromancer (you are merely a vessel, the dead do everything)",
-  "The Negligent Parent (Minions + Cast on Minion Death)",
-  "The Doomsayer (Chaos + Bone Spells + Cast While Channeling)",
-  "More Cow Bell (Tempest Bell)",
-  "The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)",
-  "The Mud Blood (No Magic Spells, Melee + Pet Only)",
-  "The Karen (Cries + Shouts, Totems + Pets)",
-  "The Pacifist (Straight Support, No Direct Damage)",
-  "The Zookeeper (Wolf Pack + Tame Beast, Max Companions)",
-  "Dog Lover (Wolf Shapeshift + Wolf Pack)",
-  "Bearpocalypse (Bear Shapeshift + Walking Calamity + Rampage)",
-  "Captain America (Shield + Rallying Cries)",
-  "Thor (Lightning Herald + Hammers)",
-  "Hela (Bonestorm + Detonate Dead + Bone Cage)",
-  "Loki (Cast on Minion Death + Blasphemy Curses + Skeletal Warriors)",
-  "Scarlet Witch (Contagion + Wither + Cast While Channelling)",
-  "Ghost Rider (Flame Wall + Ignite DoT + Infernal Cry + Rhoa Mount)",
-  "Magneto (Armour Breaker + Intimidating Cry + Armour Strip)",
-  "Gambit (Whirlwind Lance + Twister + Explosive Spear)",
-  "Poison Ivy (Wildsurge Incantation + Entangle + Thrashing Vines + Contagion + Poison)",
-  "Batman (Cluster Grenade + Gas Grenade + Explosive Grenade + Crossbow)",
-  "Bane (Lifetap + Seismic Cry + Hammer of the Gods + Rage)",
-  "Mr Freeze (Cold Snap + Vortex + Frost Bomb + Creeping Frost)",
-  "Ra's al Ghul (Lifetap + Temporal Rift + Corrupting Cry + Vitality)",
-  "Two-Face (Elemental Conflux + Cast on Elemental Ailment + Arc + Cold Snap)",
-  "Bannerman (2H Mace, Buffs + Shouts)",
-  "Hammerdin (Forge Hammer + Maces Only + Aura)",
-  "The Stockbroker (Barrier Invocation)",
-  "The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)",
-  "The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)",
-  "The Toy Maker (Dark Effigy Totem + Contagion + Despair)",
-  "The Blood Priest (Life Tap Caster)","Energy Shield Hoarder","Wolverine (Recoup Bricktank + Rage)","Reinhardt (Max Block Turtle)",
-  "The Lichform (Chaos Inoculation + Essence Drain + Contagion + Withering Presence)",
-  "The Glass Saint (Chaos Inoculation + Arc + Archmage + Orb of Storms)",
-  "The Colossus (Giant's Blood + Dual Two-Handed Maces + Boneshatter + Seismic Cry)",
-  "The Flagellant (Blood Magic + Lifetap + Corrupting Cry + Life Leech)",
-  "The Mindwall (Mind Over Matter + Archmage + Arc + Orb of Storms)",
-  "The Capacitor (Eldritch Battery + Mind Over Matter + Spark + Archmage)",
-  "The Hexblade (Whispers of Doom + Blasphemy + Temporal Chains + Despair)",
-  "The Bullfighter (Acrobatics + Rake + Disengage + Blood Hunt)","Evasion Ghost",
-  "Detonate Dead Bomber",
-  "The Monsoon (All Heralds)","Cast On Crit Machine","Athena (Spear + Herald of Thunder + Warcries)","Shapeshifter",
-  "Stop Hitting Yourself (Thorns Tank)",
-  "Death Knight (Disease DoT + Undead Army)",
-  "Frost Mage (Freeze Everything, Then Shatter)",
-  "Shadow Priest (Chaos DoT + Life Drain)",
-  "Warlock (Minions + Curses + Chaos)",
-  "Feral Druid (Shapeshifter + Melee + Bleeds)",
-  "Enhancement Shaman (Mace, Totems, Heralds, Spirit Skills, Lightning Spells, Earthquake, Volcanic Fissure)",
-  "Survival Hunter (DoT + Pet + Trail of Caltrops)",
-  "Ret Paladin (Big Slow Hits + Aura Bot)",
-  "Rogue (Poisons + Blind)",
-  "Bleed Arcane Build (Bleed + Chaos Hybrid)",
-  "Faith Caster (Life Tap + Minions)",
-  "Braum (Slam + Fortify + Shield, No Chest Armour)",
-  "The Phlebotomist",
-  "Full Sorcery Glass Cannon",
-  "Frost Knight (Freeze + Melee Hybrid)",
-  "Dragon Communion (Elemental Melee Hybrid)",
-  "Bone Necromancer (Minion + Projectile Chaos)",
-  "Frozen Orb Sorceress (Cold Projectile Abuser)",
-  "Poison Nova Witch Doctor (Chaos DoT Explosion)",
-  "Lightning Javazon (Chain Lightning Spear)",
-  "The Short Circuit (Infinite Spark + Lightning Loop)",
-  "Dark Knight (Life Tap + Big Slow Melee)",
-  "Black Mage (Pure Elemental Nuke)",
-  "Summoner (Full Minion Conversion)",
-  "Red Mage (Spell + Melee Hybrid)",
-  "Pants Pisser - DoT Zone Puddle Maker",
-  "Dragoon (Spear Leap Attacker)",
-  "Bladesinger (Spell + Melee Cast On Crit)",
-  "Eldritch Knight (Shield Tank + Spellcaster)",
-  "Arcane Trickster (Evasion + Chaos Burst)",
-  "Circle of Spores Druid (Poison DoT Aura)",
-  "Oathbreaker Paladin (Undead Army + Life Tap)",
-  "Draconic Sorcerer (Elemental Nuke Glass Cannon)",
-  "Pokemon Trainer (One Spectre. First one tamed. You love it. It stays.)",
-];
-
+/* ARCHETYPES -> data/vetology-data.js */
 // ============================================================
 // STATE
 // ============================================================
 let players = [];
 let vetoMode = { active: false, sourceIdx: null, type: null };
 let logEntries = [];
+let gameMode = 'max'; // 'max' = Maximum Sentence (rolls ascendancy) · 'plea' = Plea Bargain (you choose it)
+
+/* ARCHETYPE_ASC -> data/vetology-data.js */
+function archetypeBase(s) { return s.replace(/\s*\([^)]*\)\s*$/, '').trim(); }
+
+function setMode(m) {
+  gameMode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('mode-desc').innerHTML = (m === 'plea')
+    ? 'Class + Archetype &mdash; you settle your own Ascendancy (build suggests one).'
+    : 'Class + Ascendancy + Archetype &mdash; fate decides everything.';
+}
 
 function createPlayer(name) {
   return {
@@ -1103,6 +1293,7 @@ function createPlayer(name) {
     hostileVetoes: 5,
     reprisalVetoes: 0,
     roll: null,
+    chosenAsc: null,
     settled: false,
     vetoed: false,
   };
@@ -1222,9 +1413,42 @@ document.getElementById('btn-start').addEventListener('click', () => {
 // GAME SCREEN
 // ============================================================
 function roll() {
+  // No two exiles keep the same archetype: once one is Settled, the randomiser
+  // stops offering it. Falls back to the full list if somehow exhausted.
+  const taken = new Set(players.filter(p => p.settled && p.roll).map(p => p.roll.archetype));
+  let pool = ARCHETYPES.filter(a => !taken.has(a));
+  if (pool.length === 0) pool = ARCHETYPES;
+  const archetype = pool[Math.floor(Math.random() * pool.length)];
+  if (gameMode === 'plea') {
+    // Plea Bargain: roll the class, leave the ascendancy for the player to settle.
+    const cls = POE2_BUILDS[Math.floor(Math.random() * POE2_BUILDS.length)].class;
+    return { class: cls, ascendancy: null, archetype };
+  }
   const r = ROLL_TABLE[Math.floor(Math.random() * ROLL_TABLE.length)];
-  const archetype = ARCHETYPES[Math.floor(Math.random() * ARCHETYPES.length)];
   return { ...r, archetype };
+}
+
+// Build the in-card ascendancy picker for Plea Bargain mode.
+function ascSelectHTML(p, idx) {
+  const classObj = POE2_BUILDS.find(b => b.class === p.roll.class);
+  const options = classObj ? classObj.ascendancies : [];
+  const sugg = ARCHETYPE_ASC[archetypeBase(p.roll.archetype)];
+  const suggHere = (sugg && sugg.class === p.roll.class) ? sugg.asc : null;
+  let opts = '<option value="">&mdash; choose ascendancy &mdash;</option>';
+  options.forEach(a => {
+    const sel = p.chosenAsc === a ? ' selected' : '';
+    const star = a === suggHere ? ' ★' : '';
+    opts += `<option value="${a}"${sel}>${a}${star}</option>`;
+  });
+  let note = '';
+  if (suggHere) note = '<div class="asc-hint">&#9733; suggested for this build</div>';
+  else if (sugg) note = `<div class="asc-hint">this build wants ${sugg.asc} &middot; ${sugg.class}</div>`;
+  return `<select class="card-asc-select" onchange="setChosenAsc(${idx}, this.value)">${opts}</select>${note}`;
+}
+
+function setChosenAsc(idx, val) {
+  players[idx].chosenAsc = val || null;
+  checkAllSettled();
 }
 
 function renderGame() {
@@ -1249,9 +1473,12 @@ function renderGame() {
     // Roll display
     let rollHTML = `<span class="roll-placeholder">Not yet rolled</span>`;
     if (p.roll) {
+      const ascLine = (gameMode === 'plea')
+        ? ascSelectHTML(p, idx)
+        : `<div class="roll-ascendancy">${p.roll.ascendancy}</div>`;
       rollHTML = `
         <div class="roll-class">${p.roll.class}</div>
-        <div class="roll-ascendancy">${p.roll.ascendancy}</div>
+        ${ascLine}
         <div class="roll-archetype">${p.roll.archetype}</div>
       `;
     }
@@ -1356,18 +1583,25 @@ function doRoll(idx) {
   const interval = setInterval(() => {
     const r = roll();
     if (display) {
-      display.innerHTML = `<div class="roll-class">${r.class}</div><div class="roll-ascendancy">${r.ascendancy}</div><div class="roll-archetype">${r.archetype}</div>`;
+      const ascTick = r.ascendancy ? `<div class="roll-ascendancy">${r.ascendancy}</div>` : '';
+      display.innerHTML = `<div class="roll-class">${r.class}</div>${ascTick}<div class="roll-archetype">${r.archetype}</div>`;
     }
     ticks++;
     if (ticks > 18) {
       clearInterval(interval);
       if (display) display.classList.remove('roll-animating');
       p.roll = r;
-      addLog(`${p.name} rolled: ${r.class} (${r.ascendancy}) — ${r.archetype}.`, 'event-roll');
+      // Plea Bargain: preselect the build's suggested ascendancy when it fits the rolled class.
+      if (gameMode === 'plea') {
+        const sugg = ARCHETYPE_ASC[archetypeBase(r.archetype)];
+        p.chosenAsc = (sugg && sugg.class === r.class) ? sugg.asc : null;
+      }
+      const ascLog = r.ascendancy ? ` (${r.ascendancy})` : '';
+      addLog(`${p.name} rolled: ${r.class}${ascLog} — ${r.archetype}.`, 'event-roll');
       // Auto-settle if no self-vetoes remaining
       if (p.selfVetoes === 0) {
         p.settled = true;
-        addLog(`${p.name} has no Self-Vetoes remaining — automatically Settled on ${r.class} (${r.ascendancy}).`, 'event-settle');
+        addLog(`${p.name} has no Self-Vetoes remaining — automatically Settled on ${r.class}${ascLog}.`, 'event-settle');
       }
       renderGame();
     }
@@ -1377,9 +1611,14 @@ function doRoll(idx) {
 function doSettle(idx) {
   const p = players[idx];
   if (!p.roll || p.settled) return;
+  // Enforce uniqueness even if two exiles happened to roll the same build before
+  // either settled: you can't settle an archetype another exile already locked in.
+  const clash = players.some((o, i) => i !== idx && o.settled && o.roll && o.roll.archetype === p.roll.archetype);
+  if (clash) { showToast('Another exile already settled that archetype — reroll for a fresh one.', true); return; }
   p.settled = true;
   p.vetoed = false;
-  addLog(`${p.name} has Settled on ${p.roll.class} (${p.roll.ascendancy}) as ${p.roll.archetype}.`, 'event-settle');
+  const asc = effAsc(p);
+  addLog(`${p.name} has Settled on ${p.roll.class}${asc ? ' (' + asc + ')' : ''} as ${p.roll.archetype}.`, 'event-settle');
   renderGame();
 
   // Animate gold pulse
@@ -1523,20 +1762,29 @@ function checkAllSettled() {
 function renderResultsList() {
   const list = document.getElementById('results-list');
   if (!list) return;
-  list.innerHTML = players.map(p => `
+  list.innerHTML = players.map(p => {
+    const asc = effAsc(p);
+    const build = p.roll
+      ? p.roll.class + (asc ? ' (' + asc + ')' : ' (ascendancy: your choice)')
+      : 'No roll';
+    return `
     <div class="result-row">
       <span class="result-player">${p.name}</span>
-      <span class="result-build">${p.roll ? p.roll.class + ' (' + p.roll.ascendancy + ')' : 'No roll'}</span>
+      <span class="result-build">${build}</span>
       <span class="result-archetype">${p.roll ? p.roll.archetype : ''}</span>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
+
+function effAsc(p) { return p.roll ? (p.roll.ascendancy || p.chosenAsc || null) : null; }
 
 function copyDiscord() {
   const lines = ['🎲 Vetology Results 🎲'];
   players.forEach(p => {
     if (p.roll) {
-      lines.push(`${p.name} — ${p.roll.class} (${p.roll.ascendancy}) — ${p.roll.archetype}`);
+      const asc = effAsc(p);
+      lines.push(`${p.name} — ${p.roll.class}${asc ? ' (' + asc + ')' : ''} — ${p.roll.archetype}`);
     }
   });
   lines.push('');
@@ -1549,9 +1797,78 @@ function copyDiscord() {
 }
 
 // ============================================================
+// THEME TOGGLE
+// ============================================================
+function toggleTheme() {
+  const el = document.documentElement;
+  const next = el.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  el.setAttribute('data-theme', next);
+  try { localStorage.setItem('vetology-theme', next); } catch (e) {}
+  updateThemeToggle();
+}
+function updateThemeToggle() {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.querySelectorAll('.theme-toggle').forEach(b => { b.textContent = dark ? '☀' : '☾'; });
+}
+
+// ============================================================
 // INIT
 // ============================================================
 renderSetup();
+updateThemeToggle();
+
+// ============================================================
+// RAIN — canvas particle system (Night only). Irregular droplets.
+// ============================================================
+(function initRain() {
+  var canvas = document.querySelector('.rain-fx');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var drops = [];
+  function makeDrop(seed) {
+    return {
+      x: Math.random() * innerWidth,
+      y: seed ? Math.random() * innerHeight : -20,
+      len: 7 + Math.random() * 17,       // varied streak length
+      speed: 340 + Math.random() * 420,  // px/sec, varied
+      wind: 34 + Math.random() * 46,     // horizontal drift
+      alpha: 0.10 + Math.random() * 0.22,
+      w: Math.random() < 0.22 ? 1.5 : 0.8
+    };
+  }
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.round(innerWidth * innerHeight / 8500);
+    drops = []; for (var i = 0; i < count; i++) drops.push(makeDrop(true));
+  }
+  var last = performance.now();
+  function frame(now) {
+    var dt = Math.min((now - last) / 1000, 0.05); last = now;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    if (!reduce && document.documentElement.getAttribute('data-theme') === 'dark') {
+      ctx.lineCap = 'round';
+      for (var i = 0; i < drops.length; i++) {
+        var d = drops[i];
+        d.y += d.speed * dt; d.x += d.wind * dt;
+        if (d.y > innerHeight + 20) { drops[i] = makeDrop(false); continue; }
+        var slope = d.wind / d.speed;
+        ctx.strokeStyle = 'rgba(205,222,255,' + d.alpha + ')';
+        ctx.lineWidth = d.w;
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - slope * d.len, d.y - d.len);
+        ctx.stroke();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  requestAnimationFrame(frame);
+})();
 </script>
 
 <!-- REFERENCE SCREEN -->
@@ -1601,14 +1918,14 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Elemental Spells</div>
       <div class="ref-grid">
-        <div class="ref-item">Frozen Wasteland Builder</div>
+        <div class="ref-item">Fimbulwinter (Cold spells + Cold DoT)</div>
         <div class="ref-item">Surtr (Fireball + Fire Spells)</div>
         <div class="ref-item">Sephiroth (Comet + Quarterstaff + Cast While Channelling + Dark Effigy)</div>
         <div class="ref-item">The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)</div>
         <div class="ref-item">Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)</div>
         <div class="ref-item">Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)</div>
-        <div class="ref-item">Cold Snap Dotter</div>
-        <div class="ref-item">Full Sorcery Glass Cannon</div>
+        <div class="ref-item">The Cryotherapist (Cold DoT)</div>
+        <div class="ref-item">The Overdraft (Sorcery Glass Cannon)</div>
         <div class="ref-item special">More Cow Bell (Tempest Bell)</div>
         <div class="ref-item special">The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)</div>
         <div class="ref-item special">The Mud Blood (No Magic Spells, Melee + Pet Only)</div>
@@ -1649,8 +1966,8 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Corpse / Trigger</div>
       <div class="ref-grid">
-        <div class="ref-item">Detonate Dead Bomber</div>
-        <div class="ref-item">Cast On Crit Machine</div>
+        <div class="ref-item">The Cremator (Detonate Dead)</div>
+        <div class="ref-item">The Slot Machine (Cast on Crit)</div>
         <div class="ref-item special">The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)</div>
         <div class="ref-item special">The Stockbroker (Barrier Invocation)</div>
         <div class="ref-item special">The Toy Maker (Dark Effigy Totem + Contagion + Despair)</div>
@@ -1661,11 +1978,11 @@ renderSetup();
       <div class="ref-category-title">Defence / Gimmick</div>
       <div class="ref-grid">
         <div class="ref-item">The Blood Priest (Life Tap Caster)</div>
-        <div class="ref-item">Energy Shield Hoarder</div>
+        <div class="ref-item">The Doomsday Prepper (ES Hoard)</div>
         <div class="ref-item">Wolverine (Recoup Bricktank + Rage)</div>
         <div class="ref-item">Reinhardt (Max Block Turtle)</div>
-        <div class="ref-item">Evasion Ghost</div>
-        <div class="ref-item">Shapeshifter</div>
+        <div class="ref-item">The No-Show (Max Evasion)</div>
+        <div class="ref-item">Skinwalker (Shapeshifter)</div>
         <div class="ref-item special">Stop Hitting Yourself (Thorns Tank)</div>
         <div class="ref-item special">The Lichform (Chaos Inoculation + Essence Drain + Contagion + Withering Presence)</div>
         <div class="ref-item special">The Glass Saint (Chaos Inoculation + Arc + Archmage + Orb of Storms)</div>
@@ -1682,6 +1999,18 @@ renderSetup();
       <div class="ref-category-title">Utility / Weird</div>
       <div class="ref-grid">
         <div class="ref-item">The Monsoon (All Heralds)</div>
+      </div>
+    </div>
+
+    <div class="ref-category">
+      <div class="ref-category-title">Runes of Aldur — 0.5.0</div>
+      <div class="ref-grid">
+        <div class="ref-item special">The Notary (Runeforging Zealot)</div>
+        <div class="ref-item special">The Insurance Adjuster (Runic Ward Tank)</div>
+        <div class="ref-item special">The Squatter (Kalguuran Ward-Cost Caster)</div>
+        <div class="ref-item special">The Understudy (Martial Artist — Hollow Form Mirages)</div>
+        <div class="ref-item special">For Whom the Bell Tolls (Martial Artist — Tempest Bells)</div>
+        <div class="ref-item special">Snow White (Spirit Walker — Stag, Owl, Bear)</div>
       </div>
     </div>
 
@@ -1703,7 +2032,7 @@ renderSetup();
     <div class="ref-category">
       <div class="ref-category-title">Dark Souls / Elden Ring</div>
       <div class="ref-grid">
-        <div class="ref-item crossover">Bleed Arcane Build (Bleed + Chaos Hybrid)</div>
+        <div class="ref-item crossover">Rivers of Blood (Bleed + Arcane)</div>
         <div class="ref-item crossover">Faith Caster (Life Tap + Minions)</div>
         <div class="ref-item crossover">Frost Knight (Freeze + Melee Hybrid)</div>
         <div class="ref-item crossover">Dragon Communion (Elemental Melee Hybrid)</div>
@@ -1716,7 +2045,7 @@ renderSetup();
         <div class="ref-item crossover">Bone Necromancer (Minion + Projectile Chaos)</div>
         <div class="ref-item crossover">Frozen Orb Sorceress (Cold Projectile Abuser)</div>
         <div class="ref-item crossover">Poison Nova Witch Doctor (Chaos DoT Explosion)</div>
-        <div class="ref-item crossover">Lightning Javazon (Chain Lightning Spear)</div>
+        <div class="ref-item crossover">Trapsin (Grenades + Siege Ballista)</div>
         <div class="ref-item crossover">The Short Circuit (Infinite Spark + Lightning Loop)</div>
       </div>
     </div>
