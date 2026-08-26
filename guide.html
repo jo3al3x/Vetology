@@ -340,10 +340,10 @@ select:focus{border-color:var(--gold)}
 
 /* ═══════════════ THEME TOGGLE (fixed, top-right) ═══════════════ */
 .theme-toggle{
-  position:fixed;top:12px;right:12px;z-index:10000;
-  width:38px;height:38px;background:var(--bg-card);color:var(--gold-light);
-  border:2px solid var(--border-gold);cursor:pointer;font-size:18px;line-height:1;
-  display:flex;align-items:center;justify-content:center;
+  /* lives inside the site-header row (no more overlap with Back to Session) */
+  width:34px;height:34px;background:var(--bg-card);color:var(--gold-light);
+  border:2px solid var(--border-gold);cursor:pointer;font-size:15px;line-height:1;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
   box-shadow:inset -2px -2px 0 rgba(0,0,0,.4),inset 2px 2px 0 rgba(255,255,255,.14);
 }
 .theme-toggle:hover{border-color:var(--gold)}
@@ -453,8 +453,6 @@ html,body{background:transparent !important}
   </div>
 </div>
 
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night">☀</button>
-
 <header class="site-header">
   <span class="header-logo">Vetology</span>
   <span class="header-sep">&middot;</span>
@@ -463,6 +461,7 @@ html,body{background:transparent !important}
   <button class="btn-export" onclick="copyBuildLink()" title="Copy a shareable link to this build">&#128279; Copy Build Link</button>
   <button class="btn-export" onclick="exportPDF()">&#128196; Export PDF</button>
   <a href="index.html" class="header-back">Back to Session</a>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night">☀</button>
 </header>
 
 <div class="top-controls">

@@ -71,6 +71,7 @@
     --cloud: rgba(255,255,255,.92);   /* drifting white daytime clouds */
     --bird: rgba(38,52,68,.72);       /* tiny bird silhouettes (day only) */
     --castle-art: url("assets/castle-day.png"); /* PixelLab-generated; SVG shows if absent */
+    --veil: rgba(228, 236, 243, 0.88); /* readable backing for content columns over the castle */
   }
   /* ── DARK: Midnight & Gold — cool navy to harmonise with the stormy castle ── */
   :root[data-theme="dark"] {
@@ -124,6 +125,7 @@
     --cloud: rgba(150,170,210,.15);   /* faint slate storm clouds drifting */
     --bird: transparent;              /* no birds in the storm */
     --castle-art: url("assets/castle-night.png"); /* PixelLab-generated; SVG shows if absent */
+    --veil: rgba(8, 11, 20, 0.86); /* readable backing for content columns over the castle */
   }
 
   /* ── THE BOOK OF LAWS panel keeps its own palette in BOTH themes ──
@@ -408,6 +410,8 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 16px;
     /* default align-items:stretch → cards in a row share the row's height */
+    flex: 1; /* absorb leftover screen height so the footer hugs the bottom (no castle gap) */
+    align-content: start;
   }
 
   /* PLAYER CARD — flex column so the body can grow and pin actions to the bottom */
@@ -765,9 +769,14 @@
   }
 
   .ref-body {
-    padding: 24px;
+    padding: 24px 28px;
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
+    /* the Codex column gets its own quiet backing so category titles stay
+       readable over the busy castle; the backdrop still shows either side */
+    background: var(--veil);
+    flex: 1; /* fill to the footer: no castle gap below the list */
   }
 
   .ref-category {
@@ -1267,6 +1276,16 @@
   }
   .theme-toggle:hover { border-color: var(--gold); }
 
+  /* Floating toggles only exist on the setup screen (no header to collide
+     with); on game/codex screens the same controls live inside the tab bar. */
+  .toggle-float { display: none; }
+  body.on-setup .toggle-float { display: flex; }
+  .toggle-inline {
+    position: static; top: auto; right: auto;
+    width: 34px; height: 34px; font-size: 15px;
+  }
+  .tab-toggles { margin-left: auto; display: flex; gap: 8px; align-items: center; padding: 5px 0; }
+
   /* ═══════════════ STORMSCAPE — castle · rain · lightning (no assets) ═══════════════ */
   /* Let the fixed z:-1 backdrop show: page fill is transparent, storm is the base. */
   html, body { background: transparent !important; }
@@ -1489,8 +1508,8 @@
 </div>
 
 
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night"></button>
-<button class="sound-toggle" onclick="toggleSound()" aria-label="Toggle sound effects" title="Toggle sound"></button>
+<button class="theme-toggle toggle-float" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night"></button>
+<button class="sound-toggle toggle-float" onclick="toggleSound()" aria-label="Toggle sound effects" title="Toggle sound"></button>
 
 <!-- SETUP SCREEN -->
 <div id="setup-screen" class="screen active">
@@ -1610,6 +1629,10 @@
     <button class="tab-btn active" id="tab-session" onclick="showTab('game-screen')">Session</button>
     <button class="tab-btn" id="tab-codex" onclick="showTab('reference-screen')">Archetype Codex</button>
     <a href="https://jo3al3x.github.io/Vetology/guide.html" target="_blank" class="tab-btn" style="text-decoration:none;">Build Guide ↗</a>
+    <div class="tab-toggles">
+      <button class="sound-toggle toggle-inline" onclick="toggleSound()" aria-label="Toggle sound effects" title="Toggle sound"></button>
+      <button class="theme-toggle toggle-inline" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night"></button>
+    </div>
   </div>
   <div class="game-header">
     <span class="game-header-title">Vetology</span>
@@ -2199,6 +2222,7 @@ function showToast(msg, isRed = false) {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  if (document.body && document.body.classList) document.body.classList.toggle('on-setup', id === 'setup-screen');
   // theme song plays on the title screen, fades out in-session
   if (typeof SFX !== 'undefined' && SFX.ambience) SFX.ambience();
 }
@@ -2773,6 +2797,7 @@ function exileEmptyStageHTML() {
 // INIT
 // ============================================================
 renderSetup();
+if (document.body && document.body.classList) document.body.classList.add('on-setup');
 updateThemeToggle();
 updateSoundToggle();
 initSessionRestore(); // offer to resume a saved session (guarded; headless-safe)
@@ -2836,6 +2861,10 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
   <div class="tab-bar">
     <button class="tab-btn" onclick="showTab('game-screen')">Session</button>
     <button class="tab-btn active" onclick="showTab('reference-screen')">Archetype Codex</button>
+    <div class="tab-toggles">
+      <button class="sound-toggle toggle-inline" onclick="toggleSound()" aria-label="Toggle sound effects" title="Toggle sound"></button>
+      <button class="theme-toggle toggle-inline" onclick="toggleTheme()" aria-label="Toggle day/night theme" title="Toggle day / night"></button>
+    </div>
   </div>
   <div class="ref-body">
 
