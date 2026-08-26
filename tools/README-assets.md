@@ -34,6 +34,22 @@ Prompts and sizes live in [`assets.manifest.json`](assets.manifest.json) — edi
 - The other assets (sigils, seal, pips, frame) are generated for you to wire in next — say the word
   and I'll hook the class sigils into the roll cards and the wax seal into the footer.
 
+## Living Exiles (animated class sprites)
+`tools/generate-exiles.mjs` + `tools/exiles.manifest.json` generate the 64x64 class
+characters that live on the roll cards: a transparent base sprite per class
+(`generate-image-pixflux`, `no_background`) plus three 4-frame animations each via
+`animate-with-text` (idle / hit / victory), saved as separate PNGs —
+`assets/exiles/<class>-<action>-<n>.png` (n=0..3). It prints your PixelLab balance
+before and after a batch. Iterate one class/action at a time:
+```
+node tools/generate-exiles.mjs                    # everything missing
+node tools/generate-exiles.mjs --force warrior    # redo one class (base + anims)
+node tools/generate-exiles.mjs --force monk:victory   # redo one action only
+```
+Review frames at scale with `tools/exiles-preview.html` (via `node tools/serve.js`,
+then `/tools/exiles-preview.html?c=warrior,witch`). Missing sprite files degrade
+gracefully in the site — the stage just stays empty.
+
 ## Preview locally
 ```
 node tools/serve.js   # http://localhost:8137

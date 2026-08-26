@@ -8,7 +8,9 @@
  * Run:    node tools/generate-assets.mjs            # all missing assets
  *         node tools/generate-assets.mjs --force    # regenerate everything
  *         node tools/generate-assets.mjs castle-night castle-day
+ *         node tools/generate-assets.mjs --manifest tools/bestiary.manifest.json
  *
+ * Prints the PixelLab balance before and after a batch (never the key).
  * Requires Node 18+ (built-in fetch). No npm install needed.
  */
 import fs from 'node:fs';
@@ -30,11 +32,13 @@ function loadKey() {
   return '';
 }
 
-async function generate(key, endpoint, description, width, height) {
+async function generate(key, endpoint, description, width, height, noBackground) {
+  const body = { description, image_size: { width, height } };
+  if (noBackground) body.no_background = true; // transparent PNG (pixflux supports it)
   const res = await fetch(`${API}/${endpoint}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ description, image_size: { width, height } }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText} — ${(await res.text()).slice(0, 300)}`);
   const data = await res.json();
@@ -52,10 +56,24 @@ async function main() {
   }
   const args = process.argv.slice(2);
   const force = args.includes('--force');
-  const only = args.filter(a => !a.startsWith('--'));
-  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'tools', 'assets.manifest.json'), 'utf8'));
+  const mIdx = args.indexOf('--manifest');
+  const manifestPath = mIdx >= 0 && args[mIdx + 1]
+    ? path.resolve(root, args[mIdx + 1])
+    : path.join(root, 'tools', 'assets.manifest.json');
+  const only = args.filter((a, i) => !a.startsWith('--') && i !== mIdx + 1);
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   const outDir = path.join(root, manifest.outDir || 'assets');
   fs.mkdirSync(outDir, { recursive: true });
+
+  async function balance() {
+    try {
+      const res = await fetch(`${API}/balance`, { headers: { Authorization: `Bearer ${key}` } });
+      if (res.ok) return Number((await res.json()).usd);
+    } catch (e) { /* balance is informational only */ }
+    return null;
+  }
+  const before = await balance();
+  if (before != null) console.log(`Balance before: $${before.toFixed(2)}`);
 
   let made = 0, total = 0, failed = 0;
   for (const a of manifest.assets) {
@@ -64,13 +82,14 @@ async function main() {
     if (fs.existsSync(file) && !force) { console.log(`skip  ${a.name}  (exists; --force to redo)`); continue; }
     process.stdout.write(`gen   ${a.name}  ${a.width}x${a.height} … `);
     try {
-      const { buf, usd } = await generate(key, a.endpoint || manifest.endpoint, a.description, a.width, a.height);
+      const { buf, usd } = await generate(key, a.endpoint || manifest.endpoint, a.description, a.width, a.height, a.no_background);
       fs.writeFileSync(file, buf);
       made++; total += usd || 0;
       console.log(`ok  (${buf.length} B${usd != null ? `, $${Number(usd).toFixed(4)}` : ''})`);
     } catch (e) { failed++; console.log('FAILED\n      ' + e.message); }
   }
   console.log(`\n${made} generated, ${failed} failed${total ? `, ~$${total.toFixed(4)} spent` : ''}. → ${path.relative(root, outDir)}/`);
-  console.log('The site auto-uses assets/castle-night.png & castle-day.png once present (SVG fallback otherwise).');
+  const after = await balance();
+  if (after != null) console.log(`Balance after:  $${after.toFixed(2)}${before != null ? `  (delta $${(before - after).toFixed(2)})` : ''}`);
 }
 main();

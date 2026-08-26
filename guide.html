@@ -3,23 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vetology — Build Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=VT323&display=swap" rel="stylesheet">
+<title>Vetology · Build Guide</title>
+<!-- TWO VOICES on this page: Pixelify Sans (chrome) + Crimson Text (voice).
+     VT323 is the chronicle voice and this page has no chronicle, so it is not loaded.
+     Cinzel Decorative + IM Fell English purged 2026-08-26 (type-system pass);
+     Cinzel was already 100% overridden here and shipped for zero rendered glyphs. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 /* ── DAY: Sunlit Stone & Sky (bright alt theme; NOT brown). Mirrors index.html.
    The --gold* tokens are the app's accent ramp; in Day they hold slate-blue. ── */
 :root{
-  --gold:#2f6690;--gold-light:#1b3c58;--gold-dark:#2a5578;--gold-muted:#7fa3c0;
+  --gold:#2b5f88;--gold-light:#1b3c58;
+  /* --gold-dark = PLATE + BORDER only. Gold as TEXT is --gold-ink.
+     --gold-muted = BORDER / rule / scrollbar only. Never text. */
+  --gold-dark:#2a5578;--gold-ink:#28527a;--gold-muted:#5d7f9e;
   --bg-deep:#dbe4ec;--bg-dark:#cad6e1;--bg-mid:#e4ecf3;--bg-card:#f5f9fc;
-  --text-primary:#15283a;--text-secondary:#2c4459;--text-muted:#4a6076;--text-dim:#8298ac;
+  --text-primary:#15283a;--text-secondary:#2c4459;--text-muted:#415769;--text-dim:#4a5f74;
+  /* rest colour for low-emphasis CONTROLS; replaces every opacity-dimmed text */
+  --text-control:#415769;--text-disabled:#687887;
   --border:#b7c6d4;--border-gold:#4a7ba6;
-  --red:#b3261e;--red-bright:#d13c30;--red-light:#a51f18;
+  --red:#b3261e;--red-bright:#d13c30;--red-light:#a51f18;--red-alert:#8f1a14;
   /* guide accents — day (darkened for contrast on light panels) */
   --spirit:#6f52a6;--spirit-light:#4a2f7a;
   --green:#2e7d55;--green-light:#1f6b46;
   --asc:#3f7a2a;--asc-light:#2f6a1c;--asc-selected:#4f9a2f;
+  --added:#28603e;
   /* storm scene — day = sunny, no rain/lightning */
   --sky-top:#9bd6f6;--sky-bottom:#57b2ec;--castle:#9aa7b3;--win:#ffd27a;
   --rain:transparent;--flash:transparent;--cloud:rgba(255,255,255,.92);--bird:rgba(38,52,68,.72);
@@ -29,15 +40,22 @@
 }
 /* ── DARK: Midnight & Gold — cool navy to harmonise with the stormy castle ── */
 :root[data-theme="dark"]{
-  --gold:#c9a84c;--gold-light:#ecd88f;--gold-dark:#97844a;--gold-muted:#3f4a63;
+  --gold:#c9a84c;--gold-light:#ecd88f;
+  /* --gold-dark = PLATE + BORDER only. Gold as TEXT is --gold-ink.
+     --gold-muted = BORDER / rule / scrollbar only. Never text. */
+  --gold-dark:#97844a;--gold-ink:#bfa663;--gold-muted:#7d88a3;
   --bg-deep:#080b14;--bg-dark:#0a0e1a;--bg-mid:#0e1322;--bg-card:#141b2c;
-  --text-primary:#e7ecf4;--text-secondary:#bcc4d4;--text-muted:#8f97ab;--text-dim:#596478;
+  --text-primary:#e7ecf4;--text-secondary:#c3cbdb;--text-muted:#a2abbf;--text-dim:#939db2;
+  /* rest colour for low-emphasis CONTROLS; replaces every opacity-dimmed text */
+  --text-control:#a2abbf;--text-disabled:#6b7488;
   --border:#283148;--border-gold:#7f6d3c;
-  --red:#8b1a1a;--red-bright:#c0392b;--red-light:#e0716a;
-  /* guide accents — night (brightened to pop on navy) */
-  --spirit:#8a6ac0;--spirit-light:#c0a8e0;
-  --green:#3a8a5f;--green-light:#80c0a0;
-  --asc:#4a7a3a;--asc-light:#a0d880;--asc-selected:#5a9a3a;
+  --red:#8b1a1a;--red-bright:#c0392b;--red-light:#e0716a;--red-alert:#f2857a;
+  /* guide accents — night. --spirit/--green/--asc were 4.01/4.07/3.38 on a card and
+     are used as small meta text and as an 11px link, so they are brightened here. */
+  --spirit:#9b7fd0;--spirit-light:#c0a8e0;
+  --green:#4fa878;--green-light:#80c0a0;
+  --asc:#6aa554;--asc-light:#a0d880;--asc-selected:#5a9a3a;
+  --added:#8fc4a4;
   /* storm scene — night = stormy */
   --sky-top:#17203a;--sky-bottom:#06060e;--castle:#04030a;--win:#ffcf6b;
   --rain:rgba(200,220,255,.22);--flash:rgba(185,205,255,.55);--cloud:rgba(150,170,210,.15);--bird:transparent;
@@ -45,30 +63,45 @@
   /* readability veils that subdue the busy castle behind dense areas */
   --veil:rgba(8,11,20,.86);--veil-soft:rgba(8,11,20,.42);
 }
-html,body{min-height:100vh;background:var(--bg-deep);color:var(--text-secondary);font-family:'Crimson Text',Georgia,serif;font-size:17px}
+/* 18px, not 17: Crimson Text's x-height is 0.424em, so 17px rendered at the x-height
+   of a 13.9px UI sans. 18px lands at 7.63px (~14.7px sans). Matches index.html. */
+html,body{min-height:100vh;background:var(--bg-deep);color:var(--text-secondary);font-family:'Crimson Text',Georgia,serif;font-size:18px}
 body{background-image:radial-gradient(ellipse at 20% 20%,rgba(139,105,20,.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(139,26,26,.04) 0%,transparent 50%)}
 
 /* HEADER */
 .site-header{background:var(--veil-soft);border-bottom:1px solid var(--border-gold);padding:0 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.header-logo{font-family:'Cinzel Decorative',serif;color:var(--gold-light);font-size:20px;padding:14px 0;text-shadow:2px 2px 0 rgba(0,0,0,.55),0 0 20px rgba(200,160,70,.3)}
-.header-sep{color:var(--gold-muted)}
-.header-subtitle{font-family:'IM Fell English',serif;font-style:italic;color:var(--gold-dark);font-size:14px}
-.header-back{margin-left:auto;background:none;border:.5px solid var(--border-gold);border-radius:2px;color:var(--gold);font-family:'Crimson Text',serif;font-size:14px;padding:6px 14px;text-decoration:none;transition:all .2s}
+.header-logo{color:var(--gold-light);font-size:20px;padding:14px 0;text-shadow:2px 2px 0 rgba(0,0,0,.55),0 0 20px rgba(200,160,70,.3)}
+.header-sep{color:var(--text-dim)}
+/* was IM Fell English italic 14px; the family shipped no bold and this page used it
+   for exactly two strings. Voice, roman, 16px. */
+.header-subtitle{font-style:normal;color:var(--text-muted);font-size:16px}
+.header-back{margin-left:auto;background:none;border:.5px solid var(--border-gold);border-radius:2px;color:var(--gold);font-size:14px;padding:6px 14px;text-decoration:none;transition:all .2s}
 .header-back:hover{background:rgba(139,105,20,.15)}
-.btn-export{background:var(--gold-dark);border:1px solid var(--gold);border-radius:2px;color:var(--bg-deep);cursor:pointer;font-family:'Cinzel Decorative',serif;font-size:9px;letter-spacing:.15em;padding:6px 14px;transition:all .2s;white-space:nowrap}
+.btn-export{background:var(--gold-dark);border:1px solid var(--gold);border-radius:2px;color:var(--bg-deep);cursor:pointer;font-size:9px;letter-spacing:.15em;padding:6px 14px;transition:all .2s;white-space:nowrap}
 .btn-export:hover{background:var(--gold)}
+/* Patch badge — "data current as of". Opaque plate so the token contrast holds
+   over the translucent header veil. Hidden until VETOLOGY_META is confirmed. */
+.patch-badge{display:none;background:var(--bg-card);border:1px solid var(--border-gold);color:var(--gold-ink);font-size:12px;letter-spacing:.06em;padding:3px 9px;white-space:nowrap}
 
 /* TOP CONTROLS */
 .top-controls{background:var(--bg-card);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
 .ctrl-group{display:flex;flex-direction:column;gap:6px;flex:1;min-width:200px}
-.ctrl-label{font-family:'Cinzel Decorative',serif;color:var(--gold-dark);font-size:9px;letter-spacing:.2em;text-transform:uppercase}
-select{background:var(--bg-dark);border:.5px solid var(--border-gold);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:16px;padding:9px 32px 9px 12px;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b6914'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.ctrl-label{color:var(--gold-ink);font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+select{background:var(--bg-dark);border:.5px solid var(--border-gold);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:17px;padding:9px 32px 9px 12px;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238b6914'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
 select:focus{border-color:var(--gold)}
-.paste-row{display:flex;gap:10px;flex:2;min-width:300px}
-.paste-input{flex:1;background:var(--bg-dark);border:.5px solid var(--border-gold);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:16px;padding:9px 14px;outline:none}
+.paste-row{display:flex;gap:10px;flex:2;min-width:min(300px,100%);flex-wrap:wrap}
+/* the controls row sat at a hard 300px min inside a 264px box at 320px wide, so it
+   pushed the page into a horizontal scroll. Shrink the chrome, not the type. */
+@media(max-width:560px){
+  .top-controls{padding:14px 12px}
+  .site-header{padding:0 12px;gap:10px}
+  .left-panel{padding:18px 14px}
+  .right-panel{padding:18px 12px}
+}
+.paste-input{flex:1;background:var(--bg-dark);border:.5px solid var(--border-gold);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:17px;padding:9px 14px;outline:none}
 .paste-input:focus{border-color:var(--gold)}
-.paste-input::placeholder{color:var(--text-dim);font-style:italic}
-.btn-primary{background:var(--gold-dark);border:1px solid var(--gold);border-radius:2px;color:var(--bg-deep);cursor:pointer;font-family:'Cinzel Decorative',serif;font-size:10px;letter-spacing:.15em;padding:10px 18px;transition:all .2s;white-space:nowrap}
+.paste-input::placeholder{color:var(--text-control);font-style:normal}
+.btn-primary{background:var(--gold-dark);border:1px solid var(--gold);border-radius:2px;color:var(--bg-deep);cursor:pointer;font-size:10px;letter-spacing:.15em;padding:10px 18px;transition:all .2s;white-space:nowrap}
 .btn-primary:hover{background:var(--gold)}
 
 /* LAYOUT */
@@ -81,82 +114,92 @@ select:focus{border-color:var(--gold)}
 /* RIGHT PANEL */
 .right-panel{padding:24px 20px;background:var(--bg-mid)}
 
-.section-title{font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:10px;letter-spacing:.2em;text-transform:uppercase;border-bottom:.5px solid var(--border-gold);padding-bottom:7px;margin-bottom:14px;margin-top:22px}
+.section-title{color:var(--gold);font-size:10px;letter-spacing:.2em;text-transform:uppercase;border-bottom:.5px solid var(--border-gold);padding-bottom:7px;margin-bottom:14px;margin-top:22px}
 .section-title:first-child{margin-top:0}
 
 /* BUILD HEADER */
 .build-header{background:var(--bg-card);border:1px solid var(--border-gold);border-radius:4px;padding:18px 22px;margin-bottom:22px}
-.build-eyebrow{font-family:'Cinzel Decorative',serif;color:var(--gold-dark);font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
-.build-name{font-family:'Cinzel Decorative',serif;color:var(--gold-light);font-size:22px;text-shadow:0 0 20px rgba(200,160,70,.2);margin-bottom:3px}
-.build-class{font-family:'IM Fell English',serif;font-style:italic;color:var(--text-muted);font-size:15px}
+.build-eyebrow{color:var(--gold-ink);font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
+.build-name{color:var(--gold-light);font-size:22px;text-shadow:0 0 20px rgba(200,160,70,.2);margin-bottom:4px}
+/* the second and last IM Fell English survivor on this page */
+.build-class{font-style:normal;color:var(--text-muted);font-size:17px}
 
 /* ASCENDANCY NODE PICKER */
 .asc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-bottom:22px}
 .asc-node{background:var(--bg-card);border:.5px solid var(--border);border-radius:3px;padding:10px 12px;cursor:pointer;transition:all .2s;user-select:none}
 .asc-node:hover{border-color:var(--asc);background:rgba(58,106,42,.08)}
 .asc-node.selected{border-color:var(--asc-selected);border-left:3px solid var(--asc-light);background:rgba(90,154,58,.18);box-shadow:0 0 0 1px rgba(90,154,58,.3)}
-.asc-node-name{font-size:15px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:3px}
+.asc-node-name{font-size:17px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:4px}
 .asc-node.selected .asc-node-name{color:var(--asc-light)}
-.asc-node-desc{font-size:12px;font-style:italic;color:var(--text-dim);line-height:1.4}
-.asc-node-link{font-size:11px;color:var(--asc);text-decoration:none;display:inline-block;margin-top:4px}
+/* was 12px italic --text-dim = 2.88:1, optically a 9.7px UI sans. This is the node's
+   only description; it is load-bearing text, not a caption. */
+.asc-node-desc{font-size:16px;font-style:normal;color:var(--text-muted);line-height:1.45}
+.asc-node-link{font-size:14px;color:var(--asc);text-decoration:none;display:inline-block;margin-top:5px}
 .asc-node-link:hover{color:var(--asc-light)}
 .asc-node-top{display:flex;align-items:center;gap:6px;margin-bottom:4px}
-.asc-node-check{color:var(--asc-light);font-size:16px;display:none;flex-shrink:0}
+.asc-node-check{color:var(--asc-light);font-size:17px;display:none;flex-shrink:0}
 .asc-node.selected .asc-node-check{display:inline}
-.asc-points-info{font-size:13px;font-style:italic;color:var(--text-dim);margin-bottom:12px}
+/* parent was italic and the child 600: Crimson ships no italic-600, so that was a
+   synthesised bold on top of a real italic. Roman parent, real 600 child. */
+.asc-points-info{font-size:16px;font-style:normal;color:var(--text-muted);margin-bottom:12px}
 .asc-points-used{color:var(--asc-light);font-weight:600}
 
 /* TIMELINE */
 .timeline{display:flex;flex-direction:column;gap:0;margin-bottom:22px;position:relative}
 .timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border)}
 .timeline-item{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:12px}
-.timeline-dot{width:42px;height:42px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel Decorative',serif;font-size:12px;position:relative;z-index:1}
+.timeline-dot{width:42px;height:42px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;position:relative;z-index:1}
 .timeline-dot.skill{border-color:var(--gold-dark);background:var(--bg-deep);color:var(--gold-light)}
 .timeline-dot.spirit{border-color:var(--spirit);background:var(--bg-deep);color:var(--spirit-light)}
 .timeline-dot.support{border-color:var(--green);background:var(--bg-deep);color:var(--green-light)}
-.timeline-dot.added{border-color:#5a8a5a;background:var(--bg-deep);color:#a0c8a0}
+.timeline-dot.added{border-color:var(--added);background:var(--bg-deep);color:var(--added)}
 .timeline-content{background:var(--bg-card);border:.5px solid var(--border);border-radius:3px;padding:10px 14px;flex:1;display:flex;align-items:center;gap:10px;transition:border-color .2s}
 .timeline-content.required{border-left:2px solid var(--gold-dark)}
 .timeline-gem-info{flex:1}
-.timeline-gem-name{font-size:17px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
-.timeline-gem-meta{font-size:13px;font-style:italic}
-.timeline-gem-meta.skill{color:var(--gold-dark)}
+.timeline-gem-name{font-size:18px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:3px}
+.timeline-gem-meta{font-size:15px;font-style:normal}
+.timeline-gem-meta.skill{color:var(--gold-ink)}
 .timeline-gem-meta.spirit{color:var(--spirit)}
 .timeline-gem-meta.support{color:var(--green)}
-.timeline-gem-meta.added{color:#5a8a5a}
-.required-badge{font-family:'Cinzel Decorative',serif;font-size:8px;letter-spacing:.1em;color:var(--gold-dark);border:.5px solid var(--gold-dark);padding:2px 6px;border-radius:2px;white-space:nowrap;flex-shrink:0}
-.btn-remove-gem{background:none;border:.5px solid var(--border);border-radius:2px;color:var(--text-dim);cursor:pointer;font-size:14px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.timeline-gem-meta.added{color:var(--added)}
+.required-badge{font-size:8px;letter-spacing:.1em;color:var(--gold-ink);border:.5px solid var(--gold-dark);padding:2px 6px;border-radius:2px;white-space:nowrap;flex-shrink:0}
+.btn-remove-gem{background:none;border:.5px solid var(--border);border-radius:2px;color:var(--text-control);cursor:pointer;font-size:16px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
 .btn-remove-gem:hover{border-color:var(--red-bright);color:var(--red-light)}
 
 /* KEYSTONES */
 .keystone-list{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
 .keystone-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg-card);border:.5px solid #4a2a6a;border-left:3px solid var(--spirit);border-radius:3px;padding:12px 14px;text-decoration:none;transition:border-color .2s}
 .keystone-row:hover{border-color:var(--spirit-light)}
-.keystone-icon{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--spirit);background:var(--bg-deep);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.keystone-icon{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--spirit);background:var(--bg-deep);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
 .keystone-info{flex:1}
-.keystone-name{color:var(--spirit-light);font-size:17px;font-weight:600;display:block;margin-bottom:3px}
-.keystone-desc{color:var(--text-dim);font-size:13px;font-style:italic;line-height:1.5}
-.keystone-arrow{color:var(--spirit);font-size:14px;flex-shrink:0;margin-top:2px}
+.keystone-name{color:var(--spirit-light);font-size:18px;font-weight:600;display:block;margin-bottom:4px}
+/* was 13px italic --text-dim = 2.88:1; this is the keystone's actual rules text */
+.keystone-desc{color:var(--text-muted);font-size:16px;font-style:normal;line-height:1.5}
+.keystone-arrow{color:var(--spirit);font-size:16px;flex-shrink:0;margin-top:2px}
 
 /* GEM SEARCH */
-.gem-search-input{width:100%;background:var(--bg-dark);border:.5px solid var(--border-gold);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:15px;padding:8px 12px;outline:none;margin-bottom:10px}
+.gem-search-input{width:100%;background:var(--bg-dark);border:.5px solid var(--border-gold);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:17px;padding:8px 12px;outline:none;margin-bottom:10px}
 .gem-search-input:focus{border-color:var(--gold)}
-.gem-search-input::placeholder{color:var(--text-dim);font-style:italic}
+.gem-search-input::placeholder{color:var(--text-control);font-style:normal}
 .gem-type-filter{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.filter-btn{background:none;border:.5px solid var(--border);border-radius:2px;color:var(--text-dim);cursor:pointer;font-family:'Crimson Text',serif;font-size:12px;padding:4px 10px;transition:all .2s}
+.filter-btn{background:none;border:.5px solid var(--border);border-radius:2px;color:var(--text-control);cursor:pointer;font-size:12px;padding:4px 10px;transition:all .2s}
 .filter-btn.active{background:rgba(139,105,20,.15);border-color:var(--gold-dark);color:var(--gold)}
 .filter-btn.active.spirit{background:rgba(122,90,170,.15);border-color:var(--spirit);color:var(--spirit-light)}
 .filter-btn.active.support{background:rgba(42,106,74,.15);border-color:var(--green);color:var(--green-light)}
 .gem-results{max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
 .gem-result-item{display:flex;align-items:center;gap:8px;background:var(--bg-card);border:.5px solid var(--border);border-radius:2px;padding:7px 10px;cursor:pointer;transition:all .2s}
 .gem-result-item:hover{border-color:var(--gold-dark);background:rgba(139,105,20,.08)}
-.gem-result-level{font-family:'Cinzel Decorative',serif;font-size:10px;min-width:28px;text-align:center;flex-shrink:0}
+.gem-result-level{font-size:10px;min-width:28px;text-align:center;flex-shrink:0}
 .gem-result-level.skill{color:var(--gold)}
 .gem-result-level.spirit{color:var(--spirit-light)}
 .gem-result-level.support{color:var(--green-light)}
-.gem-result-name{font-size:14px;color:var(--text-primary);flex:1}
-.gem-result-type{font-size:11px;font-style:italic;color:var(--text-dim)}
-.gem-already{opacity:.4;cursor:not-allowed}
+.gem-result-name{font-size:16px;color:var(--text-primary);flex:1}
+/* The worst single style on the site: Pixelify (no italic file) skewed into a faux
+   oblique at 11px in --text-dim = 2.88:1. Now a plain 12px uppercase pixel chip. */
+.gem-result-type{font-size:12px;font-style:normal;letter-spacing:.05em;text-transform:uppercase;color:var(--text-dim)}
+/* was opacity:.4 on the row = 3.40:1 Night / 2.37:1 Day on the gem name */
+.gem-already{cursor:not-allowed}
+.gem-already .gem-result-name,.gem-already .gem-result-level,.gem-already .gem-result-type{color:var(--text-disabled)}
 
 /* COSMETICS */
 .cosmetic-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
@@ -164,42 +207,57 @@ select:focus{border-color:var(--gold)}
 .cosmetic-rule.required{border-left:3px solid var(--gold-dark)}
 .cosmetic-rule.forbidden{border-left:3px solid var(--red)}
 .cosmetic-rule.cosmetic{border-left:3px solid var(--spirit)}
-.cosmetic-type-badge{font-family:'Cinzel Decorative',serif;font-size:8px;letter-spacing:.1em;padding:2px 6px;border-radius:2px;white-space:nowrap;flex-shrink:0}
+.cosmetic-type-badge{font-size:8px;letter-spacing:.1em;padding:2px 6px;border-radius:2px;white-space:nowrap;flex-shrink:0}
 .cosmetic-type-badge.required{color:var(--gold);border:.5px solid var(--gold-dark)}
 .cosmetic-type-badge.forbidden{color:var(--red-light);border:.5px solid var(--red)}
 .cosmetic-type-badge.cosmetic{color:var(--spirit-light);border:.5px solid var(--spirit)}
-.cosmetic-label{flex:1;font-size:15px;color:var(--text-primary)}
-.btn-remove-rule{background:none;border:.5px solid var(--border);border-radius:2px;color:var(--text-dim);cursor:pointer;font-size:13px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.cosmetic-label{flex:1;font-size:17px;color:var(--text-primary)}
+.btn-remove-rule{background:none;border:.5px solid var(--border);border-radius:2px;color:var(--text-control);cursor:pointer;font-size:15px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
 .btn-remove-rule:hover{border-color:var(--red-bright);color:var(--red-light)}
 
 /* ADD RULE FORM */
 .add-rule-form{background:var(--bg-card);border:.5px solid var(--border);border-radius:3px;padding:12px;margin-bottom:16px}
 .add-rule-row{display:flex;gap:6px;flex-wrap:wrap}
-.add-rule-select{flex:1;min-width:100px;background:var(--bg-dark);border:.5px solid var(--border);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:14px;padding:6px 10px;outline:none}
+.add-rule-select{flex:1;min-width:100px;background:var(--bg-dark);border:.5px solid var(--border);border-radius:2px;color:var(--text-primary);font-family:'Crimson Text',serif;font-size:16px;padding:6px 10px;outline:none}
 .add-rule-select:focus{border-color:var(--gold-dark)}
-.btn-add-rule{background:none;border:.5px solid var(--gold-dark);border-radius:2px;color:var(--gold);cursor:pointer;font-family:'Crimson Text',serif;font-size:13px;padding:6px 12px;transition:all .2s;white-space:nowrap}
+.btn-add-rule{background:none;border:.5px solid var(--gold-dark);border-radius:2px;color:var(--gold);cursor:pointer;font-size:13px;padding:6px 12px;transition:all .2s;white-space:nowrap}
 .btn-add-rule:hover{background:rgba(139,105,20,.15)}
 
 /* EMPTY / NO DATA */
-.results-empty{text-align:center;padding:60px 20px;font-style:italic;color:var(--text-dim);font-size:15px}
-.empty-glyph{display:block;font-size:32px;color:var(--gold-muted);margin-bottom:12px;opacity:.5}
-.no-data{background:var(--bg-card);border:.5px solid var(--border);border-radius:3px;padding:14px;color:var(--text-dim);font-style:italic;font-size:14px;text-align:center;margin-bottom:16px}
+.results-empty{text-align:center;padding:60px 20px;font-style:normal;color:var(--text-muted);font-size:17px;line-height:1.55}
+.empty-glyph{display:block;font-size:32px;color:var(--gold-ink);margin-bottom:12px}
+.no-data{background:var(--bg-card);border:.5px solid var(--border);border-radius:3px;padding:14px;color:var(--text-muted);font-style:normal;font-size:16px;text-align:center;margin-bottom:16px}
 
 /* FOOTER */
 .site-footer{background:var(--veil-soft);border-top:.5px solid var(--border);padding:10px 24px;text-align:center}
-.footer-seal{font-family:'Cinzel Decorative',serif;color:var(--gold-muted);font-size:8px;letter-spacing:.2em;opacity:.6}
+/* was 8px (9px after the pixel layer) at opacity .6 = 1.51:1 / 1.41:1, and the two
+   pages disagreed on the size. Same rule as index.html now: 11px, real token, no opacity. */
+.footer-seal{color:var(--gold-ink);font-size:11px;letter-spacing:.12em;line-height:1.5}
 
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg-dark)}::-webkit-scrollbar-thumb{background:var(--gold-muted);border-radius:2px}
 
+/* GEM TOOLTIP — baked lore card (GEM_INFO, fetched dev-time; the shipped site
+   never fetches). Fixed-position, non-interactive, clamped to the viewport.
+   Voice text is Crimson 15px; name/meta/tags are Pixelify chrome at 12px+. */
+.gem-tip{position:fixed;z-index:9999;max-width:340px;background:var(--bg-card);border:2px solid var(--border-gold);box-shadow:4px 4px 0 rgba(0,0,0,.4);padding:12px 14px;pointer-events:none;display:none}
+.gem-tip.visible{display:block}
+.gem-tip-name{font-family:'Pixelify Sans',system-ui,sans-serif;font-size:16px;color:var(--gold-light);letter-spacing:.03em;display:block;margin-bottom:3px}
+.gem-tip-meta{font-family:'Pixelify Sans',system-ui,sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:7px}
+.gem-tip-desc{font-family:'Crimson Text',Georgia,serif;font-size:15px;font-style:normal;color:var(--text-secondary);line-height:1.5}
+.gem-tip-none{font-family:'Crimson Text',Georgia,serif;font-size:15px;font-style:normal;color:var(--text-muted);line-height:1.5}
+.gem-tip-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.gem-tip-tag{font-family:'Pixelify Sans',system-ui,sans-serif;font-size:12px;letter-spacing:.04em;color:var(--text-muted);border:1px solid var(--border);padding:1px 6px;white-space:nowrap}
+
 /* TOAST */
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--bg-card);border:1px solid var(--gold-dark);border-radius:3px;color:var(--gold-light);font-style:italic;font-size:15px;padding:12px 24px;z-index:3000;transition:transform .3s ease;text-align:center;max-width:420px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--bg-card);border:1px solid var(--gold-dark);border-radius:3px;color:var(--gold-light);font-style:italic;font-size:17px;padding:12px 24px;z-index:3000;transition:transform .3s ease;text-align:center;max-width:420px}
 .toast.visible{transform:translateX(-50%) translateY(0)}
-.toast.red{border-color:var(--red-bright);color:var(--red-light)}
+/* alert, not flavour: drops the italic so it clears the rule roman (6.88 / 8.53) */
+.toast.red{border-color:var(--red-bright);color:var(--red-alert);font-style:normal}
 
 /* PRINT / PDF */
 @media print {
   body{background:white;color:#1a1209;font-size:12px}
-  .site-header,.top-controls,.right-panel,.site-footer,.btn-remove-gem,.btn-remove-rule,.add-rule-form,.gem-type-filter,.gem-results,.gem-search-input,.btn-export,.toast,#stormscape,.theme-toggle{display:none!important}
+  .site-header,.top-controls,.right-panel,.site-footer,.btn-remove-gem,.btn-remove-rule,.add-rule-form,.gem-type-filter,.gem-results,.gem-search-input,.btn-export,.toast,#stormscape,.theme-toggle,.gem-tip,.patch-badge{display:none!important}
   .left-panel{background:none!important}
   .main-layout{grid-template-columns:1fr;display:block}
   .left-panel{padding:12px;border:none}
@@ -228,22 +286,37 @@ select:focus{border-color:var(--gold)}
    site reads as one. Type system + beveled controls + castle backdrop.
    ═══════════════════════════════════════════════════════════════ */
 
-/* Display, headings, labels, buttons → Pixelify Sans (pixel).
-   Prose, inputs, gem/node names, descriptions stay Crimson Text (readable). */
-.header-logo,.header-back,.btn-export,.btn-primary,.ctrl-label,.section-title,
+/* ═══════════ TYPE SYSTEM — THREE VOICES, ASSIGNED BY ROLE (mirrors index.html) ═══
+   CHROME → Pixelify Sans: wordmarks, labels, tabs, buttons, badges, numeric chips.
+            NEVER italic (no italic file) and never a sentence.
+   VOICE  → Crimson Text: anything read as language. 400 / 600 / italic-400 only.
+   (No CHRONICLE voice on this page, so VT323 is not loaded at all.) */
+.header-logo,.btn-export,.btn-primary,.ctrl-label,.section-title,
 .build-eyebrow,.build-name,.required-badge,.cosmetic-type-badge,.filter-btn,
-.btn-add-rule,.footer-seal,.timeline-dot,.gem-result-level,.gem-result-type{
-  font-family:'Pixelify Sans','Cinzel Decorative',system-ui,sans-serif !important;
+.btn-add-rule,.header-back,.footer-seal,.timeline-dot,.gem-result-level,
+.gem-result-type,.patch-badge{
+  font-family:'Pixelify Sans',system-ui,sans-serif !important;
 }
-/* Pixel faces read small — size the tiny labels up so they stay legible. */
-.ctrl-label{font-size:10px !important;letter-spacing:.14em}
-.section-title{font-size:11px !important;letter-spacing:.16em}
-.build-eyebrow{font-size:10px !important}
-.build-name{font-size:22px !important;letter-spacing:.02em}
-.required-badge,.cosmetic-type-badge{font-size:9px !important}
-.footer-seal{font-size:9px !important}
-.btn-primary,.btn-export{font-size:11px !important;letter-spacing:.06em}
-.btn-add-rule,.filter-btn,.header-back{font-size:13px !important}
+/* A FOURTH, UNCONTROLLED VOICE: glyph-only controls carry no font-family and fall
+   back to the UA default. Pinned to an explicit stack so it is deterministic.
+   Pixel-icon replacement is backlogged, not done here. */
+.theme-toggle,.btn-remove-gem,.btn-remove-rule,.empty-glyph,.keystone-icon,.keystone-arrow{
+  font-family:system-ui,'Segoe UI Symbol','Apple Symbols',sans-serif;
+}
+/* Cinzel Decorative's cap height is 0.853em against Pixelify's 0.631em, so swapping
+   the families at equal px SHRANK every label by 26%. The old bump (9px -> 10/11px)
+   was still a net loss. The real multiplier is 1.35x; these are the parity sizes.
+   Tracking is grid-snapped to whole pixels at the rendered size. */
+.ctrl-label{font-size:12px !important;letter-spacing:.125em}
+.section-title{font-size:13px !important;letter-spacing:.1em}
+.build-eyebrow{font-size:12px !important;letter-spacing:.125em}
+.build-name{font-size:26px !important;letter-spacing:.02em}
+.required-badge,.cosmetic-type-badge{font-size:12px !important;letter-spacing:.08em}
+.footer-seal{font-size:11px !important}
+.gem-result-level{font-size:13px !important}
+.timeline-dot{font-size:15px !important}
+.btn-primary,.btn-export{font-size:14px !important;letter-spacing:.06em}
+.btn-add-rule,.filter-btn,.header-back{font-size:14px !important}
 
 /* Pixels don't do rounded corners (dots/icons stay round — they're not chrome). */
 .build-header,.asc-node,.timeline-content,.keystone-row,.cosmetic-rule,
@@ -275,12 +348,16 @@ select:focus{border-color:var(--gold)}
 }
 .theme-toggle:hover{border-color:var(--gold)}
 
-/* CRT scanlines + vignette (Night only) — non-interactive overlay. */
+/* CRT scanlines + vignette (Night only) — non-interactive overlay.
+   Sits at z-index 9998, i.e. ON TOP of all text, so it taxes every token contrast.
+   The default farthest-corner ellipse puts t=0.707 along the WHOLE perimeter, which
+   at .38 laid ~11.5% black over the dense right-hand gem column and the footer.
+   Matched to index.html: scanline .10 -> .06, vignette .38 -> .18. */
 :root[data-theme="dark"] body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
   background:
-    repeating-linear-gradient(rgba(0,0,0,0) 0 2px,rgba(0,0,0,.10) 2px 3px),
-    radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.38) 100%);
+    repeating-linear-gradient(rgba(0,0,0,0) 0 2px,rgba(0,0,0,.06) 2px 3px),
+    radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.18) 100%);
 }
 
 /* ═══════════════ STORMSCAPE — castle · clouds · rain · lightning ═══════════════ */
@@ -382,6 +459,8 @@ html,body{background:transparent !important}
   <span class="header-logo">Vetology</span>
   <span class="header-sep">&middot;</span>
   <span class="header-subtitle">Build Codex</span>
+  <span class="patch-badge" id="patch-badge"></span>
+  <button class="btn-export" onclick="copyBuildLink()" title="Copy a shareable link to this build">&#128279; Copy Build Link</button>
   <button class="btn-export" onclick="exportPDF()">&#128196; Export PDF</button>
   <a href="index.html" class="header-back">Back to Session</a>
 </header>
@@ -400,7 +479,7 @@ html,body{background:transparent !important}
     </select>
   </div>
   <div class="paste-row">
-    <input type="text" class="paste-input" id="paste-input" placeholder="Or paste Discord result: Joe &mdash; Sorceress (Chronomancer) &mdash; Palpatine">
+    <input type="text" class="paste-input" id="paste-input" placeholder="Or paste Discord result: Joe · Sorceress (Chronomancer) · Palpatine">
     <button class="btn-primary" onclick="parsePaste()">Look Up</button>
   </div>
 </div>
@@ -421,7 +500,7 @@ html,body{background:transparent !important}
 
       <!-- ASCENDANCY NODE PICKER -->
       <div id="asc-section" style="display:none">
-        <div class="section-title">Ascendancy Tree &nbsp;<a id="asc-tree-link" href="#" target="_blank" rel="noopener" style="display:none;font-family:Crimson Text,serif;font-size:12px;font-style:italic;color:var(--asc-light);letter-spacing:normal;text-transform:none;border:none;padding:0">View full tree on poe2db &#8599;</a></div>
+        <div class="section-title">Ascendancy Tree &nbsp;<a id="asc-tree-link" href="#" target="_blank" rel="noopener" style="display:none;font-family:'Crimson Text',Georgia,serif;font-size:15px;font-style:normal;color:var(--asc-light);letter-spacing:normal;text-transform:none;border:none;padding:0">View full tree on poe2db &#8599;</a></div>
         <div class="asc-points-info">Select nodes: <span class="asc-points-used" id="asc-points-used">0</span> / 8 points used</div>
         <div class="asc-grid" id="asc-grid"></div>
       </div>
@@ -477,6 +556,7 @@ html,body{background:transparent !important}
 </footer>
 
 <div class="toast" id="toast"></div>
+<div class="gem-tip" id="gem-tip" role="tooltip" aria-hidden="true"></div>
 
 <script src="data/vetology-data.js"></script>
 <script>
@@ -514,13 +594,19 @@ function init() {
     ascSel.appendChild(ao);
   }
   filterGems();
-  var params = new URLSearchParams(window.location.search);
-  var ua = params.get('archetype');
-  if (ua) {
-    var found = findArchetype(ua);
-    if (found) {
-      document.getElementById('archetype-select').value = found;
-      loadArchetype(found, params.get('class'), params.get('asc'));
+  // Restore order: #b= permalink first, then the older ?archetype= links,
+  // then the autosaved working build (so a refresh never loses your planning).
+  if (!restoreFromHash()) {
+    var params = new URLSearchParams(window.location.search);
+    var ua = params.get('archetype');
+    if (ua) {
+      var found = findArchetype(ua);
+      if (found) {
+        document.getElementById('archetype-select').value = found;
+        loadArchetype(found, params.get('class'), params.get('asc'));
+      }
+    } else if (restoreFromLocal()) {
+      showToast('Build restored from your last visit · pick a new archetype to start fresh.');
     }
   }
 }
@@ -535,6 +621,7 @@ function onAscendancyChange() {
   currentAscendancy = asc || null;
   selectedNodes = {};
   renderAscendancy();
+  autosaveBuild();
 }
 
 function parsePaste() {
@@ -543,7 +630,7 @@ function parsePaste() {
   // Our Discord format is "Name \u2014 Class (Asc) \u2014 Archetype", delimited by a
   // spaced EM/EN dash. We split on that only (not the hyphen-minus) so archetype
   // names containing a real hyphen stay intact ("Pants Pisser - DoT...").
-  var parts = raw.split(/\s+[\u2014\u2013]\s+/)
+  var parts = raw.split(/\s+[\u00b7\u2014\u2013]\s+/)
                  .map(function(s){ return s.trim(); })
                  .filter(function(s){ return s.length; });
 
@@ -625,6 +712,7 @@ function loadArchetype(arch, playerClass, ascendancy) {
   renderKeystones();
   renderCosmetics();
   filterGems();
+  autosaveBuild();
 }
 
 // ── ASCENDANCY ────────────────────────────────────────────
@@ -678,6 +766,7 @@ function toggleNode(name) {
     selectedNodes[name] = true;
   }
   renderAscendancy();
+  autosaveBuild();
 }
 
 function updateAscPoints() {
@@ -705,7 +794,7 @@ function renderTimeline() {
   allGems.sort(function(a,b){ return a.level - b.level; });
 
   if (allGems.length === 0) {
-    container.innerHTML = '<div class="no-data">No gems added yet &mdash; search and add from the right panel.</div>';
+    container.innerHTML = '<div class="no-data">No gems added yet; search and add from the right panel.</div>';
     return;
   }
 
@@ -721,7 +810,7 @@ function renderTimeline() {
     var safeName = gem.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
     html += '<div class="timeline-item">';
     html += '<div class="timeline-dot ' + dotClass + '">' + gem.level + '</div>';
-    html += '<div class="timeline-content' + (isRequired ? ' required' : '') + '">';
+    html += '<div class="timeline-content' + (isRequired ? ' required' : '') + '" data-gem="' + safeName + '" data-level="' + gem.level + '" data-type="' + typeLabel + '">';
     html += '<div class="timeline-gem-info">';
     html += '<a href="' + gem.url + '" target="_blank" rel="noopener" style="text-decoration:none"><span class="timeline-gem-name">' + gem.name + '</span></a>';
     html += '<div class="timeline-gem-meta ' + (isRequired ? gem.type : 'added') + '">Level ' + gem.level + ' &middot; ' + typeLabel + (isRequired ? '' : ' &middot; Added') + ' &middot; <a href="' + gem.url + '" target="_blank" style="color:inherit">poe2db &#8599;</a></div>';
@@ -740,6 +829,7 @@ function removeGem(name) {
   addedGems = addedGems.filter(function(g){ return g.name !== name; });
   renderTimeline();
   filterGems();
+  autosaveBuild();
 }
 
 // ── KEYSTONES ─────────────────────────────────────────────
@@ -768,7 +858,7 @@ function renderKeystones() {
 function renderCosmetics() {
   var list = document.getElementById('cosmetic-list');
   if (cosmeticRules.length === 0) {
-    list.innerHTML = '<div class="no-data">No gear rules yet &mdash; add some below.</div>';
+    list.innerHTML = '<div class="no-data">No gear rules yet; add some below.</div>';
     return;
   }
   var html = '';
@@ -786,6 +876,7 @@ function renderCosmetics() {
 function removeRule(idx) {
   cosmeticRules.splice(idx, 1);
   renderCosmetics();
+  autosaveBuild();
 }
 
 function updateRuleItemOptions() {
@@ -810,6 +901,7 @@ function addRule() {
               item + ' (' + slot + ')';
   cosmeticRules.push({type: type, slot: slot, item: item, label: label});
   renderCosmetics();
+  autosaveBuild();
 }
 
 // ── GEM SEARCH ────────────────────────────────────────────
@@ -847,13 +939,14 @@ function filterGems() {
     var alreadyClass = g.already ? ' gem-already' : '';
     var safeName = g.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
     var clickAttr = g.already ? '' : ' onclick="addGem(&quot;' + safeName + '&quot;)"';
-    html += '<div class="gem-result-item' + alreadyClass + '"' + clickAttr + '>';
+    var typeLabel = g.type === 'spirit' ? 'Spirit Gem' : g.type === 'support' ? 'Support Gem' : 'Skill Gem';
+    html += '<div class="gem-result-item' + alreadyClass + '"' + clickAttr + ' tabindex="0" data-gem="' + safeName + '" data-level="' + g.level + '" data-type="' + typeLabel + '">';
     html += '<span class="gem-result-level ' + g.type + '">' + g.level + '</span>';
     html += '<span class="gem-result-name">' + g.name + '</span>';
     html += '<span class="gem-result-type">' + g.type + '</span>';
     html += '</div>';
   }
-  if (results.length > 80) html += '<div class="no-data" style="font-size:12px">Showing 80 of ' + results.length + ' &mdash; type to narrow results</div>';
+  if (results.length > 80) html += '<div class="no-data">Showing 80 of ' + results.length + '; type to narrow results</div>';
   if (display.length === 0) html = '<div class="no-data">No gems found</div>';
   container.innerHTML = html;
 }
@@ -868,6 +961,7 @@ function addGem(name) {
   addedGems.push({name: name, level: gem.level, type: gem.type, url: gem.url});
   renderTimeline();
   filterGems();
+  autosaveBuild();
 }
 
 // ── TOAST ─────────────────────────────────────────────────
@@ -886,6 +980,218 @@ function exportPDF() {
   window.print();
 }
 
+// ── PATCH BADGE ("data current as of") ────────────────────
+// Guarded: if VETOLOGY_META is missing from the data file, nothing renders.
+function initPatchBadge() {
+  if (typeof VETOLOGY_META === 'undefined' || !VETOLOGY_META || !VETOLOGY_META.patch) return;
+  var b = document.getElementById('patch-badge');
+  if (!b) return;
+  b.textContent = 'Data: patch ' + VETOLOGY_META.patch + ' · updated ' + VETOLOGY_META.updated;
+  if (VETOLOGY_META.patchName) b.title = VETOLOGY_META.patch + ' · ' + VETOLOGY_META.patchName;
+  b.style.display = 'inline-block';
+}
+
+// ── GEM TOOLTIPS ──────────────────────────────────────────
+// Descriptions come from the baked GEM_INFO const (fetched dev-time by
+// tools/fetch-gem-info.mjs; the shipped site performs zero runtime fetches).
+// Hover + keyboard focus on any [data-gem] row; hidden on touch devices.
+var _tipTouch = !!(window.matchMedia && matchMedia('(hover: none)').matches);
+function _escHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function showGemTip(el) {
+  var name = el.getAttribute('data-gem');
+  var tip = document.getElementById('gem-tip');
+  if (!name || !tip) return;
+  var info = (typeof GEM_INFO !== 'undefined' && GEM_INFO && GEM_INFO[name]) ? GEM_INFO[name] : null;
+  var lvl = el.getAttribute('data-level') || '';
+  var typ = el.getAttribute('data-type') || '';
+  var h = '<span class="gem-tip-name">' + _escHtml(name) + '</span>';
+  h += '<div class="gem-tip-meta">' + (lvl ? 'Level ' + _escHtml(lvl) + ' · ' : '') + _escHtml(typ) + '</div>';
+  if (info && info.desc) {
+    h += '<div class="gem-tip-desc">' + _escHtml(info.desc) + '</div>';
+    if (info.tags && info.tags.length) {
+      h += '<div class="gem-tip-tags">';
+      for (var i = 0; i < info.tags.length; i++) h += '<span class="gem-tip-tag">' + _escHtml(info.tags[i]) + '</span>';
+      h += '</div>';
+    }
+  } else {
+    h += '<div class="gem-tip-none">No lore recovered from the archives.</div>';
+  }
+  tip.innerHTML = h;
+  // measure while invisible, then clamp inside the viewport
+  tip.style.visibility = 'hidden';
+  tip.classList.add('visible');
+  var r = el.getBoundingClientRect();
+  var tw = tip.offsetWidth, th = tip.offsetHeight, pad = 8;
+  var x = r.left, y = r.bottom + 6;
+  if (x + tw > window.innerWidth - pad) x = window.innerWidth - tw - pad;
+  if (x < pad) x = pad;
+  if (y + th > window.innerHeight - pad) y = r.top - th - 6;
+  if (y + th > window.innerHeight - pad) y = window.innerHeight - th - pad;
+  if (y < pad) y = pad;
+  tip.style.left = x + 'px';
+  tip.style.top = y + 'px';
+  tip.style.visibility = 'visible';
+  tip.setAttribute('aria-hidden', 'false');
+}
+function hideGemTip() {
+  var tip = document.getElementById('gem-tip');
+  if (!tip) return;
+  tip.classList.remove('visible');
+  tip.setAttribute('aria-hidden', 'true');
+}
+function initGemTips() {
+  document.addEventListener('mouseover', function (e) {
+    if (_tipTouch || !e.target.closest) return;
+    var el = e.target.closest('[data-gem]');
+    if (el) showGemTip(el);
+  });
+  document.addEventListener('mouseout', function (e) {
+    if (!e.target.closest) return;
+    var el = e.target.closest('[data-gem]');
+    if (!el) return;
+    if (e.relatedTarget && el.contains(e.relatedTarget)) return;
+    hideGemTip();
+  });
+  document.addEventListener('focusin', function (e) {
+    if (_tipTouch || !e.target.closest) return;
+    var el = e.target.closest('[data-gem]');
+    if (el) showGemTip(el); else hideGemTip();
+  });
+  document.addEventListener('focusout', function (e) {
+    if (e.target.closest && e.target.closest('[data-gem]')) hideGemTip();
+  });
+  window.addEventListener('scroll', hideGemTip, true);
+  window.addEventListener('resize', hideGemTip);
+}
+
+// ── BUILD PERMALINKS (#b=base64url JSON) + WORKING-BUILD AUTOSAVE ──
+function buildState() {
+  return {
+    v: 1,
+    a: currentArchetype,
+    cls: document.getElementById('build-class-display').textContent || '',
+    asc: currentAscendancy || '',
+    n: Object.keys(selectedNodes),
+    g: addedGems.map(function (g) { return g.name; }),
+    r: cosmeticRules.map(function (r) { return [r.type, r.slot, r.item, r.label]; })
+  };
+}
+function autosaveBuild() {
+  if (!currentArchetype) return;
+  try { localStorage.setItem('vetology-build', JSON.stringify(buildState())); } catch (e) {}
+}
+function _b64urlEncode(str) {
+  return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function _b64urlDecode(str) {
+  var s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  return decodeURIComponent(escape(atob(s)));
+}
+function copyBuildLink() {
+  if (!currentArchetype) {
+    showToast('Load a build first, then copy its link.', true);
+    return;
+  }
+  var state = buildState();
+  var base = window.location.href.split('#')[0].split('?')[0];
+  var url = base + '#b=' + _b64urlEncode(JSON.stringify(state));
+  function done() { showToast('Build link copied · paste it anywhere.'); }
+  function fail() {
+    var inp = document.getElementById('paste-input');
+    if (inp) { inp.value = url; inp.select(); }
+    showToast('Copy was blocked; the link now sits in the paste box above.', true);
+  }
+  function legacy() {
+    var ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (ok) done(); else fail();
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(done, legacy);
+  } else {
+    legacy();
+  }
+}
+// Strip characters that could smuggle markup through the innerHTML render paths.
+function _cleanShared(v, max) {
+  return String(v).replace(/[<>&"']/g, '').slice(0, max || 120);
+}
+function restoreFromHash() {
+  var m = (window.location.hash || '').match(/[#&]b=([A-Za-z0-9_-]+)/);
+  if (!m) return false;
+  try { return _applyShared(JSON.parse(_b64urlDecode(m[1]))); } catch (e) { return false; }
+}
+// Autosaved working build: the same shape as a permalink, restored on load
+// when no link/param claims the page. A refresh never loses your planning.
+function restoreFromLocal() {
+  try {
+    var raw = localStorage.getItem('vetology-build');
+    if (!raw) return false;
+    return _applyShared(JSON.parse(raw));
+  } catch (e) { return false; }
+}
+function _applyShared(s) {
+  try {
+    if (!s || typeof s !== 'object' || typeof s.a !== 'string' || !ARCHETYPE_SKILLS[s.a]) return false;
+    var asc = (typeof s.asc === 'string' && ASCENDANCY_NODES[s.asc]) ? s.asc : null;
+    var cls = (typeof s.cls === 'string' && s.cls) ? _cleanShared(s.cls, 80) : null;
+    document.getElementById('archetype-select').value = s.a;
+    loadArchetype(s.a, cls, asc);
+    // ascendancy nodes (whitelisted against the real node list)
+    if (asc && Object.prototype.toString.call(s.n) === '[object Array]') {
+      var nodes = ASCENDANCY_NODES[asc];
+      for (var i = 0; i < s.n.length; i++) {
+        for (var j = 0; j < nodes.length; j++) {
+          if (nodes[j].name === s.n[i]) { selectedNodes[nodes[j].name] = true; break; }
+        }
+      }
+    }
+    // added gems (whitelisted against ALL_GEMS; required gems and dupes skipped)
+    if (Object.prototype.toString.call(s.g) === '[object Array]') {
+      var required = ARCHETYPE_SKILLS[s.a] || [];
+      for (var k = 0; k < s.g.length; k++) {
+        var gn = s.g[k];
+        if (typeof gn !== 'string' || !ALL_GEMS[gn]) continue;
+        var dup = false;
+        for (var d = 0; d < required.length; d++) { if (required[d].name === gn) { dup = true; break; } }
+        for (var d2 = 0; d2 < addedGems.length; d2++) { if (addedGems[d2].name === gn) { dup = true; break; } }
+        if (dup) continue;
+        var gg = ALL_GEMS[gn];
+        addedGems.push({ name: gn, level: gg.level, type: gg.type, url: gg.url });
+      }
+    }
+    // gear rules (sanitized; replaces the archetype defaults with what was shared)
+    if (Object.prototype.toString.call(s.r) === '[object Array]') {
+      cosmeticRules = [];
+      for (var q = 0; q < s.r.length && cosmeticRules.length < 40; q++) {
+        var rr = s.r[q];
+        if (Object.prototype.toString.call(rr) !== '[object Array]' || rr.length < 4) continue;
+        var type = (rr[0] === 'required' || rr[0] === 'forbidden' || rr[0] === 'cosmetic') ? rr[0] : 'cosmetic';
+        var label = _cleanShared(rr[3], 120);
+        if (!label) continue;
+        cosmeticRules.push({ type: type, slot: _cleanShared(rr[1], 40), item: _cleanShared(rr[2], 60), label: label });
+      }
+    }
+    renderAscendancy();
+    renderTimeline();
+    renderCosmetics();
+    filterGems();
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 // ── THEME TOGGLE (shares 'vetology-theme' with index.html) ─
 function toggleTheme() {
   var el = document.documentElement;
@@ -902,6 +1208,8 @@ function updateThemeToggle() {
 
 init();
 updateThemeToggle();
+initPatchBadge();
+initGemTips();
 
 // ── RAIN — canvas particle system (Night only). Irregular droplets. ──
 (function initRain() {

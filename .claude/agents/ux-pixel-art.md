@@ -49,6 +49,124 @@ Vetology is static hosting (GitHub Pages). So:
 
 ## Update log
 _Append-only. Newest on top._
+- 2026-08-26 · **POE RARITY FLAVOUR + ILLUMINATED BESTIARY (index).** Started in one session,
+  cut off at a usage limit mid-pass; the completion round found the work fully on disk, then
+  verified, measured and logged it. What shipped:
+  - **Codex rarity tiers.** `.ref-item.special` = UNIQUE orange, `.ref-item.crossover` = MAGIC
+    blue (purple retired). Post-type-pass rules applied: the *text* colour is a per-theme token
+    tuned to its real background (Day `#96490f` / `#4646c8` = 6.09 / 6.68 on `--bg-card #f5f9fc`;
+    Night `#e08b4a` / `#8888ff` = 6.51 / 5.73 on `#141b2c`, hovers all 7.5+), while the saturated
+    authentic PoE hue lives on the 2px left-border accent (`--rarity-border-*`), decorative only.
+    Lesson kept: authentic `#8888ff` clears Night as-is but lands at 2.83:1 in Day — one hex can
+    never serve both themes as text; borders can share, text cannot. Night values were also
+    checked under the .18 CRT vignette (they improve: darker ground, light text).
+  - **Unique-drop frame.** `.unique-frame` wraps the class + ascendancy block on the ritual
+    reveal and on Settled cards with a PoE-unique-style double rule (1px outer + 2px inner via
+    one ::before/::after pair, `--border-gold` so it is steel-blue in Day and gold at Night).
+    Borders only, no text restyling, and "Considering" stays unframed on purpose.
+  - **Bestiary emblems.** 16 category emblems at `assets/bestiary/` (96x96 transparent PixelLab
+    pixflux), one per `.ref-category-title`, shown at 32px = crisp 3:1 integer downscale with
+    `image-rendering:pixelated`, `alt=""` + onerror self-hide (file:// safe). All 16 reviewed as
+    images, no regens needed, $0.00 delta. The generator grew `--manifest` support
+    (`tools/bestiary.manifest.json`, 16 entries, names match disk and HTML 1:1) — future asset
+    families should ship the same way: own manifest, same generator.
+  Verified in-browser via computed styles in both themes (16/16 emblems loaded, colours and frame
+  confirmed, zero console errors; screenshots unavailable — hidden pane, DOM-level checks used).
+  `node tools/validate.js` 13/13 green.
+- 2026-08-26 · **TYPE SYSTEM PASS (both pages).** Implemented by the *typography critic* after a
+  two-round design debate with the lead agent; **ownership of the styling layer stays with me
+  (#4)**; this is an amendment to my pixel-medieval layer, not a replacement of it. The DOS-CRPG
+  look, the beveled controls, the stormscape and the CRT are all intact.
+
+  **What was actually wrong.** My cohesion layer assigned fonts by *selector list*, and that was the
+  root cause of both of Joe's complaints:
+  - It captured prose (`.btn-faq` is a sentence) and missed chrome (`.modal-special-label`, the inline
+    "Session Complete" div), leaving **2 Cinzel Decorative + 4 IM Fell English survivors**.
+  - Worse, it applied Pixelify to selectors that carried `font-style:italic`. **Pixelify Sans ships a
+    single variable file with no italic**, so the browser synthesised an oblique and sheared a
+    pixel-grid face off its grid (`.logo-eyebrow`, `.modal-title-small`, guide `.gem-result-type`).
+    Same story for `.modal-article-title{font-weight:bold}` on IM Fell, which has no bold.
+    Those two fakes are what Joe was seeing as "multiple types": **7 apparent voices, not 3.**
+  - `.log-title` was in *both* my VT323 rule and my Pixelify rule; the later one won, so the terminal
+    log's own header was rendering pixel, and its size had silently jumped 9px -> 15px.
+  - Six selectors in index.html's list (`.ctrl-label`, `.section-title`, `.required-badge`,
+    `.cosmetic-type-badge`, `.btn-add-rule`, `.filter-btn`) only exist in guide.html. Dead.
+
+  **The sizing lesson worth keeping.** My "pixel faces read small, size the controls up" comment was
+  right in direction and wrong in magnitude, because px is the wrong unit across these faces. Parsed
+  from the shipped woff2 files: Cinzel cap/em **0.853** vs Pixelify **0.631**, so swapping the
+  families at equal px **shrank every label by 26%** and my 9px -> 10/11px bump was still a net loss.
+  The real multiplier is **1.35x**. Crimson x-height is **0.424em**, so the 16px body was rendering at
+  the x-height of a 13px UI sans (base is 18px now). VT323's advance is exactly **0.400em**, so it
+  only sits on a whole-pixel cell at multiples of 2.5px; the log is **20px** (an 8.00px VGA cell);
+  at my 15px it was the smallest text on the page.
+
+  **Two bugs of mine in the same family, both now fixed structurally.** A hard-coded dark surface with
+  tokenised text on it breaks completely in Day:
+  - `.modal` (`#0d0a05`); Day body text **1.96:1**, title **1.73:1**. Now a scoped `--modal-*`
+    palette so the Book of Laws stays dark vellum in both themes without reading theme tokens.
+  - `.logo-block`'s scrim (`rgba(6,9,16,.82)`); Day wordmark/eyebrow/tagline at **1.15:1**. Now
+    `--scrim` + `--hero-halo` per theme: dark plaque with dark halos at Night (unchanged), pale
+    plaque with white halos in Day. **Check any new scrim/veil I add against BOTH themes.**
+
+  **Token architecture change I should keep to.** `--gold-dark` was simultaneously a text colour, the
+  `.btn-primary` plate and a border, which is why it could not be raised; `--text-dim` was doing quiet
+  text *and* the rest state of interactive controls (Day `.mode-btn` measured **2.02:1**). Split into
+  `--gold-ink` (gold as text), `--text-control` (control rest state, >=4.5:1), `--text-disabled`
+  (replaces every `opacity` on text; opacity multiplies contrast away: the footer seal was
+  **1.51:1**, the disabled CTA **1.01:1**). `--gold-muted` is now borders/scrollbar only, never text.
+
+  **CRT stays over content** per the lead's ruling, but scanline `.10 -> .06` and vignette
+  `.38 -> .18`. Worth knowing for future work: the vignette's default farthest-corner ellipse puts
+  t=0.707 along the **whole perimeter**, not just the corners, so `.38` was laying ~11.5% black over
+  the tab bar, log panel and footer and taxing every contrast ratio the tokens promised.
+
+  Font `<link>`s: 5 families -> 3 (index) and 2 (guide, which was downloading VT323 and Cinzel for
+  **zero** rendered glyphs), plus `preconnect` to fonts.gstatic.com.
+  `node tools/validate.js` **13/13 green**; verified in-browser via computed styles in both themes on
+  both pages and for layout overflow at 320/375px (fixed a tab-bar overflow my size bump caused, and a
+  pre-existing `.paste-row{min-width:300px}` overflow in guide).
+  **My next item:** the glyph controls (`☀ 🔊 × ⚜ ♠`) are a fourth, uncontrolled voice rendering in the
+  OS symbol/emoji font at whatever size the parent sets. Stacks and sizes are pinned; replacing them
+  with CSS/SVG pixel icons is mine and is still open.
+- 2026-07-08 · **Shipped both flagship features: LIVING EXILES + THE ROLL RITUAL.**
+  **Living Exiles:** every class now has an animated 64×64 pixel character on the roll card, living
+  in a CSS "stone-arch diorama window" (interior stays dark in both themes so the transparent
+  sprites always read; empty state shows *awaiting the accused*). Pipeline: new
+  `tools/generate-exiles.mjs` + `tools/exiles.manifest.json` — base sprite per class via
+  `generate-image-pixflux` (`no_background:true`, view side, direction south) then three 4-frame
+  animations via `animate-with-text` (64×64 only; `reference_image` = base sprite b64; response =
+  `{usage, images[4]}` — shapes verified against the live openapi.json first). Frames saved as
+  separate PNGs `assets/exiles/<class>-<action>-<n>.png` (n=0..3; idle/hit/victory) — 104 files,
+  8 classes. Prompt template: per-class description + shared `styleSuffix` ("dark fantasy pixel art
+  character, full body, centered, facing the viewer, clean silhouette, rich colors with gold
+  accents") + `animNegative` ("smoke, fire, clouds… background, motion blur") + per-action
+  `image_guidance_scale` (idle 3.2 / hit 3.0 / victory 3.0) — the key lesson: guidance <2.5 lets the
+  animate model drift off-character and invent white smoke swooshes; 3+ holds the reference. Quality
+  gate ran on Warrior first (3 prompt iterations), then batch; targeted regens for monk:victory,
+  witch:idle+victory (per-class `overrides` support added; witch victory needed guidance 6),
+  druid:idle. Review sheet: `tools/exiles-preview.html?c=class,...` (cache-busted, 2× scale).
+  Balance endpoint polled before/after every run — Joe's plan reports $0.00 throughout (subscription
+  allowance; the usd balance is top-up credit only, calls aren't metered against it). ~45 generations total.
+  **Roll Ritual:** `doRoll` is now a ~2.2s ceremony — face-down CSS-3D card (filigree back, "The
+  Court Deliberates", VT323 shuffle ticker with WebAudio ticks) → flip reveal (chime) → sprite wakes
+  into idle → small wax-seal stamp pops on (thud). Settle = gold pulse + **big wax seal pressed
+  across the stage** + ascending resolve arpeggio + victory anim → idle. Hostile veto = card-only
+  shake + hit/collapse anim + descending minor sting on the OLD DOM, then deferred re-render (~850ms)
+  empties the stage; Vengeance Clause adds a diminished sting + the reprisal pulse after re-render.
+  Game logic/state untouched — only choreography timing (same setTimeout pattern as the old reprisal
+  pulse). `assets/wax-seal.png` regenerated transparent (`no_background` support added to
+  generate-assets.mjs). **Audio:** all synthesized (oscillators + noise through lowpass for thunder,
+  every sting <400ms, quiet-mixed); AudioContext created/resumed only on first pointer/key gesture;
+  🔊/🔇 mute toggle next to the theme toggle, persisted in localStorage `vetology-sound`. Lightning
+  moved from a CSS infinite loop to a JS scheduler (`.strike` class + `lightning-once` keyframes,
+  ~6.5–10.5s cadence, Night only, random bolt position) so flash + thunder share one trigger.
+  Reduced-motion: static frame 0, no flip/shake/scanline strikes. Missing sprite/seal files degrade
+  gracefully (onerror hides the img — verified live with huntress mid-generation). Harness-safe:
+  everything gates on stub-DOM nulls / guarded window.* exactly like initRain; `node
+  tools/validate.js` 13/13 green. Verified in-browser end-to-end (roll/settle/veto, both themes,
+  frame cycling + seal load checked via DOM). NOTE: sigils/pips from the old manifest are still
+  ungenerated — the exiles supersede the sigil idea for cards; decide before deleting.
 - 2026-07-08 · **Ported the theme to `guide.html` (Build Guide) for a cohesive site.** Read the CURRENT
   `index.html` fresh (it had been reworked by another agent: canvas rain via `initRain()`, the navy
   "Midnight & Gold" dark palette, refined Pixelify/Crimson/VT323 type system) and mirrored it onto the

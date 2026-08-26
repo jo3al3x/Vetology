@@ -1,0 +1,24 @@
+{
+  "_comment": "Living Exiles — animated 64x64 class sprites (Agent #4). Base via generate-image-pixflux (no_background), animations via animate-with-text (4 frames each, 64x64 only). Regenerate: node tools/generate-exiles.mjs [--force] [warrior witch ...] or [warrior:hit] for one action.",
+  "outDir": "assets/exiles",
+  "size": 64,
+  "styleSuffix": ", dark fantasy pixel art character, full body, centered, facing the viewer, clean silhouette, rich colors with gold accents",
+  "negative": "text, watermark, signature, border, frame, cropped, multiple characters",
+  "classes": [
+    { "name": "warrior",   "description": "a burly armored warrior gripping a huge two-handed war mace, heavy plate armor with a horned helm" },
+    { "name": "ranger",    "description": "an agile hooded ranger holding a longbow, quiver on back, deep green cloak and leather armor" },
+    { "name": "sorceress", "description": "an elegant sorceress in flowing blue and gold robes holding a tall glowing arcane staff" },
+    { "name": "monk",      "description": "a bald warrior monk in simple cloth robes holding a quarterstaff upright, calm stance" },
+    { "name": "mercenary", "description": "a grizzled mercenary soldier in dark leather and steel holding a heavy crossbow" },
+    { "name": "witch",     "description": "a pale occult witch in long tattered black robes holding a skull-topped wand",
+      "overrides": { "victory": { "action": "raising her wand overhead in celebration", "image_guidance_scale": 6 } } },
+    { "name": "druid",     "description": "a wild bearded druid wearing furs and antlers holding a gnarled wooden staff" },
+    { "name": "huntress",  "description": "a fierce huntress with a long spear and small round buckler, tribal armor and red sash" }
+  ],
+  "animNegative": "smoke, fire, clouds, dust, magic effects, energy aura, background, scenery, motion blur, text, watermark",
+  "actions": [
+    { "name": "idle",    "action": "standing still in place, subtle idle breathing, feet planted", "image_guidance_scale": 3.2 },
+    { "name": "hit",     "action": "hurt, recoiling from damage, doubling over and sinking down defeated", "image_guidance_scale": 3.0 },
+    { "name": "victory", "action": "proud victory pose, cheering, raising both arms up in triumph", "image_guidance_scale": 3.0 }
+  ]
+}

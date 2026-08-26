@@ -1,7 +1,7 @@
 # Vetology — Patch 1.0 Prep Board
 
 Everything here is prep for **PoE2 1.0** (expected end of 2026). The site can be updated now, but
-the north star is being ready — and *correct* — the day 1.0 drops. Last touched: **2026-07-08**.
+the north star is being ready — and *correct* — the day 1.0 drops. Last touched: **2026-08-26**.
 
 ## The team
 Living charters in [`.claude/agents/`](.claude/agents/). Each has its own append-only update log.
@@ -52,12 +52,16 @@ Living charters in [`.claude/agents/`](.claude/agents/). Each has its own append
 | Storm backdrop (castle · rain · lightning) | #4 | ✅ real PixelLab PNGs; layering fixed so weather renders OVER the castle; full-viewport immersive; drifting clouds + Day birds; Day stays sunny |
 | PixelLab asset pipeline + `.env` for the key | #4 | ✅ built (`tools/generate-assets.mjs`, `.env`) — Joe runs it locally |
 | Generate the actual PixelLab PNGs | #4 | ✅ done — `assets/castle-night.png` (stormy) + `assets/castle-day.png` (bright) generated & committed |
-| Wire sigils/seal/frame into cards & footer | #4 | ⬜ after PNGs exist |
+| Wire sigils/seal/frame into cards & footer | #4 | 🔄 wax-seal ✅ wired into the Ritual; class sigils likely superseded by the Living Exiles — decide, then prune the manifest |
+| **Living Exiles** — animated pixel characters per class on roll cards | #4 | ✅ SHIPPED — 8 classes × (base + idle/hit/victory ×4 frames) = 104 PNGs in `assets/exiles/`; arch-window stage; graceful degrade; reduced-motion safe |
+| **Roll Ritual** — flip reveal, wax-seal stamp, screen shake, WebAudio stings | #4 | ✅ SHIPPED — ~2.2s flip ceremony, seal stamp (+big seal on Settle), card-only shake, synthesized chiptune SFX w/ mute toggle, JS-triggered lightning+thunder |
 | Roll UI theme to guide.html | #4 | ✅ done — full Day/Night theme + stormscape + canvas rain ported; dense panels kept opaque/veiled for readability; shared theme key |
 | Replace Lightning Javazon → Trapsin; close all paste-gaps (0 unresolved) | #2 | ✅ done |
 | No-duplicate rolls (settled archetypes leave the pool) | #5 | ✅ done, verified |
 | `.gitignore` + key-safety scaffolding | #5 | ⬜ before any image tooling |
-| Data validation harness + `meta{patch,updated}` | #5 | ⬜ with the extraction |
+| Data validation harness + `meta{patch,updated}` | #5 | ✅ done — `tools/validate.js` (13 checks) + `VETOLOGY_META` in the data file, rendered as the guide patch badge |
+| **A5 session autosave + export/import codes** (index.html) | #5 | ✅ SHIPPED 2026-08-26 — localStorage `'vetology-session'` + Resume/Abandon panel + base64url Session Codes, verified end-to-end |
+| **A4 Sentence Tracker** (post-settle act pips + death counter) | #5 | ✅ SHIPPED 2026-08-26 — persists in the session; Discord export extended; #1 to re-verify the milestone list |
 
 ## Open decisions
 - **Shared data format:** `<script src="data/vetology-data.js">` global (file://-safe), *not* fetch()-ed
@@ -74,8 +78,138 @@ Fix = give each a skill list. **3 fixed** via the re-soul audit (Fimbulwinter, T
 The Overdraft now have skills). **3 remain** (crossovers that just need skill-data — no rename needed):
 - Ra's al Ghul · Poison Nova Witch Doctor · The Short Circuit
 
+## Next-level wishlist (2026-07-08, from Joe's reference-site session)
+References: hzla's Dynamic Calc (every entity has sprite art, deep editors, save/import) and
+encounterrouter.github.io (per-split progression, persistent Box, export codes). PixelLab's API also
+has ANIMATION endpoints (`/animate-with-text` 64×64 4-frame, `/animate-with-skeleton`, `/rotate`,
+`/inpaint`, `GET /balance`) — dev-time only, as always.
+- **S1 Living Exiles** — animated pixel character per class on the roll card (idle / hit-on-veto / victory-on-settle). 🔄 GREENLIT
+- **S2 Roll Ritual** — tarot-flip reveal, wax-seal stamp, screen shake, synthesized WebAudio stings + thunder, mute toggle. 🔄 GREENLIT
+- **S3 Illuminated Bestiary** — archetype portraits in the Codex (start per-category, ~14).
+- **A4 Sentence Tracker** — post-settle league companion: act-progress pips + death counter per player, localStorage + Discord export. ✅ SHIPPED 2026-08-26
+- **A5 Session export/import codes** ✅ SHIPPED 2026-08-26 · **A6 baked gem tooltips + patch badge** ✅ SHIPPED 2026-08-26 · **A7 build permalinks** ✅ SHIPPED 2026-08-26.
+- **B8 parallax castle depth** (pixel d20 > 3D models — keep the pixel soul) · **B9 auto day/night by clock, embers, seasonal weather** · **B10 Court Record hall of fame**.
+
 ## 1.0 intel log
 _Append-only. Newest on top. When we learn something about 1.0, drop it here and @tag the owner._
+- 2026-08-26 · **#5 Dev: A5 + A4 SHIPPED to index.html (session persistence · Session Codes · the
+  Sentence Tracker).** (a) **Autosave** — the whole session (players incl. rolls/vetoes/settled/
+  chosenAsc/tracker, gameMode, chronicle) serializes to localStorage `'vetology-session'` at two
+  choke points (`addLog` + `checkAllSettled`, which every mutation path crosses); a fresh load
+  offers a themed "A Session Is In Progress · Resume the Trial / Abandon" panel on the setup
+  screen. A mid-veto-war refresh restores byte-identical player state (verified by snapshot diff).
+  (b) **Session Codes** — game-header button copies a `VET1.`-prefixed base64url of the same
+  serialization (v-field inside; chronicle capped at 3 lines to stay inside one Discord message:
+  ~1.5k chars for 3 players); setup-screen input + Import adopts it. Junk codes fail safely to the
+  red toast; all imported strings are defensively coerced/stripped (innerHTML surfaces) and log
+  classes whitelisted. (c) **Sentence Tracker** — when all settle, "Serving the Sentence" renders
+  under the results: 7 clickable square act pips per player (`SENTENCE_MILESTONES` const; click N
+  completes through N, clicking the last completed steps back one; keyboard buttons w/ aria-labels)
+  + a skull death counter (min 0). Both live in the session, so autosave AND codes carry them; a
+  late Reprisal un-settle hides the tracker (existing checkAllSettled show/hide) and progress
+  survives in state. `copyDiscord()` now appends `Joe · Druid (Oracle) · Maps · 3 deaths` lines.
+  Contrast measured live in BOTH themes (worst text 5.09:1; interactive pip boundary moved to
+  `--gold-muted` for 4.84/3.97 vs the row); type floors kept (12px Pixelify chrome / 15px+ Crimson
+  prose); zero new animations; validate **13/13**. ⚠ @poe2-domain-expert (#1): re-verify the 0.5.0
+  interlude campaign structure behind `SENTENCE_MILESTONES` (Acts 1-3 · Cruel 1-3 · Maps) — 1.0's
+  real Acts 4-6 will change the list (comment sits on the const in index.html).
+- 2026-08-26 · **#5 Dev: A6 + A7 SHIPPED to guide.html (patch badge · baked gem tooltips · build
+  permalinks).** Interrupted mid-verification at a usage limit; a completion round audited the disk
+  (nearly everything had landed), finished it, and verified end-to-end. (a) **Patch badge** —
+  `VETOLOGY_META` in the data file renders "Data: patch 0.5.0 · updated 2026-08-26" in the guide
+  header, typeof-guarded so index is untouched; 7.2:1 Night / 7:1+ Day. (b) **Gem tooltips** —
+  `tools/fetch-gem-info.mjs` now RESUMABLE (skips already-described entries; `--force` refetches)
+  with a name-derived URL fallback, which recovered the 2 gems whose recorded poe2db urls 404
+  (Corrupting Cry I, Raging Spirits): **GEM_INFO coverage is 88/88 described, 0 null**. Hover +
+  keyboard-focus tooltips on timeline and search rows, viewport-clamped (flip-above verified at
+  900x480), both themes, zero runtime fetches. (c) **Build permalinks** — Copy Build Link serializes
+  archetype/asc/nodes/gems/rules to `#b=` base64url (~290 chars); full restore verified on a fresh
+  load, junk hashes no-op safely, `?archetype=` legacy links still work; clipboard-blocked path
+  drops the link into the paste box with a red toast. `node --check` clean, validate **13/13**.
+  Follow-up for #1/#2: the two poe2db urls inside `ARCHETYPE_SKILLS` still point at the old slugs
+  (`Corrupting_Cry`, `Summon_Raging_Spirits`) — fix when next editing that block (data edits were
+  additive-only this round).
+  cards).** The pass was interrupted mid-flight at a usage limit; a completion round audited the
+  disk state (everything had in fact landed), then verified and measured it. Two features:
+  **(a) Rarity language in the Codex** — plain `.ref-item` = normal item, `.special` = UNIQUE
+  orange, `.crossover` = MAGIC blue (the old purple is gone). Text colours are per-theme tokens
+  tuned for >=4.5:1 on `--bg-card`: Day `#96490f` 6.09:1 / `#4646c8` 6.68:1 (hovers 8.14 / 9.31 on
+  `#f5f9fc`); Night `#e08b4a` 6.51:1 / authentic-PoE `#8888ff` 5.73:1 as-is (hovers 8.42 / 7.56 on
+  `#141b2c`; all *improve* under the .18 CRT vignette, e.g. magic 5.73 -> 6.03). The saturated
+  authentic hues live on 2px left-border accents only (`--rarity-border-*`), never as text. Plus
+  the **unique-drop frame**: a PoE-style double rule (1px outer / 2px inner, `--border-gold`)
+  above and below the class + ascendancy block on the ritual reveal and on Settled cards;
+  "Considering" stays unframed, like an unconfirmed drop on the ground.
+  **(b) Illuminated Bestiary** — 16 PixelLab emblems (one per Codex category, incl. all six
+  crossover franchises) committed at `assets/bestiary/*.png`, 96x96 transparent, rendered 32px
+  `image-rendering:pixelated` (crisp 3:1 integer downscale) in every `.ref-category-title`,
+  decorative `alt=""` + onerror self-hide. All 16 quality-reviewed as images — zero duds, zero
+  regens, **$0.00 balance delta**. New pipeline seam: `tools/generate-assets.mjs --manifest`
+  + `tools/bestiary.manifest.json` (16 entries, matches disk and HTML 1:1; balance printed, key
+  never). Verified live in both themes via computed styles (16/16 icons loaded at 32px, rarity
+  colours + frame rules confirmed per theme, zero console errors); `node tools/validate.js`
+  **13/13 green**. @dev-maintainer: `assets/bestiary/**` (16 files) + `tools/bestiary.manifest.json`
+  are new commit payload.
+- 2026-08-26 · **TYPE SYSTEM PASS shipped to both pages (settles Joe's "hard to read" + "multiple
+  types").** Ran as a structured design debate: the lead agent proposed a spec, a typography critic
+  attacked it, we converged over two rounds, then the critic implemented. Implemented by the
+  typography critic; **@ux-pixel-art keeps ownership of the styling layer.**
+  **Joe's complaint #2 answered:** the site was rendering **seven** apparent type voices, not three.
+  Five real families (Pixelify Sans, Crimson Text, VT323, plus 2 Cinzel Decorative survivors and 4
+  IM Fell English survivors) **plus two browser-synthesised fakes**: Pixelify ships no italic file, so
+  `font-style:italic` on `.logo-eyebrow` / `.modal-title-small` / guide `.gem-result-type` was a
+  synthetic oblique shearing a pixel-grid face off its grid; IM Fell ships no bold, so
+  `.modal-article-title{font-weight:bold}` was synthetic emboldening. Those fakes were the "mush".
+  Now exactly three voices, assigned **by role, not by selector list** (the old layer assigned by list,
+  which is why it captured prose like `.btn-faq` and missed chrome like `.modal-special-label`).
+  **Joe's complaint #1 answered**, with measured numbers rather than taste. Worst cases, centre-screen:
+  `.mode-desc` (the line he screenshotted) 2.88 -> 10.54 Night / 2.82 -> 9.55 Day; every
+  small-italic-dim caption killed; `--text-dim` 2.88 -> 6.30 Night and 2.82 -> 6.24 Day.
+  **Two structural bugs neither of us had on the list**, both the same shape (a hard-coded dark
+  surface with tokenised text on it): (a) the **Book of Laws modal** is dark vellum in both themes but
+  read theme tokens, so in **Day its body text measured 1.96:1 and its title 1.73:1**; invisible;
+  (b) the **hero `.logo-block` scrim** was hard-coded `rgba(6,9,16,.82)` in both themes, so the Day
+  wordmark, eyebrow and tagline sat at **1.15:1** (found during implementation, not in the audit).
+  Both fixed by scoping a palette to the surface (`--modal-*`) or tokenising it per theme (`--scrim`,
+  `--hero-halo`). Day modal is now 8.33 to 14.15; Day hero 9.20 to 12.08.
+  **Sizing is now derived from real font metrics** parsed from the shipped woff2 files, not from px:
+  Crimson Text x-height is 0.424em, so the old 16px body rendered at the x-height of a **13px UI sans**
+  (guide's 17px = 13.9px). Base is **18px on both pages** now. VT323's advance is exactly 0.400em, so
+  it only lands on a whole-pixel cell at multiples of 2.5px: the chronicle log went **15px -> 20px**,
+  an exact 8.00px VGA cell (at 15px it was the *smallest* text on the page). Cinzel's cap height is
+  0.853em vs Pixelify's 0.631em, so the earlier Cinzel->Pixelify swap **shrank every label by 26%**
+  and the old 9->10/11px bump was still a net loss; labels are rescaled by the real 1.35x.
+  **Also:** every `opacity` on text replaced by real tokens (the footer seal was **1.51:1 Night /
+  1.41:1 Day**, the disabled primary CTA **1.01:1**); all hard-coded colours tokenised (the crossover
+  half of the Codex, ~60 items, was **2.00:1 in Day**); `--gold-dark` and `--text-dim` split so a
+  token is not simultaneously a text colour, a button plate and a border (`--gold-ink`,
+  `--text-control`, `--text-disabled`); font `<link>`s cut from 5 families to 3 (index) and 2 (guide,
+  which was downloading VT323 and Cinzel for **zero** rendered glyphs) plus `preconnect`.
+  **CRT overlay (Joe's approved look) kept over content**, but scanline `.10 -> .06` and vignette
+  `.38 -> .18`: its default farthest-corner ellipse puts t=0.707 along the *whole* perimeter, so at
+  .38 it was laying ~11.5% black over the tab bar, log panel and footer and taxing every token
+  (`--text-muted` measured 5.87 centre but 4.58 at the edge). Token values were computed against the
+  OLD tax, so this is margin, not a substitute. `node tools/validate.js` **13/13 green**; verified
+  in-browser via computed styles in both themes on both pages, and for layout overflow at 320/375px.
+  @ux-pixel-art follow-up: the glyph controls (`☀ 🔊 × ⚜ ♠`) are a fourth, uncontrolled voice rendering
+  in the OS symbol/emoji font; sizes and stacks are pinned now, pixel-icon replacement is backlogged.
+- 2026-07-08 · **#4 UX: LIVING EXILES + ROLL RITUAL shipped (Joe's two flagship features).** Every
+  class has an animated 64×64 pixel exile living in a stone-arch window on its roll card: idle loop
+  when rolled, hit/collapse on a hostile veto (then the stage empties), victory on settle (then back
+  to idle), "awaiting the accused" when empty. 104 committed PNGs (`assets/exiles/`), generated
+  dev-time via new `tools/generate-exiles.mjs` + `exiles.manifest.json` (pixflux base w/ transparency
+  + animate-with-text ×3 actions ×4 frames; API shapes verified against openapi.json before
+  spending). The roll is now a ~2.2s ritual: face-down filigree card + shuffle ticker → 3D flip
+  reveal → wax-seal stamp; Settle presses the big seal across the card; hostile vetoes shake the
+  struck card while the exile crumples. All SFX are synthesized WebAudio chiptune (<400ms, quiet;
+  AudioContext only after first gesture; 🔊/🔇 toggle persisted as `vetology-sound`); lightning is
+  now JS-scheduled so thunder + flash share a trigger. PixelLab balance printed before/after every
+  batch — Joe's plan reports $0.00 usd throughout (subscription allowance, not per-call billing).
+  Missing PNGs degrade gracefully (verified live); reduced-motion shows static frames, no
+  flip/shake; `node tools/validate.js` 13/13; zero runtime API calls; key never printed. Sprite
+  review sheet at `tools/exiles-preview.html`. @dev-maintainer: `assets/exiles/**` (104 files) +
+  `assets/wax-seal.png` are new commit payload; the old sigil/pip manifest entries are probably
+  superseded — prune or generate before 1.0.
 - 2026-07-08 · **#4 UX: `guide.html` now matches `index.html` — the whole site is cohesive.** Ported the
   current index look to the Build Guide: Pixelify/Crimson/VT323 type system, the Day + Night ("Midnight
   & Gold" navy) palettes, chunky beveled sharp-cornered controls, and the full `#stormscape` castle

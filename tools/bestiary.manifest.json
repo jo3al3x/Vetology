@@ -1,0 +1,23 @@
+{
+  "_comment": "Illuminated Bestiary, stage 1 (Agent #4): one 96x96 emblem per Codex CATEGORY, wired into the .ref-category-title rows in index.html (32px display = crisp 3:1 integer downscale). Transparent PNGs so they sit on both themes. Run: node tools/generate-assets.mjs --manifest tools/bestiary.manifest.json [--force] [name...]",
+  "outDir": "assets/bestiary",
+  "endpoint": "generate-image-pixflux",
+  "assets": [
+    { "name": "melee",         "width": 96, "height": 96, "no_background": true, "description": "crossed battle axes over an iron shield, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "ranged",        "width": 96, "height": 96, "no_background": true, "description": "a drawn longbow with a nocked arrow, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "elemental",     "width": 96, "height": 96, "no_background": true, "description": "a conjured orb of fire ice and lightning above an open palm, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "chaos-dot",     "width": 96, "height": 96, "no_background": true, "description": "a pale skull dripping green poison venom, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "minions",       "width": 96, "height": 96, "no_background": true, "description": "a horned summoner silhouette with skeletal hands rising from the ground, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "corpse-trigger","width": 96, "height": 96, "no_background": true, "description": "a cracked ribcage erupting with red detonation light, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "defence",       "width": 96, "height": 96, "no_background": true, "description": "a massive iron tower shield with a gold crest, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "utility",       "width": 96, "height": 96, "no_background": true, "description": "a grinning jester mask surrounded by strange arcane trinkets, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "runes",         "width": 96, "height": 96, "no_background": true, "description": "an ancient carved runestone glowing teal, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "wow",           "width": 96, "height": 96, "no_background": true, "description": "a golden griffin crest on a war banner, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "soulslike",     "width": 96, "height": 96, "no_background": true, "description": "a bonfire with a coiled sword planted in it, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "diablo",        "width": 96, "height": 96, "no_background": true, "description": "a demonic horned skull wreathed in flame, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "final-fantasy", "width": 96, "height": 96, "no_background": true, "description": "a cluster of tall glowing blue magic crystals, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "dnd",           "width": 96, "height": 96, "no_background": true, "description": "a twenty sided die resting on an open spellbook, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "dc",            "width": 96, "height": 96, "no_background": true, "description": "a caped vigilante silhouette against a full moon, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "marvel",        "width": 96, "height": 96, "no_background": true, "description": "a clenched armored gauntlet with glowing gems on the knuckles, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" }
+  ]
+}

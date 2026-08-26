@@ -7,6 +7,9 @@
 // Do NOT copy this data back into the HTML files.
 // ================================================================
 
+// -- patch metadata: which game version this data reflects --
+const VETOLOGY_META = { patch: "0.5.0", patchName: "Return of the Ancients", updated: "2026-08-26" };
+
 // -- roll table + archetype list (from index.html) --
 const POE2_BUILDS = [
   { class: "Warrior", ascendancies: ["Titan", "Warbringer", "Smith of Kitava"] },
@@ -325,10 +328,10 @@ const ARCHETYPE_SKILLS = {
   ],
   'Aids Spreader': [
     {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
+    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry_I'},
   ],
   'Hellraiser': [
-    {name: 'Raging Spirits', level: 4, type: 'skill', url: 'https://poe2db.tw/us/Summon_Raging_Spirits'},
+    {name: 'Raging Spirits', level: 4, type: 'skill', url: 'https://poe2db.tw/us/Raging_Spirits'},
   ],
   'The Negligent Parent': [
     {name: 'Detonate Dead', level: 7, type: 'skill', url: 'https://poe2db.tw/us/Detonate_Dead'},
@@ -396,7 +399,7 @@ const ARCHETYPE_SKILLS = {
   ],
   'The Flagellant': [
     {name: 'Blood Boil', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Blood_Boil'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
+    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry_I'},
   ],
   'The Mindwall': [
     {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
@@ -434,7 +437,7 @@ const ARCHETYPE_SKILLS = {
   ],
   'Ra\'s al Ghul': [
     {name: 'Temporal Rift', level: 1, type: 'skill', url: 'https://poe2db.tw/us/Temporal_Rift'},
-    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry'},
+    {name: 'Corrupting Cry I', level: 3, type: 'skill', url: 'https://poe2db.tw/us/Corrupting_Cry_I'},
   ],
   'Two-Face': [
     {name: 'Arc', level: 5, type: 'skill', url: 'https://poe2db.tw/us/Arc'},
@@ -719,3 +722,99 @@ const KEYSTONE_EMOJI_CHAR = {
   "Withering Presence":"&#9760;","Ancestral Bond":"&#128378;","Ghost Dance":"&#128123;",
   "Mortal Conviction":"&#9879;","Iron Will":"&#9876;","Iron Grip":"&#9994;"
 };
+
+
+// -- GEM_INFO (baked by tools/fetch-gem-info.mjs — do not hand-edit) BEGIN --
+// Descriptions quoted from poe2db (fetched dev-time; the shipped site never fetches).
+// Coverage: 88/88 described, 0 null. Baked: 2026-08-26.
+const GEM_INFO = {
+  "Explosive Grenade": {"desc":"Fire a bouncing Grenade that unleashes a devastating fiery blast when its fuse expires.","tags":["Attack","AoE","Projectile","Grenade","Fire","Detonator"]},
+  "Gas Grenade": {"desc":"Fire a bouncing Grenade that causes a burst of Poison gas when its fuse expires, damaging enemies and leaving behind a growing Poison cloud. Burning effects or Detonator skills will cause the cloud to explode in a fiery blast.","tags":["Attack","AoE","Projectile","Grenade","Fire","Chaos"]},
+  "Siege Ballista": {"desc":"Deploy a Ballista Totem that fires bolts skyward, to explode a short time after landing.","tags":["Attack","Totem","AoE","Projectile","Sustained","Fire"]},
+  "Temporal Rift": {"desc":"While active, passively leaves afterimages of your recent past. Cast the Spell to return to the oldest afterimage, teleporting to that location and resetting your Life, Mana and Energy Shield to the values they had at the time.","tags":["Spell","Buff","Persistent"]},
+  "Corrupting Cry I": {"desc":"Supports Warcries, Triggering Corrupted Cry to inflict Corrupted Blood on enemies in their area of effect.","tags":["Support","Warcry","Trigger","Physical","Duration"]},
+  "Contagion": {"desc":"Afflict a single enemy with a Debuff that deals Chaos damage over time. If the enemy dies while affected by Contagion, it spreads itself, Curses, and other Chaos damage over time Debuffs on the target to nearby enemies.","tags":["Spell","AoE","Chaos","Duration","Repeatable"]},
+  "Essence Drain": {"desc":"Fire a Projectile that applies a powerful Chaos damage over time debuff to enemies it hits.","tags":["Spell","Projectile","Chaos","Duration","Repeatable"]},
+  "Plague Bearer": {"desc":"While active, stores a portion of the Poison Damage you deal. Using this Skill unleashes the stored Poison to damage and Poison enemies around you.","tags":["Buff","Persistent","AoE","Physical","Chaos","Nova"]},
+  "Spark": {"desc":"Launch a spray of sparking Projectiles that travel erratically along the ground until they hit an enemy or expire. Consumes a Cold Infusion if possible to fire many sparks in a circle.","tags":["Spell","Projectile","Lightning","Duration","Repeatable","Trigger"]},
+  "Arc": {"desc":"An arc of Lightning stretches from the caster to a targeted enemy and Chains on to other nearby enemies. Consumes a Lightning Infusion if possible to deal more damage and Chain further.","tags":["Spell","Projectile","Lightning","Chaining","Repeatable"]},
+  "Ball Lightning": {"desc":"Fire a slow-moving Projectile that moves through enemies. The Projectile itself does not Hit enemies, but repeatedly discharges bolts of Lightning at nearby enemies.","tags":["Spell","AoE","Projectile","Sustained","Lightning","Duration"]},
+  "Frost Bomb": {"desc":"Create a pulsing Orb of frost. Each pulse inflicts Elemental Exposure on nearby enemies.","tags":["Spell","AoE","Cold","Duration","Orb","Remnant"]},
+  "Frostbolt": {"desc":"Fire a slow-moving Piercing Projectile that is effective at Chilling enemies and explodes on colliding with terrain.","tags":["Spell","AoE","Projectile","Cold","Repeatable"]},
+  "Comet": {"desc":"Call down a mass of ice from the sky, dealing high damage at the targeted location. Targeting close to you will cause you to jump back as you cast.","tags":["Spell","AoE","Cold","Repeatable"]},
+  "Eye of Winter": {"desc":"Fire a single Eye Projectile which does not Hit enemies. The Eye constantly releases damaging shard Projectiles in a spiral as it flies.","tags":["Spell","Projectile","Cold"]},
+  "Armour Breaker": {"desc":"Strike with a forceful blow, knocking enemies back and weakening their Armour.","tags":["Attack","AoE","Melee","Strike","Physical"]},
+  "Sunder": {"desc":"Slam the ground, creating a roiling fissure that damages enemies in a sequence of areas in front of you. A number of enemies hit by the wave will release a shockwave, damaging other enemies.","tags":["Attack","AoE","Melee","Slam","Duration","Payoff"]},
+  "Boneshatter": {"desc":"Attack enemies with a melee Strike. The Strike will cause a Heavy Stun on enemies that are Primed for Stun.","tags":["Attack","AoE","Melee","Strike"]},
+  "Molten Blast": {"desc":"Gouge molten rock from the ground and fling it at the target. The Projectile explodes on collision, damaging enemies and scattering shrapnel in a cone behind it.","tags":["Attack","AoE","Projectile","Fire"]},
+  "Ice Strike": {"desc":"Perform a fast icy Strike. Using this Attack three times in quick succession causes a final strike that is slower and more powerful.","tags":["Attack","AoE","Melee","Strike","Cold"]},
+  "Tempest Flurry": {"desc":"Perform a series of aggressive Strikes. When used in quick succession, the third use Strikes three times, and the fourth use performs a Final Strike that calls down a powerful Shocking bolt.","tags":["Attack","AoE","Melee","Strike","Lightning"]},
+  "Charged Staff": {"desc":"Consume all Power Charges to charge your Quarterstaff with electricity, adding Lightning damage and a Lightning shockwave to your Quarterstaff Attacks.","tags":["Spell","Attack","Buff","AoE","Lightning","Duration"]},
+  "Falling Thunder": {"desc":"Suffuse your Quarterstaff with electrical energy, then Slam the ground to deal damage in a large cone in front of you. Consumes your Power Charges to fire Lightning Projectiles forwards from the impact.","tags":["Attack","AoE","Melee","Slam","Projectile","Lightning"]},
+  "Tempest Bell": {"desc":"Build Combo by successfully Striking Enemies with other skills. After reaching maximum Combo, use this skill to cause the Bell on your staff to grow to massive size as you drop it on the ground.","tags":["Attack","AoE","Melee","Sustained","Duration","Conditional"]},
+  "Tame Beast": {"desc":"Conjure Azmeri wisps to engulf a Rare Beast for a duration, Hindering them. If you defeat the Beast while it is engulfed in wisps, it will be captured by this gem, transforming the gem to instead allow you to summon the Beast as a Reviving Companion.","tags":["Minion","Companion","Persistent","Duration"]},
+  "Rhoa Mount": {"desc":"Harnesses a Companion Rhoa you can mount while you","tags":["Minion","Buff","Companion","Persistent"]},
+  "Blood Boil": {"desc":"Enemies in your Presence accumulate blood boils periodically. When they die, the boils pop applying Corrupted Blood to enemies near them.","tags":["Buff","Persistent","AoE","Physical","Duration"]},
+  "Seismic Cry": {"desc":"Perform a damaging Warcry, Knocking Back nearby enemies and Heavy Stunning enemies that are Primed for Stun. If an enemy is Heavy Stunned or a currently Heavy Stunned enemy is Hit, this Skill Empowers subsequent Slams to perform an additional Aftershock.","tags":["Warcry","AoE","Physical","Nova"]},
+  "Supercharged Slam": {"desc":"Channel to charge up a heavy swing, drawing earth from the ground to enlarge your mace. Release to Slam the ground, dealing damage in an area around the impact, followed by Aftershocks dealing damage in a larger area.","tags":["Attack","AoE","Melee","Slam","Channelling","Staged"]},
+  "Shield Charge": {"desc":"Channel to charge in the target direction. You will crash into enemies on your path, stopping your charge and dealing damage to enemies in an area, and extra damage to the enemies you collided with.","tags":["Attack","AoE","Melee","Physical","Channelling","Travel"]},
+  "Infernal Cry": {"desc":"Perform a Warcry, Empowering subsequent Melee Attacks if there are enemies nearby.","tags":["Warcry","AoE","Trigger","Fire","Duration","Nova"]},
+  "Resonating Shield": {"desc":"Repeatedly hammer your Shield with your weapon causing damaging shockwaves in an area around you. Enemies hit by the shockwave lose Armour for a duration.","tags":["Attack","AoE","Melee","Sustained","Physical","Channelling"]},
+  "Shield Wall": {"desc":"Ram your Shield into the ground, throwing up a wall of earth. Enemies can attack your wall segments, and your Slams, Warcries, and Shield Charge will instantly shatter them all.","tags":["Attack","AoE","Melee","Physical","Duration"]},
+  "Fortifying Cry": {"desc":"Perform a Warcry that grants Guard and Triggers Shield Wave when subsequent Shield Attacks deal damage.","tags":["Warcry","Attack","AoE","Melee","Trigger","Physical"]},
+  "Ancestral Cry": {"desc":"Perform a Warcry using Glory gained by Igniting enemies to turn you into an embodiment of Kaom. While embodying Kaom, you Trigger Volcanic Steps while travelling, Melee Strikes and Slams are Ancestrally Boosted, and your Melee Strikes Trigger Volcanic Eruption.","tags":["Warcry","Attack","Buff","AoE","Melee","Slam"]},
+  "Hammer of the Gods": {"desc":"Build Glory by Heavy Stunning enemies. When you have maximum Glory you may entreat the Ancestors to crush your enemies, manifesting a massive hammer that falls from the sky onto your target, Slamming into the ground after a short duration and dealing immense damage based on your weapon.","tags":["Attack","AoE","Melee","Slam","Duration","Conditional"]},
+  "Berserk": {"desc":"While active, strengthens your Rage, but causes you to lose Life while not losing Rage.","tags":["Buff","Persistent"]},
+  "Eternal Rage": {"desc":"While active, you constantly regenerate Rage.","tags":["Buff","Persistent"]},
+  "Leap Slam": {"desc":"Jump into the air, damaging and Knocking Back enemies with your mace where you land. Enemies you would land on are pushed out of the way.","tags":["Attack","AoE","Melee","Slam","Travel","Payoff"]},
+  "Shockwave Totem": {"desc":"Raise a Totem that Slams the ground around it, repeatedly damaging nearby enemies. Jagged Ground erupts when hit by this Slam, damaging enemies standing on it.","tags":["Attack","Totem","AoE","Melee","Slam","Duration"]},
+  "Bone Offering": {"desc":"Impale a Skeleton on a bone spike to shield your Minions while the spike remains, reducing the amount of damage taken from Hits.","tags":["Minion","Buff","AoE","Physical","Duration"]},
+  "Ancestral Warrior Totem": {"desc":"Consume 3 Endurance Charges to Raise a Totem that conjures spirit warriors. Each warrior uses a socketed Mace Skill once, then disappears.","tags":["Totem","Attack","AoE","Melee","Duration","Conditional"]},
+  "Whirling Slash": {"desc":"Perform a circular slash that kicks up a Whirlwind around you, Slowing enemies and Blinding them in its area of effect. Leaving the area collapses the storm, dealing damage and causing Knockback.","tags":["Attack","AoE","Melee","Strike","Staged","Wind"]},
+  "Twister": {"desc":"Whip up a twister with a flick of your Spear. The twister moves forward erratically, Blinding and repeatedly Hitting enemies within.","tags":["Attack","AoE","Projectile","Duration","Repeatable","Wind"]},
+  "Lightning Arrow": {"desc":"Fire a charged arrow at the target. On hitting an enemy or wall, the arrow will fire Chaining Lightning beams at nearby enemies.","tags":["Attack","AoE","Projectile","Lightning","Chaining","Repeatable"]},
+  "Barrage": {"desc":"Ready a volley of arrows or spears, Empowering your next Repeatable Bow or Projectile Spear Attack to Repeat multiple times. Consumes your Frenzy Charges on use to add additional repeats.","tags":["Spell","Buff","Duration"]},
+  "Ice Shot": {"desc":"Fire an icy arrow that sprays a cone of ice shards when it hits a target.","tags":["Attack","Projectile","Cold","Repeatable"]},
+  "Spiral Volley": {"desc":"Load your Bow with a volley of enchanted arrows and fire them in a circle as you spin forward, firing directly at targets if possible. Consumes Frenzy Charges to cause the arrows to deal more damage and Chain to other targets.","tags":["Attack","Projectile","Sustained"]},
+  "Explosive Shot": {"desc":"Load your Crossbow with flaming bolts that explode on impact. The explosion will cause any Grenades in its area of effect to also explode.","tags":["Attack","AoE","Ammunition","Projectile","Fire","Detonator"]},
+  "Cluster Grenade": {"desc":"Fire a bouncing Grenade that explodes when its fuse expires, throwing out a ring of mini Grenades that explode when they come to a stop.","tags":["Attack","AoE","Projectile","Grenade","Fire"]},
+  "Flame Wall": {"desc":"Create a wall of Fire in front of you, which Ignites everything within its area. Any Projectiles fired through the wall by you and Allies deal added Fire damage.","tags":["Spell","AoE","Fire","Duration","Repeatable"]},
+  "Herald of Ash": {"desc":"While active, enemies you sufficiently Overkill with non-Herald Attacks will cause an explosion that Ignites nearby enemies based on the Overkill damage dealt.","tags":["Buff","Persistent","AoE","Fire","Duration","Herald"]},
+  "Shockchain Arrow": {"desc":"Fire a Lightning-charged arrow that homes in on enemies afflicted by Lightning Ailments. Hitting such an enemy will cause your arrow to release a damaging shockwave and Chain towards nearby targets, with those Chaining Hits also releasing a shockwave.","tags":["Attack","AoE","Projectile","Lightning","Chaining","Payoff"]},
+  "Flash Grenade": {"desc":"Fire a bouncing Grenade that unleashes a Blinding, Stunning explosion when its fuse expires.","tags":["Attack","AoE","Projectile","Grenade"]},
+  "Poisonburst Arrow": {"desc":"Fire a virulent arrow that creates a burst of Poison on hit, affecting all enemies in an area.","tags":["Attack","AoE","Projectile","Chaos","Duration","Repeatable"]},
+  "Herald of Plague": {"desc":"While active, killing a Poisoned enemy spreads its Poison to other nearby enemies, and has a chance to also Hinder them.","tags":["Buff","Persistent","Chaos","Herald"]},
+  "Lightning Spear": {"desc":"Throw a single copy of your spear. When it hits an enemy it bursts, firing secondary lightning bolt Projectiles at multiple other enemies within a large area around it.","tags":["Attack","AoE","Projectile","Lightning","Repeatable"]},
+  "Herald of Thunder": {"desc":"While active, killing Shocked enemies with a non-Herald Attack Hit will cause subsequent Attack Hits to release lightning bolts which deals Attack damage to all surrounding enemies.","tags":["Buff","Attack","Persistent","AoE","Lightning","Herald"]},
+  "Fireball": {"desc":"Launch a large ball of Fire which explodes on impact. The explosion Consumes a Fire Infusion if possible to launch a ring of smaller firebolts.","tags":["Spell","AoE","Projectile","Fire","Repeatable"]},
+  "Dark Effigy": {"desc":"Raise a Totem that bombards enemies afflicted by Chaos damage over time Debuffs.","tags":["Totem","Spell","AoE","Projectile","Chaos","Duration"]},
+  "Skeletal Warrior": {"desc":"Activate to summon Reviving Skeletal Warriors.","tags":["Minion","Persistent","Physical"]},
+  "Frost Wall": {"desc":"Create a wall of Ice Crystals which holds back enemies. The Crystals explode if sufficiently damaged, or if pushed hard enough, damaging nearby enemies.","tags":["Spell","AoE","Cold","Duration"]},
+  "Volcanic Fissure": {"desc":"Slam the ground, creating a branching Molten Fissure that deals damage as it travels and remains for a duration. Using a different Slam on a Molten Fissure creates a spreading Aftershock.","tags":["Attack","AoE","Melee","Slam","Sustained","Fire"]},
+  "Earthshatter": {"desc":"Slam the ground, sending out a fissure that deals area damage to enemies it passes under and thrusts a spike from the ground when it ends. Warcries performed near the spike will cause it to shatter, damaging surrounding enemies.","tags":["Attack","AoE","Melee","Slam","Duration"]},
+  "Wither": {"desc":"Channel a debilitating hex that Withers enemies in the area.","tags":["Spell","AoE","Chaos","Duration","Channelling"]},
+  "Despair": {"desc":"Curse all targets in an area after a short delay, lowering their Chaos Resistance.","tags":["Spell","AoE","Chaos","Duration","Curse","Repeatable"]},
+  "Raging Spirits": {"desc":"While active, Fire Spells you use yourself will also summon Raging Spirits, which are short-lived flaming skulls that rush at nearby enemies and rapidly Attack them, ignoring commands. Enemies will not directly engage these Minions, and can pass through them.","tags":["Buff","Minion","Persistent","Fire","Duration"]},
+  "Detonate Dead": {"desc":"Cause a Corpse to violently explode, damaging surrounding enemies.","tags":["Spell","AoE","Physical","Fire","Detonator","Repeatable"]},
+  "Bone Cage": {"desc":"Raise a ring of bone spikes around you. The spikes are destroyed when enemies touch them, damaging and Pinning those enemies.","tags":["Spell","AoE","Physical","Duration","Nova","Repeatable"]},
+  "Bonestorm": {"desc":"Channel to conjure a swarm of bone spikes in the air, then release to fire them at enemies and explode. Shrapnel Impales enemies Hit, causing subsequent Attack Hits against those targets to deal extra damage.","tags":["Spell","AoE","Projectile","Physical","Channelling"]},
+  "Barrier Invocation": {"desc":"While active, gains Energy when your Energy Shield is damaged by Enemy Hits. Using the Invocation once sufficient Energy is gathered will consume the Energy to trigger socketed Spells, and can trigger them multiple times if it has enough Energy.","tags":["Buff","Persistent","Trigger","Invocation","Meta"]},
+  "Elemental Conflux": {"desc":"Tap into a current of raw and unpredictable Elemental power, causing you to deal greatly more damage of a randomly chosen Element. The Element affected changes frequently, though the same Element can be affected multiple times in succession.","tags":["Buff","Persistent","Lightning","Cold","Fire","Duration"]},
+  "Cast on Elemental Ailment": {"desc":"While active, gains Energy when you Freeze, Shock, or Ignite enemies, and triggers socketed spells on reaching maximum Energy.","tags":["Buff","Persistent","Trigger","Lightning","Cold","Fire"]},
+  "Herald of Ice": {"desc":"While active, Shattering an enemy with a non-Herald Attack Hit will cause an icy explosion that deals Attack damage to surrounding enemies.","tags":["Buff","Attack","Persistent","AoE","Cold","Herald"]},
+  "Archmage": {"desc":"While active, causes your Non-Channelling Spells to cost additional mana and deal extra Lightning damage, both based on your maximum Mana.","tags":["Buff","Persistent","Lightning"]},
+  "Temporal Chains": {"desc":"Curse all enemies in an area, Slowing them and making other effects on them expire more slowly.","tags":["Spell","AoE","Duration","Curse","Repeatable"]},
+  "Blasphemy": {"desc":"Turn socketed Curse skills into vile Auras, applying their effects to all nearby enemies.","tags":["Buff","Persistent","AoE","Aura","Meta"]},
+  "Disengage": {"desc":"Jump back as you rupture the earth in front of you with spearpoints, damaging enemies. Consumes the Parried Debuff on Hitting enemies to release a shockwave and grant you a Frenzy Charge.","tags":["Attack","AoE","Melee","Strike","Travel"]},
+  "Rake": {"desc":"Dash towards an enemy and perform a lacerating slash, inflicting Bleeding on all enemies struck.","tags":["Attack","AoE","Melee","Strike","Physical"]},
+  "Entangle": {"desc":"Conjures a rootbound fissure that crawls forward, damaging enemies in its path. While the fissure persists, vines lash out from it and attach to nearby enemies, damaging and Slowing them.","tags":["Spell","AoE","Sustained","Physical","Duration","Repeatable"]},
+  "Explosive Spear": {"desc":"Hurl a single payload Spear that pierces through enemies and lodges in terrain where it lands. The Spear will explode at the end of its Detonation Time or if Detonated.","tags":["Attack","AoE","Projectile","Fire","Duration","Detonator"]},
+  "Wolf Pack": {"desc":"Activate to summon a pack of Wolf Companions. The pack treated as a single Companion for effects that count or limit Companions, regardless of the number of Wolves in the pack.","tags":["Minion","Companion","Persistent","Physical"]},
+  "Rampage": {"desc":"Shapeshift into a Bear and charge forward, Slamming the ground as you run. Channelling ends after a short amount of time but can be prolonged by spending Rage.","tags":["Attack","Shapeshift","Bear","AoE","Melee","Slam"]},
+  "Walking Calamity": {"desc":"Build Glory by gaining Rage while already at maximum Rage. When you have maximum Glory, roar to the heavens to bring them down upon your enemies.","tags":["Attack","Shapeshift","Buff","Bear","AoE","Trigger"]},
+  "Forge Hammer": {"desc":"Hurl a fiery hammer that Slams into the ground and lodges there.","tags":["Attack","AoE","Melee","Slam","Fire","Duration"]},
+  "Earthquake": {"desc":"Smash the ground, dealing damage in an area and leaving behind Jagged Ground that slows enemies. The Jagged Ground erupts in a powerful Aftershock after a duration.","tags":["Attack","AoE","Melee","Slam","Duration"]},
+  "Wind Dancer": {"desc":"While active, periodically grants stages of a buff that gives you more Evasion per stage. Being Hit by an Enemy while you have this buff consumes all stages to damage and Knock Back enemies around you.","tags":["Buff","Attack","Persistent","AoE","Melee","Trigger"]},
+  "Cast on Critical": {"desc":"While active, gains Energy when you Critically Hit enemies and triggers socketed Spells on reaching maximum Energy.","tags":["Buff","Persistent","Trigger","Meta"]},
+};
+// -- GEM_INFO BEGIN/END markers are replaced wholesale on re-run — END --

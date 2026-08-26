@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exiles contact sheet (dev)</title>
+<style>
+  body { background:#101624; color:#cdd6e4; font-family:monospace; padding:16px; }
+  h2 { color:#ecd88f; font-size:14px; margin:18px 0 6px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; margin-bottom:6px; }
+  figure { margin:0; text-align:center; }
+  img { width:128px; height:128px; image-rendering:pixelated; background:
+        repeating-conic-gradient(#1a2236 0 25%, #141b2c 0 50%) 0 0/16px 16px; border:1px solid #283148; }
+  figcaption { font-size:10px; color:#8f97ab; margin-top:2px; }
+  .anim img { border-color:#7f6d3c; }
+</style>
+</head>
+<body>
+<div id="sheet"></div>
+<script>
+  var params = new URLSearchParams(location.search);
+  var classes = (params.get('c') || 'warrior,ranger,sorceress,monk,mercenary,witch,druid,huntress').split(',');
+  var actions = ['idle','hit','victory'];
+  var html = '';
+  classes.forEach(function(cls){
+    html += '<h2>' + cls + '</h2><div class="row">';
+    var bust = '?t=' + Date.now(); // dev page only — the real site never cache-busts
+    html += '<figure><img src="../assets/exiles/' + cls + '-base.png' + bust + '" onerror="this.style.opacity=.15"><figcaption>base</figcaption></figure>';
+    actions.forEach(function(act){
+      for (var n=0;n<4;n++)
+        html += '<figure class="anim"><img src="../assets/exiles/' + cls + '-' + act + '-' + n + '.png' + bust + '" onerror="this.style.opacity=.15"><figcaption>' + act + ' ' + n + '</figcaption></figure>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('sheet').innerHTML = html;
+</script>
+</body>
+</html>
