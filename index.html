@@ -745,6 +745,11 @@
     scrollbar-width: none;
   }
   .tab-bar::-webkit-scrollbar { height: 0; }
+  /* On wide screens the Codex is a centred 900px column; keep the bar's tabs and toggles
+     aligned with it instead of pinned to the far corners of an ultrawide. */
+  @media (min-width: 601px) {
+    #reference-screen .tab-bar { padding: 0 max(24px, calc((100% - 900px) / 2)); }
+  }
 
   .tab-btn {
     background: none;
@@ -1280,7 +1285,9 @@
      with); on game/codex screens the same controls live inside the tab bar. */
   .toggle-float { display: none; }
   body.on-setup .toggle-float { display: flex; }
-  .toggle-inline {
+  /* Both toggles carry a position:fixed rule of their own, and .sound-toggle's is declared
+     later in this sheet, so the inline variant has to out-rank them rather than follow them. */
+  .theme-toggle.toggle-inline, .sound-toggle.toggle-inline {
     position: static; top: auto; right: auto;
     width: 34px; height: 34px; font-size: 15px;
   }
@@ -2798,8 +2805,11 @@ function exileEmptyStageHTML() {
 // ============================================================
 renderSetup();
 if (document.body && document.body.classList) document.body.classList.add('on-setup');
-updateThemeToggle();
-updateSoundToggle();
+// The Codex's inline toggles sit AFTER this script in the DOM, so paint the sun/speaker
+// state once the document is parsed (immediately when headless, e.g. tools/validate.js).
+if (typeof document !== 'undefined' && document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => { updateThemeToggle(); updateSoundToggle(); });
+} else { updateThemeToggle(); updateSoundToggle(); }
 initSessionRestore(); // offer to resume a saved session (guarded; headless-safe)
 
 // ============================================================
@@ -2878,12 +2888,12 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
         <div class="ref-item">The Spartan (Shield Basher)</div>
         <div class="ref-item">The Idol Worshipper (Totems + Offering Skills)</div>
         <div class="ref-item">The Sufi (Whirlwind + Auras)</div>
-        <div class="ref-item">The Varangian (Fortify Tank)</div>
+        <div class="ref-item">The Varangian (Fortify Tank: the emperor's bodyguard)</div>
         <div class="ref-item">Braum (Slam + Fortify + Shield, No Chest Armour)</div>
         <div class="ref-item">The Phlebotomist</div>
         <div class="ref-item special">Bannerman (2H Mace, Buffs + Shouts)</div>
         <div class="ref-item special">Hammerdin (Forge Hammer + Maces Only + Aura)</div>
-        <div class="ref-item special">The Trauma Surgeon (Cast on Melee Stun + Boneshatter + Trigger Spells)</div>
+        <div class="ref-item special">The Trauma Surgeon (Boneshatter + Hammer of the Gods + Cast on Block: clear)</div>
       </div>
     </div>
 
@@ -2898,7 +2908,7 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
         <div class="ref-item">Hanzjoe (Lightning Arrow + Shockchain Arrow)</div>
         <div class="ref-item">Van Helsing (Crossbow + Explosive Shot + Grenades)</div>
         <div class="ref-item">Ifrit (Infernal Cry + Herald of Ash + Flame Wall)</div>
-        <div class="ref-item">Shyvana (Shapeshifter + Volcanic Fissure + Flame Wall + Herald of Ash)</div>
+        <div class="ref-item">Shyvana (Wyvern Form: Flame Breath + Volcanic Fissure + Flame Wall + Herald of Ash)</div>
         <div class="ref-item">Athena (Spear + Herald of Thunder + Warcries)</div>
       </div>
     </div>
@@ -2911,16 +2921,15 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
         <div class="ref-item">Sephiroth (2H Sword + Lacerate + Perforate + Comet · 1.0)</div>
         <div class="ref-item">The Lich King (Frost Wall + Cold Snap + Skeletal Warriors + Bone Offering, 2H Weapon + Plate Armour Mandatory)</div>
         <div class="ref-item">Palpatine (Ball Lightning + Herald of Thunder + Arc, Robes on Chest, Hood at All Times)</div>
-        <div class="ref-item">Deathwing (Shapeshifter + Volcanic Fissure + Earthshatter)</div>
+        <div class="ref-item">Deathwing (Wyvern Form: Flame Breath + Volcanic Fissure + Earthshatter)</div>
         <div class="ref-item">The Cryotherapist (Cold DoT)</div>
         <div class="ref-item special">The Avatar (Three Elements + Elemental Conflux + Cast on Elemental Ailment)</div>
         <div class="ref-item special">The Mud Blood (No Magic Spells, Melee + Pet Only)</div>
         <div class="ref-item special">The Karen (Cries + Shouts, Totems + Pets)</div>
         <div class="ref-item special">The Pacifist (Straight Support, No Direct Damage)</div>
         <div class="ref-item special">The Zookeeper (Wolf Pack + Tame Beast, Max Companions)</div>
-        <div class="ref-item special">Raised by Wolves (Wolf Shapeshift + Wolf Pack)</div>
-        <div class="ref-item special">Bearpocalypse (Bear Shapeshift + Walking Calamity + Rampage)</div>
-        <div class="ref-item special">The Wet Floor Sign (DoT Zone Puddle Maker)</div>
+        <div class="ref-item special">Raised by Wolves (Werewolf Form + Wolf Pack)</div>
+        <div class="ref-item special">Bearpocalypse (Bear Form: Walking Calamity + Rampage)</div>
       </div>
     </div>
 
@@ -2929,7 +2938,7 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
       <div class="ref-grid">
         <div class="ref-item">The Chaos Theorist (All Chaos Spells, All The Time)</div>
         <div class="ref-item">Aids Spreader (Contagion + Essence Drain + Withering Presence)</div>
-        <div class="ref-item">Energy Vampire (All Slows: Temporal Chains + Blasphemy + Caltrops)</div>
+        <div class="ref-item">Energy Vampire (1H Sword: Perforate + Sand Scour + Temporal Chains + Mana Leech · 1.0)</div>
         <div class="ref-item special">The Doomsayer (Chaos + Bone Spells + Cast While Channeling)</div>
       </div>
     </div>
@@ -2952,7 +2961,7 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
       <div class="ref-category-title"><img class="ref-category-icon" src="assets/bestiary/corpse-trigger.png" alt="" onerror="this.style.display='none'">Corpse / Trigger</div>
       <div class="ref-grid">
         <div class="ref-item">The Cremator (Detonate Dead)</div>
-        <div class="ref-item">The Slot Machine (Cast on Crit)</div>
+        <div class="ref-item">The MTG Addict (Cast on Crit)</div>
         <div class="ref-item special">The Archaeologist (Detonate Dead + Bone Cage + Bonestorm)</div>
       </div>
     </div>
@@ -2965,8 +2974,6 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
         <div class="ref-item">Wolverine (Recoup Bricktank + Rage)</div>
         <div class="ref-item">Reinhardt (Max Block Turtle)</div>
         <div class="ref-item">The No-Show (Max Evasion)</div>
-        <div class="ref-item">Skinwalker (Shapeshifter)</div>
-        <div class="ref-item special">Stop Hitting Yourself (Thorns Tank)</div>
         <div class="ref-item special">The Lichform (Chaos Inoculation + Essence Drain + Contagion + Withering Presence)</div>
         <div class="ref-item special">The Glass Saint (Chaos Inoculation + Arc + Archmage + Orb of Storms)</div>
         <div class="ref-item special">The Colossus (Giant's Blood + Dual Two-Handed Maces + Boneshatter + Seismic Cry)</div>
@@ -3012,7 +3019,7 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
         <div class="ref-item crossover">Frost Mage (Freeze Everything, Then Shatter)</div>
         <div class="ref-item crossover">Shadow Priest (Chaos DoT + Life Drain)</div>
         <div class="ref-item crossover">Warlock (Minions + Curses + Chaos)</div>
-        <div class="ref-item crossover">Feral Druid (Shapeshifter + Melee + Bleeds)</div>
+        <div class="ref-item crossover">Feral Druid (Werewolf Form + Bleeds)</div>
         <div class="ref-item crossover">Enhancement Shaman (Mace, Totems, Heralds, Spirit Skills, Lightning Spells, Earthquake, Volcanic Fissure)</div>
         <div class="ref-item crossover">Survival Hunter (DoT + Pet + Trail of Caltrops)</div>
         <div class="ref-item crossover">Ret Paladin (Big Slow Hits + Aura Bot)</div>
@@ -3039,6 +3046,7 @@ initSessionRestore(); // offer to resume a saved session (guarded; headless-safe
         <div class="ref-item crossover">Frozen Orb Sorceress (Cold Projectile Abuser)</div>
         <div class="ref-item crossover">Poison Nova Witch Doctor (Chaos DoT Explosion)</div>
         <div class="ref-item crossover">The Short Circuit (Infinite Spark + Lightning Loop)</div>
+        <div class="ref-item crossover">Thorns Crusader (Invoker Set: Thorns Tank)</div>
       </div>
     </div>
 

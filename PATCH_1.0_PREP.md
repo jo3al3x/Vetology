@@ -94,6 +94,38 @@ has ANIMATION endpoints (`/animate-with-text` 64×64 4-frame, `/animate-with-ske
 
 ## 1.0 intel log
 _Append-only. Newest on top. When we learn something about 1.0, drop it here and @tag the owner._
+- 2026-09-03 · **#2: ENERGY VAMPIRE goes to swords (Joe).** Kit is now Perforate (three stabs, last one bleeds) +
+  Sand Scour (step back and slash, blinds) + Temporal Chains + Blasphemy (the slow aura) + Mana Leech support (attacks
+  leech mana — the literal energy-vampire mechanic). Trail of Caltrops dropped (competed with Blasphemy for spirit).
+  Rules: Cloth cardigan kept, 1H Sword required ("a cane sword", tagged 1.0). Suggested asc stays Chronomancer.
+  Mana Drain (spell) rejected: no gem tier on poe2db, looks unique/ascendancy-granted. Validate 13/13.
+- 2026-09-03 · **#2/#3: TRAUMA SURGEON + VARANGIAN re-souled, WET FLOOR SIGN cut (Joe).** The Surgeon's descriptor
+  promised "Cast on Melee Stun", which isn't a PoE2 gem, and its kit was a weaker Anaesthetist; it's now the other
+  half of a duo — Boneshatter (opens them up) + Hammer of the Gods (0.5.0 Glory slam: the defibrillator) + Cast on
+  Block (the real trigger gem), keystone Resolute Technique (steady hands), rules Shield + Mitts (surgical gloves).
+  The Varangian is now the emperor's bodyguard: Fortifying Cry + Resonating Shield + Defiance Banner + Ancestral Cry
+  (Sunder dropped), Unwavering Stance kept, rules Mail + Shield + Helmet. The Wet Floor Sign is cut (thin joke, and
+  The Chaos Theorist had the identical kit). Pool 120. All gems verified on poe2db. Validate 13/13.
+- 2026-09-03 · **#4/#5: CODEX TAB-BAR TOGGLES FIXED (Joe's screenshot: two solid gold squares top-right on an
+  ultrawide).** Two bugs: (a) `.sound-toggle`'s position:fixed rule is declared after `.toggle-inline`, so the
+  Codex's inline sound toggle stayed fixed at 38px and sat on top of the 34px inline theme toggle — selector is now
+  `.theme-toggle.toggle-inline, .sound-toggle.toggle-inline`; (b) `updateThemeToggle()/updateSoundToggle()` ran
+  inside the main script, which sits BEFORE `#reference-screen` in the DOM, so the Codex toggles never received
+  their `shows-sun`/`is-on` class → no SVG mask → solid squares until a click. They now run on DOMContentLoaded
+  (immediately when headless). Also: the Codex tab bar's padding now tracks the centred 900px column above 600px
+  (`#reference-screen .tab-bar`) so tabs/toggles aren't pinned to the corners of a 2000px-wide window. Validate 13/13.
+- 2026-09-03 · **#2/#3: SHAPESHIFTER PASS + two renames (Joe's calls).** Cut **Skinwalker** (its kit was a copy of
+  Bearpocalypse; the three forms are already Bearpocalypse / Deathwing + Shyvana / Raised by Wolves). Renamed
+  The Slot Machine → **The MTG Addict** (Cast on Crit: every crit cracks a booster, Comet is the foil mythic) and
+  Stop Hitting Yourself → **Thorns Crusader** (Diablo Invoker set; moved to the Diablo Codex category; kit now
+  Thornskin support + Bone Offering, so it finally says "thorns" somewhere; plus a gear rule: Thorns modifier on every armour piece). poe2db confirms the Druid has three
+  forms — Bear (Fury of the Mountain / Ferocious Roar / Rampage / Walking Calamity), Werewolf (Lunar Assault /
+  Pounce / Arctic Howl), Wyvern (Wing Blast / Flame Breath) — and that **every shapeshift skill requires a
+  Talisman**. So: Deathwing + Shyvana gained **Flame Breath** (they were dragons with no dragon), Raised by Wolves
+  gained Lunar Assault + Pounce, Feral Druid swapped spear-only Rake for Pounce + Lunar Assault + Bleed;
+  `GEAR_TYPES_BY_SLOT.Weapon` gained **Talisman** and the five shapeshifters carry a "Talisman required" rule.
+  Descriptors say "Bear Form / Werewolf Form / Wyvern Form" instead of the vague "Shapeshifter". Pool is 121.
+  Validate 13/13.
 - 2026-09-03 · **#2/#3: GEAR-RULE PASS (Joe approved the whole cook).** `ARCHETYPE_RULES_DATA` grew from 17 to
   57 archetypes. **Fixes:** Hammerdin lost Giant's Blood (it contradicted the 1H Mace rule) and gained a
   Shield rule; The Lich King's weapon rule is now 2H Sword (Frostmourne, 1.0) + Helmet; Ash Ketchum is finally

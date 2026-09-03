@@ -44,6 +44,7 @@ ideas don't sound too AI. I don't add builds. I decide whether a build's *writin
 
 ## Update log
 _Append-only. Newest on top._
+- 2026-09-03 · SHIP: The MTG Addict (the addiction is the character), Thorns Crusader (real Diablo build, so it earns the crossover slot). Skinwalker cut with no objection: a name without a kit is not an archetype.
 - 2026-09-03 · Reviewed the gear-rule labels: each one is a sentence with a point of view ("No boots. You know why."), not a spec line. The no-chest gag is held to four archetypes so it stays a gag.
 - 2026-09-03 · SHIP on the five sword names (The Executioner renamed from The Headsman at Joe's request — the mock-legal "every trial ends the same way" carries it).
 - 2026-09-03 · Smell-tested the nine cleanup renames in one pass (all SHIP: each has a person or a joke, none are committee compounds). Charter examples updated to the surviving names.

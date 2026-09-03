@@ -56,6 +56,9 @@ Strong existing examples to preserve the tone of: "The Negligent Parent", "Ash K
 
 ## Update log
 _Append-only. Newest on top._
+- 2026-09-03 · Energy Vampire re-kitted onto swords (Perforate + Sand Scour + Temporal Chains + Blasphemy + Mana Leech), 1H Sword rule added.
+- 2026-09-03 · Trauma Surgeon + Varangian re-kitted around real gems (Cast on Block, Hammer of the Gods Glory slam, Resonating Shield, Defiance Banner); Wet Floor Sign cut. Pool 120.
+- 2026-09-03 · Shapeshifter pass: Skinwalker cut (redundant), Slot Machine → The MTG Addict, Stop Hitting Yourself → Thorns Crusader (Diablo). Form kits verified on poe2db; Talisman added as a weapon type. Pool 121.
 - 2026-09-03 · Gear-rule pass: rules on 57 archetypes (was 17), 9 kit/keystone fixes (see PATCH_1.0_PREP.md). Rule of thumb established with Joe: a gear rule needs a joke or a fix, never just mechanics.
 - 2026-09-03 · Shipped the five sword archetypes Joe approved (The Executioner, Inigo Montoya, Fury Warrior, Malenia, Deadpool) + the "The Duelist · 1.0" Codex category. Constraint handed to Dev: gate sword builds until 1.0.
 - 2026-09-03 · Cleanup pass off Joe's list: 6 cut (Junkrat, The Leech, More Cow Bell, The Stockbroker, The Toy Maker, The Overdraft), 9 renamed, 5 re-kitted; full detail in PATCH_1.0_PREP.md. Charter examples updated to the surviving names. 1.0 Duelist / sword archetypes drafted, NOT shipped — Joe approves each one first.
