@@ -750,6 +750,12 @@
   @media (min-width: 601px) {
     #reference-screen .tab-bar { padding: 0 max(24px, calc((100% - 900px) / 2)); }
   }
+  /* Same idea for the Session screen: a centred 1440px column on wide screens (bars stay
+     full-bleed), and the card grid centres instead of filling from the left of an ultrawide. */
+  @media (min-width: 601px) {
+    #game-screen .tab-bar, .game-header, .veto-mode-banner, #results-screen, .log-panel { padding-left: max(24px, calc((100% - 1440px) / 2)); padding-right: max(24px, calc((100% - 1440px) / 2)); }
+    .game-body { max-width: 1440px; width: 100%; margin: 0 auto; grid-template-columns: repeat(auto-fit, minmax(300px, 380px)); justify-content: center; }
+  }
 
   .tab-btn {
     background: none;
@@ -1283,8 +1289,10 @@
 
   /* Floating toggles only exist on the setup screen (no header to collide
      with); on game/codex screens the same controls live inside the tab bar. */
-  .toggle-float { display: none; }
-  body.on-setup .toggle-float { display: flex; }
+  /* Same specificity trap as the inline variant: .sound-toggle declares display:flex later in
+     this sheet, so the float must be hidden with a compound selector or it shows on every screen. */
+  .theme-toggle.toggle-float, .sound-toggle.toggle-float { display: none; }
+  body.on-setup .theme-toggle.toggle-float, body.on-setup .sound-toggle.toggle-float { display: flex; }
   /* Both toggles carry a position:fixed rule of their own, and .sound-toggle's is declared
      later in this sheet, so the inline variant has to out-rank them rather than follow them. */
   .theme-toggle.toggle-inline, .sound-toggle.toggle-inline {

@@ -113,7 +113,14 @@ _Append-only. Newest on top. When we learn something about 1.0, drop it here and
   inside the main script, which sits BEFORE `#reference-screen` in the DOM, so the Codex toggles never received
   their `shows-sun`/`is-on` class → no SVG mask → solid squares until a click. They now run on DOMContentLoaded
   (immediately when headless). Also: the Codex tab bar's padding now tracks the centred 900px column above 600px
-  (`#reference-screen .tab-bar`) so tabs/toggles aren't pinned to the corners of a 2000px-wide window. Validate 13/13.
+  (`#reference-screen .tab-bar`) so tabs/toggles aren't pinned to the corners of a 2000px-wide window. Follow-up from
+  the live site: the floating sound toggle (`.toggle-float`) had the same trap — `.sound-toggle`'s display:flex out-ranked
+  `.toggle-float`'s display:none, so it showed on every screen (previously hidden UNDER the misplaced inline one). Hidden
+  with compound selectors now. Then the **Session screen at ultrawide**: everything was full-bleed, so three exile cards
+  huddled at the far left of a 2000px window with the header buttons in the far corner. Above 600px the Session screen is
+  now a centred 1440px column too (tab bar, header, veto banner, results, log padded to it; `.game-body` max-width 1440,
+  grid `auto-fit minmax(300px, 380px)` + `justify-content:center` so cards centre instead of filling from the left).
+  Verified 375 / 1280 / 2000 / 2560. Validate 13/13.
 - 2026-09-03 · **#2/#3: SHAPESHIFTER PASS + two renames (Joe's calls).** Cut **Skinwalker** (its kit was a copy of
   Bearpocalypse; the three forms are already Bearpocalypse / Deathwing + Shyvana / Raised by Wolves). Renamed
   The Slot Machine → **The MTG Addict** (Cast on Crit: every crit cracks a booster, Comet is the foil mythic) and
