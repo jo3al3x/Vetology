@@ -1,7 +1,7 @@
 # Vetology — Patch 1.0 Prep Board
 
 Everything here is prep for **PoE2 1.0** (expected end of 2026). The site can be updated now, but
-the north star is being ready — and *correct* — the day 1.0 drops. Last touched: **2026-08-26**.
+the north star is being ready — and *correct* — the day 1.0 drops. Last touched: **2026-09-03**.
 
 ## The team
 Living charters in [`.claude/agents/`](.claude/agents/). Each has its own append-only update log.
@@ -62,6 +62,7 @@ Living charters in [`.claude/agents/`](.claude/agents/). Each has its own append
 | Data validation harness + `meta{patch,updated}` | #5 | ✅ done — `tools/validate.js` (13 checks) + `VETOLOGY_META` in the data file, rendered as the guide patch badge |
 | **A5 session autosave + export/import codes** (index.html) | #5 | ✅ SHIPPED 2026-08-26 — localStorage `'vetology-session'` + Resume/Abandon panel + base64url Session Codes, verified end-to-end |
 | **A4 Sentence Tracker** (post-settle act pips + death counter) | #5 | ✅ SHIPPED 2026-08-26 — persists in the session; Discord export extended; #1 to re-verify the milestone list |
+| **Archetype cleanup off Joe's list** (6 cut · 9 renamed · 5 re-kitted · Sephiroth → 2H sword) | #2/#3 | ✅ done 2026-09-03 — see intel log; 5 sword archetypes approved by Joe and shipped the same day (The Executioner, Inigo Montoya, Fury Warrior, Malenia, Deadpool); gear-rule pass shipped the same day too |
 
 ## Open decisions
 - **Shared data format:** `<script src="data/vetology-data.js">` global (file://-safe), *not* fetch()-ed
@@ -70,6 +71,7 @@ Living charters in [`.claude/agents/`](.claude/agents/). Each has its own append
   (Martial Artist, Spirit Walker) were already present; 3 existing (Smith of Kitava/Tactician/Lich) added.
 - **Pixel-art vs current gold/oxblood theme:** evolution, not repaint — keep the mock-legal tone. (owner: #4)
 - **Kalguuran gem names:** DATAMINED — re-verify each on poe2db before hard-coding into the gem list. (owner: #1)
+- **Runeforging / Runic Ward / Kalguuran gems at 1.0:** UNCONFIRMED — only Expedition is confirmed core (0.5.5). The Codex keeps them under "Return of the Ancients · 0.5.0"; revisit after the 0.5.5 notes (2026-09-04) and ExileCon (2026-11-07). (owner: #1)
 
 ## Paste-flow: archetypes with no guide skill-data (harness finding, 2026-07-08)
 Rollable in `index.html` but missing an `ARCHETYPE_SKILLS` entry in `guide.html`, so pasting them
@@ -92,6 +94,65 @@ has ANIMATION endpoints (`/animate-with-text` 64×64 4-frame, `/animate-with-ske
 
 ## 1.0 intel log
 _Append-only. Newest on top. When we learn something about 1.0, drop it here and @tag the owner._
+- 2026-09-03 · **#2/#3: GEAR-RULE PASS (Joe approved the whole cook).** `ARCHETYPE_RULES_DATA` grew from 17 to
+  57 archetypes. **Fixes:** Hammerdin lost Giant's Blood (it contradicted the 1H Mace rule) and gained a
+  Shield rule; The Lich King's weapon rule is now 2H Sword (Frostmourne, 1.0) + Helmet; Ash Ketchum is finally
+  Bind Spectre + Tame Beast with Wolf Pack forbidden; Spectre Commander → Bind Spectre; Zombie & Corpsemaster →
+  Raise Zombie; The Negligent Parent + Minion Bomber gained Cast on Minion Death / Minion Instability; Bannerman
+  gained War Banner + a 2H Mace rule; The Mud Blood gained Wolf Pack and forbids Wand / Staff / Sceptre / Focus.
+  **Flavour rules (all Joe-approved):** no boots for Achilles 2004 and Raised by Wolves; no helmet for The Karen;
+  helmets/hoods/crowns/circlets for Magneto, Plague Doctor, Batman, Black Mage, Mr Freeze, Athena, Lichform, Hela,
+  Scarlet Witch, Rambo (headband, on top of his no-chest rule — Joe wanted both); body-armour types for Sufi, Varangian, Bullfighter,
+  Energy Vampire, Sephiroth, Blood Priest, Shadow Priest, Black Mage, the four Plate knights, Bladesinger (no plate);
+  weapons for Spartan, Athena, Pacifist, Thor, Faith Caster, Summoner, Full Conversion Necro, Bullfighter, and four
+  1.0-tagged 1H-sword rules (Rivers of Blood, Red Mage, Hexblade, Ra's al Ghul); shields for Spartan, Athena,
+  Reinhardt (Tower), Stop Hitting Yourself. **No-chest club is now** True Warrior, Braum, The Flagellant, Rambo.
+  Crude tier: Joe took only Two-Face (Gold Ring required, "The coin."); skipped Aids Spreader no-gloves and Snow White circlet. Also skipped: purely mechanical weapon rules, and the
+  Flask-slot / house-rule schema idea — @dev-maintainer if Joe wants "no Life flask" for The Cockroach.
+  Every rule item was asserted against `GEAR_TYPES_BY_SLOT`. Validate 13/13.
+- 2026-09-03 · **#2/#3: FIVE 1.0 SWORD ARCHETYPES SHIPPED (Joe approved 1, 2, 5, 6, 9 from the proposal list).**
+  New Codex category **"The Duelist · 1.0"** (placeholder emblem `assets/bestiary/duelist.png` — hand-drawn crossed
+  swords, manifest entry added; @ux-pixel-art: regenerate with `node tools/generate-assets.mjs --manifest
+  tools/bestiary.manifest.json --force duelist`) holds **The Executioner** (2H Sword: Blade Plunge + Execute +
+  Culling Strike — Cull the Weak turned out to be spear-only on poe2db, so the culling comes from the supports) and
+  **Inigo Montoya** (1H Sword + Buckler: Parry + Whirling Blades + Perforate — Parry requires a Buckler, hence the
+  offhand rule). Crossovers: **Fury Warrior** (WoW: Giant's Blood keystone = two 2H swords, Dual Strike + Cyclone +
+  Berserk), **Malenia, Blade of Miquella** (Souls: Whirling Blades + Lacerate + Bloodied Blade), **Deadpool** (Marvel:
+  Dual Strike + Whirling Blades + Cyclone; the healing factor lives in the descriptor only — no gem for Recoup). All
+  five carry weapon gear rules and the "Coming in 1.0 · level TBC" badge on every datamined sword gem. No
+  `ARCHETYPE_ASC` entries: Duelist isn't in `POE2_BUILDS` and Gladiator/Slayer aren't official. Display strings
+  avoid the spaced middle-dot on purpose (the guide's paste parser splits on it). **Constraint for #5
+  (@dev-maintainer):** the six sword builds (these five + Sephiroth) are rollable today but unplayable until
+  2026-12-11 — consider a 1.0 gate (e.g. hide them while `VETOLOGY_META.patch` < 1.0), and add Duelist + its
+  ascendancies to `POE2_BUILDS` once ExileCon confirms the roster. Also cut **Trapsin** (Joe's call, mid-session). Validate 13/13.
+- 2026-09-03 · **#2/#3 (Joe's cleanup list): ARCHETYPE CLEANUP + 1.0 INTEL.** Cut 6 (Junkrat, The Leech,
+  More Cow Bell, The Stockbroker, The Toy Maker, The Overdraft — all Joe's call). Renamed 9: The Stungun →
+  **The Anaesthetist**, Tzeentch → **The Chaos Theorist**, Dog Lover → **Raised by Wolves**, Pants Pisser →
+  **The Wet Floor Sign** (also drops the spaced-hyphen name format — every archetype is now `Name (descriptor)`),
+  Pokemon Trainer → **Ash Ketchum**, The Notary → **The Exchange Student**, The Insurance Adjuster →
+  **The Cockroach**, The Squatter → **Duty Free**, The Understudy → **The Stunt Double**. Re-kitted 5:
+  The Mongol drops Lightning Arrow for Escape Shot + Rain of Arrows (keeps the Rhoa; rule unchanged);
+  **Sephiroth is now a 2H-sword build** (Lacerate + Perforate + Comet; new gear rule Weapon = 2H Sword);
+  Aids Spreader → Contagion + Essence Drain + Withering Presence; Energy Vampire → all slows (Temporal
+  Chains + Blasphemy + Trail of Caltrops, suggested asc Chronomancer, keystone entry dropped); Duty Free
+  gets real Kalguuran gems (Conductive Runes / Frostflame Nova / Skyfall — each verified on poe2db).
+  Codex in index.html mirrored 1:1; the 0.5.0 category is now **"Return of the Ancients · 0.5.0"** (it holds
+  ascendancy builds, not only league ones). Guide: skill entries and ALL_GEMS may now carry a `note`,
+  rendered as a small gold badge on the timeline + search rows — used for the unreleased 1.0 sword gems
+  ("Coming in 1.0 · level TBC") and Kalguuran gems ("costs Runic Ward"). ALL_GEMS gained 8 datamined
+  sword gems + 3 Kalguuran gems so they're searchable in the guide.
+  **1.0 facts (CONFIRMED, Gamescom ONL 2026-08-25):** 1.0 launches **2026-12-11**, free-to-play, PC/PS5/
+  Xbox. **Duelist** ships at 1.0 — swords (1H dual-wield / sword+shield / 2H) with a **Blood Stance / Sand
+  Stance** switch. Acts 5 + 6 complete the campaign. Full reveal at ExileCon 2026-11-07/08. Sword gems
+  already datamined on poe2db: Lacerate, Perforate, Cyclone, Blade Plunge, Sand Scour, Bloodied Blade,
+  Dual Strike, Whirling Blades (levels are placeholders — most read "52"; Cleave / Lightning Sweep / Earth
+  Rend have no page yet). Duelist ascendancies **Gladiator / Slayer** are trailer-inferred, NOT official.
+  Marauder / Shadow / Templar: reported post-1.0 (RUMORED). **0.5.5 ships 2026-09-04**: Forbidden Rites
+  (Ritual in every campaign area), **Expedition goes core**, Trial of Chaos → 30 rooms, Wildwood back, no
+  broad balance pass. **Runeforging / Runic Ward / Kalguuran gems going core: UNCONFIRMED** — re-check the
+  0.5.5 notes. @poe2-domain-expert: fact sheet 1.0 section rewritten. @dev-maintainer: `SENTENCE_MILESTONES`
+  still lists Cruel 1-3; 1.0 is Acts 1-6. New Duelist/sword archetypes are drafted but NOT shipped — Joe
+  approves each first. `node tools/validate.js` green after the pass.
 - 2026-08-26 · **#5 Dev: A5 + A4 SHIPPED to index.html (session persistence · Session Codes · the
   Sentence Tracker).** (a) **Autosave** — the whole session (players incl. rolls/vetoes/settled/
   chosenAsc/tracker, gameMode, chronicle) serializes to localStorage `'vetology-session'` at two

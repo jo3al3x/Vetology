@@ -91,16 +91,21 @@ Signature nodes — CONFIRMED via Maxroll ascendancy pages [8][9]:
 5. Canonical spellings: **Witchhunter** (one word), **Blood Mage** (two words).
 6. No confirmed list of *removed/renamed* PoE2 skills found — don't assume deletions without checking poe2db's changelog.
 
-### 1.0 Forward Look (RUMORED unless noted)
-- Full 1.0 ~end of 2026, possibly around ExileCon (Nov 7–8) [14][15].
-- 4 base classes still to come (Duelist/Marauder/Shadow/Templar) — CONFIRMED planned, timing RUMORED [5][14].
-- Dev commentary: not certain all 12 classes ship at 1.0; wants swords (Duelist) in by launch [14].
-- Martial Artist + Spirit Walker reported as the last new ascendancies for *existing* classes pre-1.0 [1].
-- 1.0 expected to replace the interlude campaign with the full storyline + endgame overhaul [14][15].
+### 1.0 Forward Look — updated 2026-09-03 (Gamescom ONL 2026-08-25)
+- **1.0 launches 2026-12-11** (PST), free-to-play, PC / PS5 / Xbox Series — CONFIRMED [16][17].
+- **Duelist** ships at 1.0 — CONFIRMED [16][17]. Iconic weapon: **swords** (1H dual-wield, sword + shield/sceptre, or 2H). Starts bottom-middle of the tree (the Mercenary's spot). Sword skills switch between **Blood Stance / Sand Stance** (Blood = offence/bleed, Sand = area/lingering ground) — CONFIRMED from the trailer [20].
+- Duelist ascendancies **Gladiator** (block, dual-wield / sword + board) and **Slayer** (2H, damage) — trailer-inferred, NOT official; full reveal at **ExileCon 2026-11-07/08** — RUMORED [20].
+- **Sword gems already datamined on poe2db** [18]: Lacerate (axes + swords; two slashes, bleeds in Blood Stance), Perforate (1H/2H sword; three stabs, the last one bleeds), Cyclone (dual swords or 2H; channel), Blade Plunge (2H only; channel, fissures), Sand Scour (step back + slash), Bloodied Blade (whirl forward, two strikes), Dual Strike (dual-wield only), Whirling Blades (daggers / claws / 1H swords). Level requirements are placeholders (most read "52") — DATAMINED, treat levels as TBC. `Cleave`, `Lightning Sweep`, `Earth Rend` have no poe2db page yet.
+- **Acts 5 + 6** complete the six-act campaign at 1.0 — CONFIRMED [16][17]. (`SENTENCE_MILESTONES` in index.html still says Cruel 1-3 → @dev-maintainer.)
+- Marauder / Shadow / Templar: reported **post-1.0** — RUMORED [17].
+- **0.5.5 ships 2026-09-04** (1 PM PDT) [19]: "Forbidden Rites" (a Ritual in every campaign area), **Expedition goes core** (Standard too; Expedition Tablets in maps), Trial of Chaos → 30 rooms, Precursor Fortress unlock change, Abyssal Ravines, Viridian Wildwood; **no broad balance pass** before 1.0.
+- **Runeforging / Runic Ward / Kalguuran gems going core: UNCONFIRMED.** Only Expedition is confirmed core. The three Kalguuran gems hard-coded for Duty Free (Conductive Runes, Frostflame Nova, Skyfall) are verified on poe2db [18] but may be league-only — re-check after the 0.5.5 notes.
+- Martial Artist + Spirit Walker remain the last new ascendancies for existing classes pre-1.0 [1].
 
 ### Sources
 [1] Maxroll 0.5 reveal summary · [2] Official 0.5.0 patch notes (pathofexile.com forum) · [3] Maxroll 0.5.0 guide updates · [4] Maxroll Ascendancy Overview · [5] game8 Classes & Ascendancies · [6] Maxroll Disciple of Varashta · [7] VULKK Varashta · [8] Maxroll Spirit Walker · [9] Maxroll Martial Artist · [10] game8 Kalguuran Skills · [11] Official Kalguuran Gems Showcase (video-gated) · [12] poe2wiki Runeforging · [13] IGGM Runic Ward · [14] The Escapist 2026 preview · [15] aoeah 2026 roadmap.
 (Full URLs in the research transcript / PATCH_1.0_PREP.md intel log.)
+[16] Maxroll "Path of Exile 2 1.0 To Launch December 11th" (maxroll.gg/poe2/news/path-of-exile-2-1-0-to-launch-december-11th) · [17] Game Informer / GosuGamers Gamescom ONL 2026 coverage · [18] poe2db.tw gem pages (Lacerate, Perforate, Cyclone, Blade_Plunge, Sand_Scour, Bloodied_Blade, Dual_Strike, Whirling_Blades, Conductive_Runes, Frostflame_Nova, Skyfall, Temporal_Chains) · [19] Game8 "0.5.5 Upcoming Changes" (game8.co/games/Path-of-Exile-2/archives/617539) · [20] POECURRENCY Duelist stance article (community, trailer-based).
 
 ### Gaps / could not confirm
 - Ascendancy node wording is community-CONFIRMED (Maxroll), not official-verbatim.
@@ -111,6 +116,7 @@ Signature nodes — CONFIRMED via Maxroll ascendancy pages [8][9]:
 
 ## Update log
 _Append-only. Newest on top. Date · what changed · source._
+- 2026-09-03 · 1.0 section rewritten from Gamescom ONL coverage: launch 2026-12-11, Duelist + swords + stances, Acts 5-6 all CONFIRMED; Gladiator/Slayer trailer-inferred; 0.5.5 = 2026-09-04 (Expedition core); Runeforging / Ward / Kalguuran core status UNCONFIRMED. Eight sword gems + three Kalguuran gems verified on poe2db (levels placeholder). Sources [16]-[20].
 - 2026-07-08 · Fact sheet filled from cross-verified 0.5.0 research. Key results: 2 new
   ascendancies (Martial Artist, Spirit Walker) already present; 3 existing ones (Smith of Kitava,
   Tactician, Lich) were missing from the roll table → added. Red-flag list corrected: Djinn +

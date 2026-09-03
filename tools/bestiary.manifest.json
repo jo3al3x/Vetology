@@ -18,6 +18,7 @@
     { "name": "final-fantasy", "width": 96, "height": 96, "no_background": true, "description": "a cluster of tall glowing blue magic crystals, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
     { "name": "dnd",           "width": 96, "height": 96, "no_background": true, "description": "a twenty sided die resting on an open spellbook, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
     { "name": "dc",            "width": 96, "height": 96, "no_background": true, "description": "a caped vigilante silhouette against a full moon, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
-    { "name": "marvel",        "width": 96, "height": 96, "no_background": true, "description": "a clenched armored gauntlet with glowing gems on the knuckles, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" }
+    { "name": "marvel",        "width": 96, "height": 96, "no_background": true, "description": "a clenched armored gauntlet with glowing gems on the knuckles, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents" },
+    { "name": "duelist",       "width": 96, "height": 96, "no_background": true, "description": "two crossed longswords over a fencing glove, dark fantasy pixel art emblem, centered, clean silhouette, rich colors with gold accents", "_placeholder": "assets/bestiary/duelist.png is a hand-drawn stand-in (2026-09-03); run with --force duelist to regenerate via PixelLab" }
   ]
 }

@@ -197,6 +197,7 @@ select:focus{border-color:var(--gold)}
 /* The worst single style on the site: Pixelify (no italic file) skewed into a faux
    oblique at 11px in --text-dim = 2.88:1. Now a plain 12px uppercase pixel chip. */
 .gem-result-type{font-size:12px;font-style:normal;letter-spacing:.05em;text-transform:uppercase;color:var(--text-dim)}
+.gem-note{color:var(--gold-ink);text-transform:none;letter-spacing:0}
 /* was opacity:.4 on the row = 3.40:1 Night / 2.37:1 Day on the gem name */
 .gem-already{cursor:not-allowed}
 .gem-already .gem-result-name,.gem-already .gem-result-level,.gem-already .gem-result-type{color:var(--text-disabled)}
@@ -628,7 +629,7 @@ function parsePaste() {
   if (!raw) return;
   // Our Discord format is "Name \u2014 Class (Asc) \u2014 Archetype", delimited by a
   // spaced EM/EN dash. We split on that only (not the hyphen-minus) so archetype
-  // names containing a real hyphen stay intact ("Pants Pisser - DoT...").
+  // any archetype name containing a real hyphen stays intact.
   var parts = raw.split(/\s+[\u00b7\u2014\u2013]\s+/)
                  .map(function(s){ return s.trim(); })
                  .filter(function(s){ return s.length; });
@@ -812,7 +813,8 @@ function renderTimeline() {
     html += '<div class="timeline-content' + (isRequired ? ' required' : '') + '" data-gem="' + safeName + '" data-level="' + gem.level + '" data-type="' + typeLabel + '">';
     html += '<div class="timeline-gem-info">';
     html += '<a href="' + gem.url + '" target="_blank" rel="noopener" style="text-decoration:none"><span class="timeline-gem-name">' + gem.name + '</span></a>';
-    html += '<div class="timeline-gem-meta ' + (isRequired ? gem.type : 'added') + '">Level ' + gem.level + ' &middot; ' + typeLabel + (isRequired ? '' : ' &middot; Added') + ' &middot; <a href="' + gem.url + '" target="_blank" style="color:inherit">poe2db &#8599;</a></div>';
+    var note = gem.note || (ALL_GEMS[gem.name] && ALL_GEMS[gem.name].note) || '';
+    html += '<div class="timeline-gem-meta ' + (isRequired ? gem.type : 'added') + '">Level ' + gem.level + ' &middot; ' + typeLabel + (isRequired ? '' : ' &middot; Added') + (note ? ' &middot; <span class="gem-note">' + note + '</span>' : '') + ' &middot; <a href="' + gem.url + '" target="_blank" style="color:inherit">poe2db &#8599;</a></div>';
     html += '</div>';
     if (isRequired) {
       html += '<span class="required-badge">Required</span>';
@@ -927,7 +929,7 @@ function filterGems() {
     var gem = ALL_GEMS[name];
     if (gemFilter !== 'all' && gem.type !== gemFilter) continue;
     if (query && name.toLowerCase().indexOf(query) < 0) continue;
-    results.push({name: name, level: gem.level, type: gem.type, url: gem.url, already: !!addedNames[name]});
+    results.push({name: name, level: gem.level, type: gem.type, url: gem.url, note: gem.note || '', already: !!addedNames[name]});
   }
   results.sort(function(a,b){ return a.level !== b.level ? a.level - b.level : a.name.localeCompare(b.name); });
 
@@ -942,7 +944,7 @@ function filterGems() {
     html += '<div class="gem-result-item' + alreadyClass + '"' + clickAttr + ' tabindex="0" data-gem="' + safeName + '" data-level="' + g.level + '" data-type="' + typeLabel + '">';
     html += '<span class="gem-result-level ' + g.type + '">' + g.level + '</span>';
     html += '<span class="gem-result-name">' + g.name + '</span>';
-    html += '<span class="gem-result-type">' + g.type + '</span>';
+    html += '<span class="gem-result-type">' + g.type + (g.note ? ' &middot; <span class="gem-note">' + g.note + '</span>' : '') + '</span>';
     html += '</div>';
   }
   if (results.length > 80) html += '<div class="no-data">Showing 80 of ' + results.length + '; type to narrow results</div>';

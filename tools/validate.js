@@ -67,8 +67,8 @@ sandbox.setMode('plea');
 let noAsc = true, cls = new Set(); for (let i = 0; i < 40; i++) { const r = sandbox.roll(); if (r.ascendancy !== null) noAsc = false; cls.add(r.class); }
 need('plea mode never rolls an ascendancy', noAsc);
 need('plea mode still rolls varied classes', cls.size > 3);
-const hM = sandbox.ascSelectHTML({ roll: { class: 'Monk', ascendancy: null, archetype: 'The Understudy (x)' }, chosenAsc: null }, 0);
-need('Monk+Understudy => Martial Artist suggested', /value="Martial Artist"/.test(hM) && /suggested for this build/.test(hM));
+const hM = sandbox.ascSelectHTML({ roll: { class: 'Monk', ascendancy: null, archetype: 'The Stunt Double (x)' }, chosenAsc: null }, 0);
+need('Monk+Stunt Double => Martial Artist suggested', /value="Martial Artist"/.test(hM) && /suggested for this build/.test(hM));
 const hW = sandbox.ascSelectHTML({ roll: { class: 'Witch', ascendancy: null, archetype: 'Snow White (x)' }, chosenAsc: null }, 1);
 need('cross-class => wants-hint + rolled-class options', /this build wants Spirit Walker/.test(hW) && /value="Lich"/.test(hW));
 need('effAsc rolled', sandbox.effAsc({ roll: { class: 'X', ascendancy: 'Titan' }, chosenAsc: null }) === 'Titan');

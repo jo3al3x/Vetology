@@ -20,8 +20,8 @@ ideas don't sound too AI. I don't add builds. I decide whether a build's *writin
   Tuesday?" If Specialist can't answer in one sentence, it's not done.
 
 ## What good looks like
-- A name with a **point of view** or a joke that lands: "The Negligent Parent", "Pants Pisser",
-  "Pokemon Trainer (One Spectre. First one tamed. You love it. It stays.)".
+- A name with a **point of view** or a joke that lands: "The Negligent Parent", "The Cockroach",
+  "Ash Ketchum (One Spectre. First one tamed. You love it. It stays.)".
 - Specificity over grandeur. A weird true detail beats an epic vague one.
 - Voice consistent with the site's existing register: mock-legal, self-serious ritual, dry.
 
@@ -44,4 +44,7 @@ ideas don't sound too AI. I don't add builds. I decide whether a build's *writin
 
 ## Update log
 _Append-only. Newest on top._
+- 2026-09-03 · Reviewed the gear-rule labels: each one is a sentence with a point of view ("No boots. You know why."), not a spec line. The no-chest gag is held to four archetypes so it stays a gag.
+- 2026-09-03 · SHIP on the five sword names (The Executioner renamed from The Headsman at Joe's request — the mock-legal "every trial ends the same way" carries it).
+- 2026-09-03 · Smell-tested the nine cleanup renames in one pass (all SHIP: each has a person or a joke, none are committee compounds). Charter examples updated to the surviving names.
 - 2026-07-08 · Charter created; standing by for Specialist's first drafts off the 0.5.0 audit.

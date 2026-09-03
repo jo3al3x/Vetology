@@ -49,11 +49,14 @@ Candidates that currently read as stat-lines, not fantasies (verify + re-soul or
 - "Frozen Wasteland Builder", "Cold Snap Dotter", "Full Sorcery Glass Cannon",
   "Energy Shield Hoarder", "Detonate Dead Bomber", "Cast On Crit Machine",
   "Evasion Ghost", "Shapeshifter", "Bleed Arcane Build".
-Strong existing examples to preserve the tone of: "The Negligent Parent", "Pokemon Trainer
-(One Spectre…)", "Pants Pisser", "The Karen", "Full Conversion Necromancer (you are merely a vessel)".
+Strong existing examples to preserve the tone of: "The Negligent Parent", "Ash Ketchum
+(One Spectre…)", "The Cockroach", "The Karen", "Full Conversion Necromancer (you are merely a vessel)".
 
 ---
 
 ## Update log
 _Append-only. Newest on top._
+- 2026-09-03 · Gear-rule pass: rules on 57 archetypes (was 17), 9 kit/keystone fixes (see PATCH_1.0_PREP.md). Rule of thumb established with Joe: a gear rule needs a joke or a fix, never just mechanics.
+- 2026-09-03 · Shipped the five sword archetypes Joe approved (The Executioner, Inigo Montoya, Fury Warrior, Malenia, Deadpool) + the "The Duelist · 1.0" Codex category. Constraint handed to Dev: gate sword builds until 1.0.
+- 2026-09-03 · Cleanup pass off Joe's list: 6 cut (Junkrat, The Leech, More Cow Bell, The Stockbroker, The Toy Maker, The Overdraft), 9 renamed, 5 re-kitted; full detail in PATCH_1.0_PREP.md. Charter examples updated to the surviving names. 1.0 Duelist / sword archetypes drafted, NOT shipped — Joe approves each one first.
 - 2026-07-08 · Charter created; audit gated on Domain's 0.5.0 fact sheet.
